@@ -1,0 +1,251 @@
+---
+/**
+ * Blog post — long-form article with Article/BlogPosting structured data and a
+ * closing CTA, so thought leadership always routes back to the conversion goal.
+ */
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import FinalCta from '../../blocks/conversion/FinalCta.astro';
+import { personSchema, websiteSchema, webPageSchema, articleSchema, graph } from '../../lib/schema';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const brandEntry = (await getCollection('brand'))[0];
+const brand = brandEntry.data;
+
+const siteUrl = (Astro.site ?? new URL(Astro.url.origin)).href.replace(/\/$/, '');
+const pageUrl = new URL(Astro.url.pathname, `${siteUrl}/`).href;
+
+const brandForSchema = {
+  person: {
+    name: brand.name,
+    jobTitle: brand.title,
+    bio: brand.positioning.promise,
+    portraitUrl: brand.assets.portrait?.src,
+  },
+  social: brand.social.map((s) => ({ platform: s.platform, url: s.href })),
+  site: { url: `${siteUrl}/`, name: brand.name },
+};
+
+const schema = graph([
+  personSchema(brandForSchema),
+  websiteSchema(brandForSchema),
+  webPageSchema({
+    brand: brandForSchema,
+    url: pageUrl,
+    title: post.data.title,
+    description: post.data.description,
+    breadcrumbs: [
+      { name: 'Home', url: `${siteUrl}/` },
+      { name: 'Insights', url: `${siteUrl}/blog/` },
+      { name: post.data.title, url: pageUrl },
+    ],
+  }),
+  articleSchema({
+    brand: brandForSchema,
+    url: pageUrl,
+    title: post.data.title,
+    description: post.data.description,
+    publishDate: post.data.publishDate,
+    updatedDate: post.data.updatedDate,
+    imageUrl: post.data.cover?.src,
+    category: post.data.category,
+    tags: post.data.tags,
+  }),
+]);
+
+const dateFmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout
+  {brand}
+  title={`${post.data.title} | ${brand.name}`}
+  description={post.data.description}
+  ogImage={post.data.cover?.src}
+  {schema}
+  transparentHeader={false}
+>
+  <article>
+    <Section block="PostHeader" pad="default">
+      <Container width="content">
+        <nav class="bp__crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span aria-hidden="true">/</span>
+          <a href="/blog/">Insights</a>
+        </nav>
+
+        <div class="bp__meta">
+          {post.data.category && <span class="bp__cat">{post.data.category}</span>}
+          <time datetime={post.data.publishDate.toISOString()}>
+            {dateFmt.format(post.data.publishDate)}
+          </time>
+          {post.data.readingTime && <span>{post.data.readingTime}</span>}
+        </div>
+
+        <h1 class="u-display-3 bp__title">{post.data.title}</h1>
+        <p class="bp__description">{post.data.description}</p>
+
+        <div class="bp__byline">
+          {
+            brand.assets.portrait && (
+              <img
+                src={brand.assets.portrait.src}
+                alt={post.data.author}
+                width="44"
+                height="44"
+                loading="lazy"
+              />
+            )
+          }
+          <span>
+            <strong>{post.data.author}</strong>
+            <span>{brand.title}</span>
+          </span>
+        </div>
+      </Container>
+    </Section>
+
+    {
+      post.data.cover && (
+        <Section block="PostCover" pad="none">
+          <Container width="wide">
+            <img
+              class="bp__cover"
+              src={post.data.cover.src}
+              alt={post.data.cover.alt}
+              width="1400"
+              height="800"
+              loading="eager"
+            />
+          </Container>
+        </Section>
+      )
+    }
+
+    <Section block="PostBody" pad="default">
+      <Container width="content">
+        <div class="u-prose bp__body">
+          <Content />
+        </div>
+
+        {
+          post.data.tags.length > 0 && (
+            <ul class="bp__tags">
+              {post.data.tags.map((tag: string) => (
+                <li>{tag}</li>
+              ))}
+            </ul>
+          )
+        }
+      </Container>
+    </Section>
+  </article>
+
+  <FinalCta
+    tone="inverse"
+    pad="loose"
+    eyebrow="Next step"
+    heading={brand.conversion.primaryCta.label}
+    subheading={brand.positioning.promise}
+    ctas={[brand.conversion.primaryCta]}
+    width="content"
+  />
+</BaseLayout>
+
+<style>
+  .bp__crumbs {
+    display: flex;
+    gap: var(--space-2);
+    margin-bottom: var(--space-8);
+    font-size: var(--fs-xs);
+    color: var(--text-subtle);
+  }
+  .bp__crumbs a:hover {
+    color: var(--accent);
+  }
+  .bp__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
+    font-size: var(--fs-xs);
+    color: var(--text-subtle);
+  }
+  .bp__cat {
+    font-family: var(--font-display);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .bp__title {
+    max-width: 30ch;
+  }
+  .bp__description {
+    margin: var(--space-5) 0 0;
+    max-width: 60ch;
+    font-size: var(--fs-md);
+    line-height: var(--lh-relaxed);
+    color: var(--text-muted);
+  }
+  .bp__byline {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--border);
+  }
+  .bp__byline img {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--radius-circle);
+    object-fit: cover;
+  }
+  .bp__byline > span {
+    display: grid;
+    line-height: 1.4;
+  }
+  .bp__byline strong {
+    font-family: var(--font-display);
+    font-size: var(--fs-sm);
+    letter-spacing: var(--ls-wide);
+  }
+  .bp__byline span span {
+    font-size: var(--fs-xs);
+    color: var(--text-subtle);
+  }
+  .bp__cover {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: var(--card-radius);
+  }
+  .bp__body {
+    font-size: var(--fs-md);
+  }
+  .bp__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-12);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--border);
+  }
+  .bp__tags li {
+    padding: 0.35em 0.85em;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-xs);
+    color: var(--text-subtle);
+  }
+</style>

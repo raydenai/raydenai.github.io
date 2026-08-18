@@ -1,0 +1,173 @@
+---
+/**
+ * PrincipleZigZag — contrarian beliefs, alternating.
+ * ---------------------------------------------------------------------------
+ * Best-in-class device in the corpus (Karim Naoum). Instead of listing service
+ * features, it states 3-6 opinionated principles that quietly disqualify the
+ * competition:
+ *
+ *   "Government-guaranteed always beats market-speculative."
+ *   "Cash flow is the only non-negotiable. Appreciation is a bonus."
+ *
+ * Why it works: agreement with a principle is a low-friction micro-commitment.
+ * By the time the reader reaches the CTA they have already agreed five times.
+ *
+ * Copy rule: each principle must be arguable. If nobody could disagree, it is
+ * not a principle, it is a platitude — rewrite it.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+
+const {
+  id,
+  tone = 'default',
+  pad = 'loose',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  align = 'start',
+  width = 'base',
+  principles = [],
+} = Astro.props;
+---
+
+<Section block="PrincipleZigZag" {id} {tone} {pad} class="bpz">
+  <Container {width}>
+    <div class="bpz__head">
+      <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} {align} />
+    </div>
+
+    <ol class="bpz__list">
+      {
+        principles.map((p: any, i: number) => (
+          <li class="bpz__row" data-flip={i % 2 === 1 ? 'true' : undefined}>
+            <div class="bpz__copy">
+              <span class="bpz__num" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h3 class="bpz__title">{p.title}</h3>
+              <p class="bpz__desc">{p.description}</p>
+            </div>
+            {p.image ? (
+              <img
+                class="bpz__image"
+                src={p.image.src}
+                alt={p.image.alt}
+                width={p.image.width ?? 900}
+                height={p.image.height ?? 640}
+                loading="lazy"
+                decoding="async"
+              />
+            ) : (
+              <div class="bpz__glyph" aria-hidden="true">
+                <span>{String(i + 1).padStart(2, '0')}</span>
+              </div>
+            )}
+          </li>
+        ))
+      }
+    </ol>
+
+    {
+      ctas.length > 0 && (
+        <div class="bpz__ctas u-cluster">
+          {ctas.map((cta: any) => (
+            <a
+              class="u-btn"
+              data-variant={cta.intent === 'primary' ? undefined : 'secondary'}
+              href={cta.href}
+              data-size="lg"
+              data-event={cta.event ?? 'principles_cta_click'}
+            >
+              {cta.label}
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </Container>
+</Section>
+
+<style>
+  .bpz__head {
+    margin-bottom: var(--space-16);
+  }
+  .bpz__list {
+    display: grid;
+    gap: clamp(3rem, 2rem + 4vw, 6rem);
+  }
+  .bpz__row {
+    display: grid;
+    gap: clamp(1.5rem, 1rem + 3vw, 3.5rem);
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .bpz__row {
+      grid-template-columns: 1fr 1fr;
+    }
+    .bpz__row[data-flip='true'] .bpz__copy {
+      order: 2;
+    }
+  }
+  .bpz__copy {
+    display: grid;
+    gap: var(--space-4);
+  }
+  .bpz__num {
+    font-family: var(--font-display);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-bold);
+    letter-spacing: var(--ls-widest);
+    color: var(--accent);
+  }
+  .bpz__title {
+    font-size: var(--fs-xl);
+    line-height: var(--lh-snug);
+    max-width: 24ch;
+  }
+  .bpz__desc {
+    margin: 0;
+    font-size: var(--fs-md);
+    line-height: var(--lh-relaxed);
+    color: var(--text-muted);
+    max-width: 46ch;
+  }
+  .bpz__image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--card-radius);
+    border: 1px solid var(--border);
+  }
+  /* Typographic fallback when no image exists — keeps the rhythm without
+     forcing clients to buy stock photography. */
+  .bpz__glyph {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 4 / 3;
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius);
+    background:
+      radial-gradient(
+        70% 70% at 50% 30%,
+        color-mix(in oklab, var(--accent) 12%, transparent),
+        transparent 70%
+      ),
+      var(--surface-raised);
+  }
+  .bpz__glyph span {
+    font-family: var(--font-display);
+    font-size: var(--fs-5xl);
+    font-weight: var(--fw-black);
+    color: transparent;
+    -webkit-text-stroke: 1.5px color-mix(in oklab, var(--accent) 60%, transparent);
+  }
+  .bpz__ctas {
+    justify-content: center;
+    margin-top: var(--space-16);
+  }
+</style>

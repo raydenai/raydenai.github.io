@@ -1,0 +1,58 @@
+---
+/**
+ * PersonalStats — the humanising numbers.
+ * ---------------------------------------------------------------------------
+ * Christian Espinosa's "Operator-grade endurance" section (24 Ironmans, 300+
+ * skydives, 70 countries, 2 of 7 summits) sits beside his patents and
+ * certifications. The combination is what makes the persona memorable: business
+ * metrics prove competence, personal metrics prove character.
+ *
+ * Use sparingly — one per site, never on a landing page.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+import StatItem from '../../components/primitives/StatItem.astro';
+
+const {
+  id,
+  tone = 'inverse',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  align = 'center',
+  width = 'base',
+  stats = [],
+} = Astro.props;
+---
+
+<Section block="PersonalStats" {id} {tone} {pad} class="bps">
+  <Container {width}>
+    <div class="bps__head">
+      <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} {align} />
+    </div>
+    <ul class="bps__grid">
+      {
+        stats.map((s: any) => (
+          <li>
+            <StatItem value={s.value} label={s.label} detail={s.detail} animate align="center" size="lg" />
+          </li>
+        ))
+      }
+    </ul>
+  </Container>
+</Section>
+
+<style>
+  .bps__head {
+    margin-bottom: var(--space-12);
+  }
+  .bps__grid {
+    display: grid;
+    gap: clamp(2rem, 1.25rem + 2.5vw, 3rem);
+    grid-template-columns: repeat(auto-fit, minmax(min(45%, 11rem), 1fr));
+  }
+</style>

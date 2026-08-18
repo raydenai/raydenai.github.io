@@ -1,0 +1,138 @@
+---
+/**
+ * EmpathyQuoteWall — the audience's own words, on the wall.
+ * ---------------------------------------------------------------------------
+ * Best-in-class device found in the corpus (Pam Hendrickson). Rather than
+ * describing the reader's problem, it shows verbatim speech bubbles of what
+ * the audience actually says, then answers with a single line of recognition
+ * ("Sound familiar? You are not alone.").
+ *
+ * Why it outperforms a standard pain list: quotation marks signal "someone else
+ * said this", which lowers defensiveness. The reader convicts themselves.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+
+const {
+  id,
+  tone = 'raised',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  align = 'center',
+  width = 'base',
+  quotes = [],
+  reaction,
+} = Astro.props;
+
+/* Alternate bubble alignment so the wall reads like a conversation. */
+const rotations = [-1.4, 1.1, -0.7, 1.6, -1.1, 0.8];
+---
+
+<Section block="EmpathyQuoteWall" {id} {tone} {pad} class="beq">
+  <Container {width}>
+    <div class="beq__head">
+      <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} {align} />
+    </div>
+
+    <ul class="beq__wall">
+      {
+        quotes.map((quote: string, i: number) => (
+          <li
+            class="beq__bubble"
+            data-side={i % 2 === 0 ? 'left' : 'right'}
+            style={`--beq-rot:${rotations[i % rotations.length]}deg`}
+          >
+            <p>{quote}</p>
+          </li>
+        ))
+      }
+    </ul>
+
+    {
+      reaction && (
+        <p class="beq__reaction">
+          {reaction}
+        </p>
+      )
+    }
+
+    {
+      ctas.length > 0 && (
+        <div class="beq__ctas u-cluster">
+          {ctas.map((cta: any) => (
+            <a class="u-btn" href={cta.href} data-event={cta.event ?? 'empathy_cta_click'}>
+              {cta.label}
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </Container>
+</Section>
+
+<style>
+  .beq__head {
+    margin-bottom: var(--space-12);
+  }
+  .beq__wall {
+    display: grid;
+    gap: var(--space-5);
+    max-width: 56rem;
+    margin-inline: auto;
+  }
+  .beq__bubble {
+    position: relative;
+    max-width: 34rem;
+    padding: clamp(1.1rem, 0.9rem + 0.8vw, 1.6rem) clamp(1.3rem, 1rem + 1vw, 1.9rem);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    rotate: var(--beq-rot, 0deg);
+    box-shadow: var(--shadow-md);
+  }
+  .beq__bubble[data-side='left'] {
+    justify-self: start;
+    border-bottom-left-radius: var(--radius-xs);
+  }
+  .beq__bubble[data-side='right'] {
+    justify-self: end;
+    border-bottom-right-radius: var(--radius-xs);
+  }
+  .beq__bubble p {
+    margin: 0;
+    font-family: var(--font-accent);
+    font-size: var(--fs-lg);
+    line-height: var(--lh-snug);
+    color: var(--text);
+    text-transform: none;
+  }
+  .beq__bubble p::before {
+    content: '\201C';
+  }
+  .beq__bubble p::after {
+    content: '\201D';
+  }
+
+  .beq__reaction {
+    margin: var(--space-12) auto 0;
+    max-width: 40rem;
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-bold);
+    line-height: var(--lh-snug);
+    letter-spacing: var(--heading-tracking);
+    text-transform: var(--heading-casing);
+    color: var(--accent);
+  }
+  .beq__ctas {
+    justify-content: center;
+    margin-top: var(--space-10);
+  }
+</style>

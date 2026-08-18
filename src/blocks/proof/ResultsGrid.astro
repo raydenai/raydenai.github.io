@@ -1,0 +1,146 @@
+---
+/**
+ * ResultsGrid — client outcomes as evidence.
+ * ---------------------------------------------------------------------------
+ * Where testimonials show sentiment, this shows *arithmetic*. Only 27% of the
+ * corpus does case studies properly, which makes it a differentiation lever for
+ * consultants selling on ROI (FinTitan's "$2.12B+ captured" is the strongest
+ * example of the genre).
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+
+const {
+  id,
+  tone = 'default',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  align = 'start',
+  width = 'wide',
+  results = [],
+} = Astro.props;
+---
+
+<Section block="ResultsGrid" {id} {tone} {pad} class="brg">
+  <Container {width}>
+    <div class="brg__head">
+      <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} {ctas} {align} />
+    </div>
+
+    <ul class="brg__grid">
+      {
+        results.map((r: any) => {
+          const Wrapper = r.href ? 'a' : 'article';
+          return (
+            <li>
+              <Wrapper class="brg__card u-card" data-hover="lift" href={r.href}>
+                {r.image && (
+                  <img
+                    class="brg__image"
+                    src={r.image.src}
+                    alt={r.image.alt}
+                    width={r.image.width ?? 800}
+                    height={r.image.height ?? 500}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                )}
+                <p class="brg__client">{r.client}</p>
+                <h3 class="brg__headline">{r.headline}</h3>
+                {r.metric && <p class="brg__metric">{r.metric}</p>}
+                {(r.before || r.after) && (
+                  <dl class="brg__delta">
+                    {r.before && (
+                      <div>
+                        <dt>Before</dt>
+                        <dd>{r.before}</dd>
+                      </div>
+                    )}
+                    {r.after && (
+                      <div>
+                        <dt>After</dt>
+                        <dd>{r.after}</dd>
+                      </div>
+                    )}
+                  </dl>
+                )}
+              </Wrapper>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </Container>
+</Section>
+
+<style>
+  .brg__head {
+    margin-bottom: var(--space-12);
+  }
+  .brg__grid {
+    display: grid;
+    gap: clamp(1.25rem, 0.75rem + 1.6vw, 2rem);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  }
+  .brg__card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    height: 100%;
+  }
+  .brg__image {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--space-2);
+  }
+  .brg__client {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-widest);
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .brg__headline {
+    font-size: var(--fs-lg);
+    line-height: var(--lh-snug);
+  }
+  .brg__metric {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--fs-2xl);
+    font-weight: var(--fw-bold);
+    line-height: 1;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+  .brg__delta {
+    display: flex;
+    gap: var(--space-6);
+    margin: auto 0 0;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--border);
+  }
+  .brg__delta dt {
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--text-subtle);
+  }
+  .brg__delta dd {
+    margin: 0.2rem 0 0;
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    color: var(--text);
+  }
+</style>

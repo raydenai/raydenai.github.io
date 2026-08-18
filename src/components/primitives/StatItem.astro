@@ -1,0 +1,122 @@
+---
+/**
+ * StatItem — the credibility number.
+ *
+ * 70% of the analysed corpus carries a numeric credibility stack
+ * ("$12B+ generated", "400+ properties", "125,000+ subscribers").
+ * Optional count-up animation triggers once on scroll into view.
+ */
+interface Props {
+  value: string;
+  label: string;
+  detail?: string;
+  animate?: boolean;
+  size?: 'default' | 'lg';
+  align?: 'start' | 'center';
+}
+
+const { value, label, detail, animate = false, size = 'default', align = 'start' } = Astro.props;
+
+/* Split "£12B+" into prefix / number / suffix so only the digits animate. */
+const match = value.match(/^([^\d]*)([\d.,]+)(.*)$/);
+const numeric = match ? match[2].replace(/,/g, '') : null;
+---
+
+<div class="as" data-size={size} data-align={align}>
+  <p
+    class="as__value"
+    data-animate={animate && numeric ? 'true' : undefined}
+    data-target={numeric ?? undefined}
+    data-prefix={match?.[1] ?? ''}
+    data-suffix={match?.[3] ?? ''}
+  >
+    {value}
+  </p>
+  <p class="as__label">{label}</p>
+  {detail && <p class="as__detail">{detail}</p>}
+</div>
+
+<style>
+  .as {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .as[data-align='center'] {
+    align-items: center;
+    text-align: center;
+  }
+  .as__value {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--fs-2xl);
+    font-weight: var(--fw-bold);
+    line-height: 1;
+    letter-spacing: var(--ls-tight);
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .as[data-size='lg'] .as__value {
+    font-size: var(--fs-3xl);
+  }
+  .as__label {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  .as__detail {
+    margin: 0;
+    font-size: var(--fs-xs);
+    line-height: var(--lh-normal);
+    color: var(--text-subtle);
+    max-width: 22ch;
+  }
+</style>
+
+<script>
+  /* Count-up on first intersection. Respects reduced-motion. */
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const nodes = document.querySelectorAll<HTMLElement>('.as__value[data-animate="true"]');
+
+  if (nodes.length && !reduce && 'IntersectionObserver' in window) {
+    const format = (n: number, target: number) => {
+      const decimals = String(target).split('.')[1]?.length ?? 0;
+      return n.toLocaleString('en-US', {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target as HTMLElement;
+          observer.unobserve(el);
+
+          const target = Number(el.dataset.target);
+          if (!Number.isFinite(target)) return;
+          const prefix = el.dataset.prefix ?? '';
+          const suffix = el.dataset.suffix ?? '';
+          const duration = 1300;
+          const start = performance.now();
+
+          const tick = (now: number) => {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            el.textContent = `${prefix}${format(target * eased, target)}${suffix}`;
+            if (progress < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        });
+      },
+      { threshold: 0.5 },
+    );
+
+    nodes.forEach((n) => observer.observe(n));
+  }
+</script>

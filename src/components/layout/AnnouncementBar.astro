@@ -1,0 +1,111 @@
+---
+/**
+ * AnnouncementBar — timely, dismissible, remembered.
+ * ---------------------------------------------------------------------------
+ * Used for a book launch, a cohort deadline, or an upcoming keynote. Dismissal
+ * is stored in localStorage keyed by message hash, so changing the copy
+ * re-shows the bar to everyone without a new key.
+ */
+const { message, cta, dismissible = true } = Astro.props;
+
+/* Stable short key from the message so edits reset dismissals. */
+const key = `aura-ann-${Array.from(message).reduce((h: number, c: string) => (h * 31 + c.charCodeAt(0)) % 1e9, 7)}`;
+---
+
+<div class="aan" data-key={key} hidden>
+  <div class="u-container" data-width="wide">
+    <div class="aan__inner">
+      <p class="aan__message">{message}</p>
+      {
+        cta && (
+          <a class="aan__cta" href={cta.href} data-event="announcement_click">
+            {cta.label}
+            <span aria-hidden="true">→</span>
+          </a>
+        )
+      }
+      {
+        dismissible && (
+          <button class="aan__close" type="button" aria-label="Dismiss announcement">
+            ✕
+          </button>
+        )
+      }
+    </div>
+  </div>
+</div>
+
+<style>
+  .aan {
+    position: relative;
+    z-index: 60;
+    background: var(--accent);
+    color: var(--accent-contrast);
+  }
+  .aan__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    padding-block: 0.7rem;
+    text-align: center;
+  }
+  .aan__message {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-wide);
+  }
+  .aan__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-bold);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    color: inherit;
+  }
+  .aan__close {
+    position: absolute;
+    right: 0;
+    background: none;
+    border: 0;
+    color: inherit;
+    font-size: 0.75rem;
+    cursor: pointer;
+    opacity: 0.7;
+    padding: 0.5rem;
+  }
+  .aan__close:hover {
+    opacity: 1;
+  }
+  @media (max-width: 640px) {
+    .aan__inner {
+      flex-direction: column;
+      gap: var(--space-2);
+      padding-right: 1.75rem;
+    }
+    .aan__close {
+      top: 0.35rem;
+      right: 0.25rem;
+    }
+  }
+</style>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('.aan');
+  if (bar) {
+    const key = bar.dataset.key!;
+    if (localStorage.getItem(key) !== 'dismissed') bar.hidden = false;
+
+    bar.querySelector('.aan__close')?.addEventListener('click', () => {
+      localStorage.setItem(key, 'dismissed');
+      bar.hidden = true;
+    });
+  }
+</script>

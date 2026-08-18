@@ -1,0 +1,188 @@
+---
+/**
+ * SpeakingTopics — the keynote catalogue.
+ * ---------------------------------------------------------------------------
+ * Event bookers do not buy "a speaker", they buy a session that fits a slot in
+ * their agenda. Listing named talks with audience and takeaways converts far
+ * better than a generic "book me to speak" page.
+ *
+ * Reference: Christian Espinosa (four named keynotes incl. "Lessons from 24
+ * Ironmans"), Kathryn Janicek, Aleric Heck (reel + event logos).
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+import LogoWall from '../../components/primitives/LogoWall.astro';
+
+const {
+  id,
+  tone = 'default',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  align = 'start',
+  width = 'base',
+  topics = [],
+  reelUrl,
+  eventLogos = [],
+} = Astro.props;
+---
+
+<Section block="SpeakingTopics" {id} {tone} {pad} class="bst">
+  <Container {width}>
+    <div class="bst__head">
+      <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} {ctas} {align} />
+    </div>
+
+    {
+      reelUrl && (
+        <button class="bst__reel" type="button" data-modal="video" data-video={reelUrl}>
+          <span class="bst__reel-icon" aria-hidden="true">▶</span>
+          <span>Watch the speaker reel</span>
+        </button>
+      )
+    }
+
+    <ul class="bst__topics">
+      {
+        topics.map((topic: any, i: number) => (
+          <li class="bst__topic">
+            <span class="bst__topic-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <div class="bst__topic-body">
+              <h3 class="bst__topic-title">{topic.title}</h3>
+              {topic.audience && <p class="bst__topic-audience">{topic.audience}</p>}
+              <p class="bst__topic-desc">{topic.description}</p>
+              {topic.takeaways.length > 0 && (
+                <ul class="bst__takeaways">
+                  {topic.takeaways.map((t: string) => (
+                    <li>{t}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+
+    {
+      eventLogos.length > 0 && (
+        <div class="bst__logos">
+          <p class="bst__logos-label">Recent stages</p>
+          <LogoWall logos={eventLogos} />
+        </div>
+      )
+    }
+  </Container>
+</Section>
+
+<style>
+  .bst__head {
+    margin-bottom: var(--space-10);
+  }
+  .bst__reel {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-12);
+    padding: 0.85em 1.7em;
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--btn-radius);
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color var(--dur-base) var(--ease-out);
+  }
+  .bst__reel:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .bst__reel-icon {
+    color: var(--accent);
+    font-size: 0.7rem;
+  }
+
+  .bst__topics {
+    display: grid;
+    gap: 0;
+    border-top: 1px solid var(--border);
+  }
+  .bst__topic {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: var(--space-5);
+    padding-block: clamp(1.75rem, 1.25rem + 1.5vw, 2.75rem);
+    border-bottom: 1px solid var(--border);
+  }
+  .bst__topic-num {
+    font-family: var(--font-display);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-bold);
+    letter-spacing: var(--ls-wide);
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .bst__topic-body {
+    display: grid;
+    gap: var(--space-3);
+  }
+  .bst__topic-title {
+    font-size: var(--fs-lg);
+    line-height: var(--lh-snug);
+  }
+  .bst__topic-audience {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+    color: var(--text-subtle);
+  }
+  .bst__topic-desc {
+    margin: 0;
+    line-height: var(--lh-relaxed);
+    color: var(--text-muted);
+    max-width: 62ch;
+  }
+  .bst__takeaways {
+    display: grid;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+  }
+  .bst__takeaways li {
+    position: relative;
+    padding-left: 1.5rem;
+    font-size: var(--fs-sm);
+    color: var(--text-muted);
+  }
+  .bst__takeaways li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  .bst__logos {
+    margin-top: var(--space-16);
+  }
+  .bst__logos-label {
+    margin: 0 0 var(--space-6);
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-widest);
+    text-transform: uppercase;
+    color: var(--text-subtle);
+  }
+</style>

@@ -1,0 +1,143 @@
+---
+/**
+ * MethodologyPillars — the named unique mechanism.
+ * ---------------------------------------------------------------------------
+ * 67% of the analysed corpus has a trademarked or named framework, and it is
+ * the single clearest differentiator between "consultant" and "commodity".
+ *
+ * Naming formula observed:
+ *   [Number] + [Alliterative Noun] — The 4 Decisions, The 5 A's, The 4 S's
+ *   [Adjective] + [Category] + ™  — Whole-Person Legal Care™, Ethical Persuasion™
+ *   [Outcome] + Method/System      — Inner Abundance Method, The CAP Method
+ *
+ * The method name is rendered as an over-title so it reads as proprietary IP.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+import Icon from '../../components/primitives/Icon.astro';
+
+const {
+  id,
+  tone = 'raised',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  align = 'center',
+  width = 'base',
+  methodName,
+  pillars = [],
+} = Astro.props;
+---
+
+<Section block="MethodologyPillars" {id} {tone} {pad} glow class="bmp">
+  <Container {width}>
+    <div class="bmp__head">
+      {methodName && <p class="bmp__method">{methodName}</p>}
+      <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} {align} />
+    </div>
+
+    <ol class="bmp__grid" data-count={pillars.length}>
+      {
+        pillars.map((pillar: any, i: number) => (
+          <li class="bmp__pillar u-card" data-hover="lift">
+            <span class="bmp__index" aria-hidden="true">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            {pillar.icon && (
+              <span class="bmp__icon" aria-hidden="true">
+                <Icon name={pillar.icon} size={26} />
+              </span>
+            )}
+            <h3 class="bmp__name">{pillar.name}</h3>
+            <p class="bmp__summary">{pillar.summary}</p>
+            {pillar.detail && <p class="bmp__detail">{pillar.detail}</p>}
+          </li>
+        ))
+      }
+    </ol>
+
+    {
+      ctas.length > 0 && (
+        <div class="bmp__ctas u-cluster">
+          {ctas.map((cta: any) => (
+            <a
+              class="u-btn"
+              data-variant={cta.intent === 'primary' ? undefined : 'secondary'}
+              href={cta.href}
+              data-event={cta.event ?? 'methodology_cta_click'}
+            >
+              {cta.label}
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </Container>
+</Section>
+
+<style>
+  .bmp__head {
+    margin-bottom: var(--space-12);
+    text-align: center;
+  }
+  .bmp__method {
+    margin: 0 0 var(--space-4);
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-widest);
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .bmp__grid {
+    display: grid;
+    gap: clamp(1.25rem, 0.75rem + 1.6vw, 2rem);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  }
+  .bmp__pillar {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    overflow: hidden;
+  }
+  .bmp__index {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-5);
+    font-family: var(--font-display);
+    font-size: var(--fs-2xl);
+    font-weight: var(--fw-black);
+    line-height: 1;
+    color: color-mix(in oklab, var(--text) 9%, transparent);
+  }
+  .bmp__icon {
+    color: var(--accent);
+  }
+  .bmp__name {
+    font-size: var(--fs-md);
+    line-height: var(--lh-snug);
+  }
+  .bmp__summary {
+    margin: 0;
+    line-height: var(--lh-relaxed);
+    color: var(--text-muted);
+  }
+  .bmp__detail {
+    margin: 0;
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--border);
+    font-size: var(--fs-sm);
+    line-height: var(--lh-relaxed);
+    color: var(--text-subtle);
+  }
+  .bmp__ctas {
+    justify-content: center;
+    margin-top: var(--space-12);
+  }
+</style>

@@ -1,0 +1,81 @@
+---
+/**
+ * RotatingWords — the Scott Jarred pattern:
+ * "Making Money Work For Your BUSINESS / FAMILY / FUTURE / LEGACY / LIFE"
+ *
+ * All words render in the DOM (SEO + no-JS safe); CSS handles the cycling.
+ * Reserving width via the longest word prevents layout shift.
+ */
+interface Props {
+  words: string[];
+  style?: 'accent' | 'underline' | 'script' | 'outline';
+}
+
+const { words, style = 'accent' } = Astro.props;
+const longest = words.reduce((a, b) => (b.length > a.length ? b : a), '');
+const duration = words.length * 2.2;
+---
+
+<span class="ar" style={`--ar-count:${words.length};--ar-duration:${duration}s`}>
+  <span class="ar__sizer" aria-hidden="true">{longest}</span>
+  <span class="ar__list">
+    {
+      words.map((word, i) => (
+        <span class="ar__word u-mark" data-style={style} style={`--ar-i:${i}`}>
+          {word}
+        </span>
+      ))
+    }
+  </span>
+</span>
+
+<style>
+  .ar {
+    position: relative;
+    display: inline-grid;
+    vertical-align: baseline;
+  }
+  .ar__sizer {
+    visibility: hidden;
+    grid-area: 1 / 1;
+    white-space: nowrap;
+  }
+  .ar__list {
+    grid-area: 1 / 1;
+    display: grid;
+  }
+  .ar__word {
+    grid-area: 1 / 1;
+    white-space: nowrap;
+    opacity: 0;
+    animation: ar-cycle var(--ar-duration) infinite;
+    animation-delay: calc(var(--ar-duration) / var(--ar-count) * var(--ar-i));
+  }
+  /* Each word is visible for one slice of the cycle. */
+  @keyframes ar-cycle {
+    0%,
+    3% {
+      opacity: 0;
+      transform: translateY(0.25em);
+    }
+    6%,
+    18% {
+      opacity: 1;
+      transform: none;
+    }
+    22%,
+    100% {
+      opacity: 0;
+      transform: translateY(-0.25em);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ar__word {
+      animation: none;
+      opacity: 0;
+    }
+    .ar__word:first-child {
+      opacity: 1;
+    }
+  }
+</style>

@@ -1,0 +1,51 @@
+---
+/**
+ * Section — the outer shell every block renders inside.
+ *
+ * Responsibilities:
+ *  - paints the local surface via [data-tone] (this is how the corpus's
+ *    alternating dark/light band rhythm is produced with zero extra CSS)
+ *  - owns vertical rhythm via [data-pad]
+ *  - provides the anchor id and the atmospheric layers (grain / glow)
+ *
+ * A block should never set its own background colour directly.
+ */
+interface Props {
+  block: string;
+  id?: string;
+  tone?: 'default' | 'raised' | 'inverse' | 'accent';
+  pad?: 'none' | 'tight' | 'default' | 'loose';
+  grain?: boolean;
+  glow?: boolean;
+  class?: string;
+}
+
+const {
+  block,
+  id,
+  tone = 'default',
+  pad = 'default',
+  grain = false,
+  glow = false,
+  class: className = '',
+} = Astro.props;
+
+const classes = [
+  'u-section',
+  grain ? 'u-grain' : '',
+  glow ? 'u-glow' : '',
+  className,
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<section
+  {id}
+  data-block={block}
+  data-tone={tone === 'default' ? undefined : tone}
+  data-pad={pad === 'default' ? undefined : pad}
+  class={classes}
+>
+  <slot />
+</section>

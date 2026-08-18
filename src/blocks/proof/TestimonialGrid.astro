@@ -1,0 +1,118 @@
+---
+/**
+ * TestimonialGrid — social proof at volume.
+ * ---------------------------------------------------------------------------
+ * Present in 93% of the analysed corpus. What separates the strong
+ * implementations from the weak ones is not layout, it is *specificity*:
+ * every card carries a named person, a role, and ideally a concrete result.
+ *
+ * Reference: Karim Naoum ("closed on 14 Section 8 properties"), Jon Benson's
+ * video wall, Vinh Giang's student masonry.
+ *
+ * Layouts: grid (equal cards), masonry (CSS columns, varied lengths),
+ * columns (two wide editorial columns).
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+import TestimonialCard from '../../components/primitives/TestimonialCard.astro';
+
+const {
+  id,
+  tone = 'default',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  align = 'center',
+  width = 'wide',
+  testimonials = [],
+  layout = 'grid',
+  columns = 3,
+} = Astro.props;
+---
+
+<Section block="TestimonialGrid" {id} {tone} {pad} class="btg">
+  <Container {width}>
+    {
+      (eyebrow || heading || body) && (
+        <div class="btg__head">
+          <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} {align} />
+        </div>
+      )
+    }
+
+    <div class="btg__list" data-layout={layout} style={`--btg-cols:${columns}`}>
+      {
+        testimonials.map((t: any) => (
+          <div class="btg__item">
+            <TestimonialCard
+              quote={t.quote}
+              author={t.author}
+              role={t.role}
+              company={t.company}
+              avatar={t.avatar}
+              result={t.result}
+              rating={t.rating}
+              videoUrl={t.videoUrl}
+              variant={layout === 'columns' ? 'feature' : 'card'}
+            />
+          </div>
+        ))
+      }
+    </div>
+
+    {
+      ctas.length > 0 && (
+        <div class="btg__ctas u-cluster">
+          {ctas.map((cta: any) => (
+            <a
+              class="u-btn"
+              data-variant={cta.intent === 'primary' ? undefined : 'secondary'}
+              href={cta.href}
+              data-event={cta.event ?? 'testimonials_cta_click'}
+            >
+              {cta.label}
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </Container>
+</Section>
+
+<style>
+  .btg__head {
+    margin-bottom: var(--space-12);
+  }
+  .btg__list[data-layout='grid'] {
+    display: grid;
+    gap: clamp(1.25rem, 0.75rem + 1.6vw, 2rem);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  }
+  .btg__list[data-layout='masonry'] {
+    columns: var(--btg-cols, 3);
+    column-gap: clamp(1.25rem, 0.75rem + 1.6vw, 2rem);
+  }
+  .btg__list[data-layout='masonry'] .btg__item {
+    break-inside: avoid;
+    margin-bottom: clamp(1.25rem, 0.75rem + 1.6vw, 2rem);
+  }
+  @media (max-width: 900px) {
+    .btg__list[data-layout='masonry'] {
+      columns: 1;
+    }
+  }
+  .btg__list[data-layout='columns'] {
+    display: grid;
+    gap: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+  }
+  .btg__ctas {
+    justify-content: center;
+    margin-top: var(--space-12);
+  }
+</style>

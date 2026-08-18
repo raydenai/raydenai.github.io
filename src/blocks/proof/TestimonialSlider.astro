@@ -1,0 +1,132 @@
+---
+/**
+ * TestimonialSlider — horizontal proof carousel.
+ * ---------------------------------------------------------------------------
+ * Built on native CSS scroll-snap rather than a JS carousel library. This is a
+ * deliberate departure from the source corpus, where Slick/Flickity carousels
+ * were a major contributor to the average 6.7/10 performance score. Zero KB.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+import TestimonialCard from '../../components/primitives/TestimonialCard.astro';
+
+const {
+  id,
+  tone = 'raised',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  align = 'start',
+  width = 'wide',
+  testimonials = [],
+} = Astro.props;
+---
+
+<Section block="TestimonialSlider" {id} {tone} {pad} class="bts">
+  <Container {width}>
+    <div class="bts__head">
+      <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} {ctas} {align} />
+      <div class="bts__nav">
+        <button type="button" class="bts__arrow" data-dir="prev" aria-label="Previous testimonials">
+          ←
+        </button>
+        <button type="button" class="bts__arrow" data-dir="next" aria-label="Next testimonials">
+          →
+        </button>
+      </div>
+    </div>
+
+    <div class="bts__track" tabindex="0" role="region" aria-label="Client testimonials">
+      {
+        testimonials.map((t: any) => (
+          <div class="bts__slide">
+            <TestimonialCard
+              quote={t.quote}
+              author={t.author}
+              role={t.role}
+              company={t.company}
+              avatar={t.avatar}
+              result={t.result}
+              rating={t.rating}
+              videoUrl={t.videoUrl}
+            />
+          </div>
+        ))
+      }
+    </div>
+  </Container>
+</Section>
+
+<style>
+  .bts__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-6);
+    margin-bottom: var(--space-10);
+  }
+  .bts__nav {
+    display: flex;
+    gap: var(--space-2);
+    flex: none;
+  }
+  .bts__arrow {
+    width: 2.75rem;
+    height: 2.75rem;
+    display: grid;
+    place-items: center;
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--btn-radius);
+    color: var(--text);
+    cursor: pointer;
+    transition:
+      border-color var(--dur-base) var(--ease-out),
+      color var(--dur-base) var(--ease-out);
+  }
+  .bts__arrow:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  @media (max-width: 700px) {
+    .bts__nav {
+      display: none;
+    }
+  }
+
+  .bts__track {
+    display: flex;
+    gap: clamp(1.25rem, 0.75rem + 1.6vw, 2rem);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding-bottom: var(--space-2);
+  }
+  .bts__track::-webkit-scrollbar {
+    display: none;
+  }
+  .bts__slide {
+    flex: 0 0 min(100%, 23rem);
+    scroll-snap-align: start;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-block="TestimonialSlider"]').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('.bts__track');
+    if (!track) return;
+    root.querySelectorAll<HTMLButtonElement>('.bts__arrow').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const slide = track.querySelector<HTMLElement>('.bts__slide');
+        const step = slide ? slide.offsetWidth + 24 : track.clientWidth * 0.8;
+        track.scrollBy({ left: btn.dataset.dir === 'next' ? step : -step, behavior: 'smooth' });
+      });
+    });
+  });
+</script>

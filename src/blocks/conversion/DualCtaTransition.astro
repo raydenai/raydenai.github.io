@@ -1,0 +1,51 @@
+---
+/**
+ * DualCtaTransition — the "if this resonates" pivot.
+ * ---------------------------------------------------------------------------
+ * Karim Naoum's transition block after his five principles: "These principles
+ * built 400+ properties. They can build yours too. If this way of thinking
+ * resonates with you… the next step is to see the full system."
+ *
+ * Its job is to convert intellectual agreement into a click while the agreement
+ * is still fresh. Always place it directly after a mechanism or principles block.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+
+const {
+  id,
+  tone = 'default',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  width = 'content',
+} = Astro.props;
+---
+
+<Section block="DualCtaTransition" {id} {tone} {pad} glow class="bdc">
+  <Container {width}>
+    <div class="bdc__inner">
+      <span class="bdc__rule" aria-hidden="true"></span>
+      <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} {ctas} align="center" />
+    </div>
+  </Container>
+</Section>
+
+<style>
+  .bdc__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-8);
+  }
+  .bdc__rule {
+    width: 3rem;
+    height: 1px;
+    background: var(--accent);
+  }
+</style>

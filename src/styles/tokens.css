@@ -1,0 +1,394 @@
+/* ============================================================================
+   AURA DESIGN TOKENS
+   Derived from forensic analysis of 30 InfluEx-built authority sites.
+
+   Three layers:
+   1. PRIMITIVES  — raw scales that never change (space, type ratio, easing)
+   2. SEMANTIC    — role-based tokens the components consume (--surface, --accent)
+   3. THEME PRESET— per-client overrides, set via [data-theme] on <html>
+
+   A component MUST only ever reference semantic tokens. This is what makes a
+   new client site a config change rather than a rewrite.
+   ========================================================================= */
+
+/* ---------------------------------------------------------------------------
+   1. PRIMITIVES
+   ------------------------------------------------------------------------ */
+:root {
+  /* Fluid type scale — Major Third (1.25) at desktop, compressed on mobile.
+     clamp() min is calculated so mobile never exceeds ~2.6rem for display. */
+  --fs-mono: 0.8125rem;
+  --fs-xs: clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem);
+  --fs-sm: clamp(0.875rem, 0.85rem + 0.15vw, 0.9375rem);
+  --fs-base: clamp(1rem, 0.97rem + 0.2vw, 1.0625rem);
+  --fs-md: clamp(1.125rem, 1.07rem + 0.3vw, 1.25rem);
+  --fs-lg: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --fs-xl: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+  --fs-2xl: clamp(1.875rem, 1.5rem + 1.8vw, 2.75rem);
+  --fs-3xl: clamp(1.95rem, 1.55rem + 1.9vw, 2.85rem);
+  --fs-4xl: clamp(2.2rem, 1.7rem + 2.4vw, 3.5rem);
+  --fs-5xl: clamp(2.5rem, 1.85rem + 3.2vw, 4.5rem);
+
+  /* Line heights */
+  --lh-tight: 1.04;
+  --lh-snug: 1.16;
+  --lh-normal: 1.45;
+  --lh-relaxed: 1.7;
+
+  /* Letter spacing — the InfluEx authority signature is positive tracking on
+     uppercase sans, negative tracking on large serif display. */
+  --ls-tighter: -0.03em;
+  --ls-tight: -0.015em;
+  --ls-normal: 0;
+  --ls-wide: 0.04em;
+  --ls-wider: 0.09em;
+  --ls-widest: 0.18em;
+
+  /* Weights */
+  --fw-light: 300;
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-black: 900;
+
+  /* Space scale — 4px base, matched to the 80px modal section padding found
+     across the corpus (--space-16 = 80px). */
+  --space-0: 0;
+  --space-px: 1px;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 5rem;
+  --space-20: 6.25rem;
+  --space-24: 7.5rem;
+  --space-32: 10rem;
+
+  /* Section rhythm — fluid so mobile does not get 80px of dead air */
+  --section-y: clamp(3.5rem, 2rem + 6vw, 7.5rem);
+  --section-y-tight: clamp(2.5rem, 1.5rem + 4vw, 5rem);
+  --section-y-loose: clamp(5rem, 3rem + 8vw, 10rem);
+
+  /* Containers — 1140px is the single most common value in the corpus */
+  --container-narrow: 44rem;   /* 704px  — long-form copy, manifesto */
+  --container-content: 60rem;  /* 960px  — text-forward sections */
+  --container-base: 71.25rem;  /* 1140px — the InfluEx/Elementor default */
+  --container-wide: 82.5rem;   /* 1320px — grids, galleries */
+  --container-full: 100%;
+  --gutter: clamp(1.25rem, 1rem + 2vw, 2.5rem);
+
+  /* Radii — the corpus is bimodal: 0px (authority) or pill (modern) */
+  --radius-none: 0;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+  --radius-circle: 50%;
+
+  /* Elevation — restrained; authority brands use borders more than shadows */
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.06);
+  --shadow-md: 0 4px 14px rgb(0 0 0 / 0.09);
+  --shadow-lg: 0 18px 48px rgb(0 0 0 / 0.14);
+  --shadow-accent: 0 12px 36px -8px color-mix(in oklab, var(--accent) 45%, transparent);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 150ms;
+  --dur-base: 260ms;
+  --dur-slow: 520ms;
+  --dur-reveal: 780ms;
+
+  /* Z-index ladder */
+  --z-base: 0;
+  --z-raised: 10;
+  --z-sticky: 100;
+  --z-header: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+}
+
+/* ---------------------------------------------------------------------------
+   2. SEMANTIC TOKENS — default theme: "Obsidian Gold"
+   The single most common visual language in the corpus:
+   near-black surface + white text + one metallic accent.
+   ------------------------------------------------------------------------ */
+:root,
+[data-theme='obsidian-gold'] {
+  color-scheme: dark;
+
+  /* Fonts */
+  --font-display: 'Archivo', 'Montserrat', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-accent: 'Instrument Serif', Georgia, serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-script: 'Caveat', cursive;
+
+  /* Surfaces */
+  --surface: #08090c;
+  --surface-raised: #101218;
+  --surface-sunken: #04050700;
+  --surface-inverse: #f7f6f3;
+  --surface-accent-wash: color-mix(in oklab, var(--accent) 9%, var(--surface));
+
+  /* Text */
+  --text: #f2f1ee;
+  --text-muted: #a3a5ad;
+  --text-subtle: #6e7179;
+  --text-inverse: #0b0c0f;
+  --text-on-accent: #0b0c0f;
+
+  /* Accent — the "one saturated metal" rule */
+  --accent: #c9a24a;
+  --accent-hover: #dcb662;
+  --accent-muted: color-mix(in oklab, var(--accent) 22%, var(--surface));
+  --accent-contrast: #0b0c0f;
+
+  /* Support */
+  --border: color-mix(in oklab, var(--text) 12%, transparent);
+  --border-strong: color-mix(in oklab, var(--text) 26%, transparent);
+  --ring: var(--accent);
+
+  /* Component defaults */
+  --btn-radius: var(--radius-none);
+  --btn-casing: uppercase;
+  --btn-tracking: var(--ls-wider);
+  --btn-weight: var(--fw-semibold);
+  --btn-font: var(--font-display);
+  --card-radius: var(--radius-xs);
+  --card-bg: var(--surface-raised);
+  --heading-casing: uppercase;
+  --heading-tracking: var(--ls-wide);
+  --heading-weight: var(--fw-bold);
+  --eyebrow-casing: uppercase;
+  --eyebrow-tracking: var(--ls-widest);
+
+  /* Texture / atmosphere */
+  --grain-opacity: 0.035;
+  --glow: radial-gradient(
+    60% 55% at 70% 18%,
+    color-mix(in oklab, var(--accent) 20%, transparent) 0%,
+    transparent 72%
+  );
+}
+
+/* ---------------------------------------------------------------------------
+   3. THEME PRESETS
+   Each preset = one archetype's visual language, harvested from the corpus.
+   Switch by setting data-theme on <html>. Nothing else changes.
+   ------------------------------------------------------------------------ */
+
+/* "Editorial Ivory" — coach / transformation / women-led premium.
+   Reference: Kathryn Janicek (Playfair, light), Pam Hendrickson (serif+script). */
+[data-theme='editorial-ivory'] {
+  color-scheme: light;
+  --font-display: 'Instrument Serif', 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-accent: 'Caveat', cursive;
+
+  --surface: #faf8f4;
+  --surface-raised: #ffffff;
+  --surface-inverse: #17150f;
+  --surface-accent-wash: color-mix(in oklab, var(--accent) 8%, var(--surface));
+
+  --text: #17150f;
+  --text-muted: #5c574c;
+  --text-subtle: #8a8478;
+  --text-inverse: #faf8f4;
+  --text-on-accent: #ffffff;
+
+  --accent: #9a6b4f;
+  --accent-hover: #82573e;
+  --accent-contrast: #ffffff;
+
+  --border: color-mix(in oklab, var(--text) 14%, transparent);
+  --border-strong: color-mix(in oklab, var(--text) 28%, transparent);
+
+  --btn-radius: var(--radius-pill);
+  --btn-casing: none;
+  --btn-tracking: var(--ls-normal);
+  --btn-weight: var(--fw-medium);
+  --btn-font: var(--font-body);
+  --card-radius: var(--radius-lg);
+  --heading-casing: none;
+  --heading-tracking: var(--ls-tight);
+  --heading-weight: var(--fw-normal);
+  --grain-opacity: 0.02;
+  --glow: radial-gradient(
+    55% 50% at 78% 12%,
+    color-mix(in oklab, var(--accent) 14%, transparent) 0%,
+    transparent 70%
+  );
+}
+
+/* "Institutional Navy" — firm with figurehead: legal, finance, advisory.
+   Reference: FinTitan (#1A2B4C + #F2A900), Rutherford (#0B142B + gold). */
+[data-theme='institutional-navy'] {
+  color-scheme: dark;
+  --font-display: 'Archivo', 'Montserrat', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-accent: 'Instrument Serif', Georgia, serif;
+
+  --surface: #0b1navy;
+  --surface: #0b1524;
+  --surface-raised: #121f33;
+  --surface-inverse: #f4f6f9;
+
+  --text: #eef2f7;
+  --text-muted: #9aa8bb;
+  --text-subtle: #6b7a90;
+  --text-inverse: #0b1524;
+  --text-on-accent: #0b1524;
+
+  --accent: #f2a900;
+  --accent-hover: #ffbb24;
+  --accent-contrast: #0b1524;
+
+  --border: color-mix(in oklab, var(--text) 14%, transparent);
+  --border-strong: color-mix(in oklab, var(--text) 30%, transparent);
+
+  --btn-radius: var(--radius-sm);
+  --btn-casing: uppercase;
+  --btn-tracking: var(--ls-wide);
+  --card-radius: var(--radius-sm);
+  --heading-casing: uppercase;
+  --heading-tracking: var(--ls-wide);
+  --grain-opacity: 0.025;
+}
+
+/* "Signal Cyan" — marketer / operator / tech-forward.
+   Reference: Mathieu Jang (#040505 + #4AE2E5), Aleric Heck (#0B1B29 + green). */
+[data-theme='signal-cyan'] {
+  color-scheme: dark;
+  --font-display: 'Archivo', 'Oswald', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  --surface: #040507;
+  --surface-raised: #0c1016;
+  --surface-inverse: #f2fbfc;
+
+  --text: #f2fbfc;
+  --text-muted: #8fa3a8;
+  --text-subtle: #5f7075;
+  --text-inverse: #040507;
+  --text-on-accent: #04191b;
+
+  --accent: #4ae2e5;
+  --accent-hover: #6df1f3;
+  --accent-contrast: #04191b;
+
+  --btn-radius: var(--radius-none);
+  --btn-casing: uppercase;
+  --btn-tracking: var(--ls-widest);
+  --card-radius: var(--radius-none);
+  --heading-casing: uppercase;
+  --heading-tracking: var(--ls-tight);
+  --heading-weight: var(--fw-black);
+  --grain-opacity: 0.04;
+}
+
+/* "Insurgent Red" — movement / advocacy / polarizing positioning.
+   Reference: The People's Law Firm, Darren Frank (#E33E33 on #1A1A1A). */
+[data-theme='insurgent-red'] {
+  color-scheme: dark;
+  --font-display: 'Archivo', 'Anton', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  --surface: #121212;
+  --surface-raised: #1c1c1c;
+  --surface-inverse: #f5f5f5;
+
+  --text: #f5f5f5;
+  --text-muted: #a8a8a8;
+  --text-subtle: #757575;
+  --text-inverse: #121212;
+  --text-on-accent: #ffffff;
+
+  --accent: #e33e33;
+  --accent-hover: #f4534a;
+  --accent-contrast: #ffffff;
+
+  --btn-radius: var(--radius-none);
+  --btn-casing: uppercase;
+  --btn-tracking: var(--ls-widest);
+  --card-radius: var(--radius-none);
+  --heading-casing: uppercase;
+  --heading-tracking: var(--ls-tighter);
+  --heading-weight: var(--fw-black);
+  --grain-opacity: 0.05;
+}
+
+/* ---------------------------------------------------------------------------
+   SECTION TONE — lets any block flip its own local palette without new CSS.
+   This is how the corpus's alternating dark/light band rhythm is achieved.
+   ------------------------------------------------------------------------ */
+[data-tone='inverse'] {
+  --surface: var(--surface-inverse);
+  --surface-raised: color-mix(in oklab, var(--surface-inverse) 92%, var(--text-inverse));
+  --text: var(--text-inverse);
+  --text-muted: color-mix(in oklab, var(--text-inverse) 62%, transparent);
+  --text-subtle: color-mix(in oklab, var(--text-inverse) 42%, transparent);
+  --card-bg: color-mix(in oklab, var(--surface-inverse) 96%, var(--text-inverse));
+  --border: color-mix(in oklab, var(--text-inverse) 14%, transparent);
+  --border-strong: color-mix(in oklab, var(--text-inverse) 28%, transparent);
+  color-scheme: light;
+}
+
+[data-tone='accent'] {
+  --surface: var(--accent);
+  --surface-raised: color-mix(in oklab, var(--accent) 88%, black);
+  --text: var(--accent-contrast);
+  --text-muted: color-mix(in oklab, var(--accent-contrast) 72%, transparent);
+  --card-bg: color-mix(in oklab, var(--accent) 86%, black);
+  --border: color-mix(in oklab, var(--accent-contrast) 22%, transparent);
+}
+
+[data-tone='raised'] {
+  --surface: var(--surface-raised);
+}
+
+/* ---------------------------------------------------------------------------
+   TAILWIND v4 THEME BRIDGE
+   Exposes semantic tokens as Tailwind utilities so blocks can use either.
+   ------------------------------------------------------------------------ */
+@theme inline {
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-inverse: var(--surface-inverse);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-text-subtle: var(--text-subtle);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-contrast: var(--accent-contrast);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-accent: var(--font-accent);
+  --font-script: var(--font-script);
+
+  --text-fs-xs: var(--fs-xs);
+  --text-fs-sm: var(--fs-sm);
+  --text-fs-base: var(--fs-base);
+  --text-fs-md: var(--fs-md);
+  --text-fs-lg: var(--fs-lg);
+  --text-fs-xl: var(--fs-xl);
+  --text-fs-2xl: var(--fs-2xl);
+  --text-fs-3xl: var(--fs-3xl);
+  --text-fs-4xl: var(--fs-4xl);
+  --text-fs-5xl: var(--fs-5xl);
+
+  --radius-token: var(--card-radius);
+  --ease-out-token: var(--ease-out);
+}

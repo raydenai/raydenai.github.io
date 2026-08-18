@@ -1,0 +1,292 @@
+{
+  "path": "/work-with-me/",
+  "brand": "priya-raghavan",
+  "archetype": "work-with-me",
+  "seo": {
+    "title": "Work With Me | Priya Raghavan",
+    "description": "Executive advisory, leadership team intensives and keynotes. Six advisory clients at a time. Engagements from $45,000.",
+    "schemaType": "Service"
+  },
+  "blocks": [
+    {
+      "type": "HeroCenteredStatement",
+      "tone": "default",
+      "pad": "loose",
+      "eyebrow": "Work with me",
+      "heading": "Three ways in. All of them start with the same call.",
+      "mark": {
+        "word": "the same call",
+        "style": "accent"
+      },
+      "subheading": "I take six advisory clients at a time. That constraint is not scarcity marketing — it is the number of people I can do this depth of work with while still doing it properly.",
+      "width": "content"
+    },
+    {
+      "type": "ServicesGrid",
+      "tone": "raised",
+      "pad": "default",
+      "eyebrow": "Engagements",
+      "heading": "What working together looks like",
+      "columns": 3,
+      "services": [
+        {
+          "name": "Executive Advisory",
+          "tagline": "The core engagement",
+          "description": "Six months, one-to-one, through all four pillars of the method. You finish with a settled position, a documented evidence library, a named framework and a twelve-month distribution plan you can run without me.",
+          "forWhom": "Founders and C-suite leaders at $20M-$500M companies",
+          "price": "From $45,000",
+          "featured": true,
+          "cta": {
+            "label": "Book a strategy call",
+            "href": "/contact/",
+            "intent": "primary"
+          }
+        },
+        {
+          "name": "Leadership Team Intensive",
+          "tagline": "For the whole bench",
+          "description": "A compressed version run across your senior team, so the company narrative and the individual narratives reinforce each other instead of competing. Two full days on site plus eight weeks of follow-through.",
+          "forWhom": "Executive teams of four to nine people",
+          "price": "$28,000-$60,000",
+          "cta": {
+            "label": "Enquire about dates",
+            "href": "/contact/",
+            "intent": "secondary"
+          }
+        },
+        {
+          "name": "Keynotes",
+          "tagline": "Conferences and offsites",
+          "description": "A ninety-minute working session disguised as a keynote. Audiences leave with a scored diagnostic of their own authority gaps rather than a set of slides they will not revisit.",
+          "forWhom": "Industry conferences, private offsites, portfolio events",
+          "price": "From $35,000",
+          "cta": {
+            "label": "See speaking details",
+            "href": "/speaking/",
+            "intent": "secondary"
+          }
+        }
+      ]
+    },
+    {
+      "type": "ResultsGrid",
+      "id": "results",
+      "tone": "raised",
+      "pad": "default",
+      "eyebrow": "Case studies",
+      "heading": "Three engagements, in detail",
+      "subheading": "Used with permission. Figures are client-reported at engagement close.",
+      "results": [
+        {
+          "client": "Northline Logistics",
+          "headline": "A chief executive with eleven years of category expertise and no external footprint",
+          "metric": "2 board seats",
+          "before": "Zero inbound enquiries; no published point of view; panel invitations only",
+          "after": "14 qualified inbound conversations per quarter and two non-executive board appointments"
+        },
+        {
+          "client": "Aster Health",
+          "headline": "A founder whose diagnostic instinct became the company's primary sales asset",
+          "metric": "3.1x pipeline",
+          "before": "Nine-month average sales cycle; value explained differently by every rep",
+          "after": "Four-month average cycle; the named framework opens every deck the team uses"
+        },
+        {
+          "client": "Kestrel Capital",
+          "headline": "A managing partner published a thesis and became the person the press called",
+          "metric": "$180M raised",
+          "before": "One outlet had ever covered the firm; no proprietary point of view in market",
+          "after": "Quoted in four tier-one outlets within twelve months; fund closed above target"
+        }
+      ]
+    },
+    {
+      "type": "HighTicketOffer",
+      "id": "advisory",
+      "tone": "default",
+      "pad": "loose",
+      "eyebrow": "In detail",
+      "heading": "Executive Advisory",
+      "mark": {
+        "word": "Advisory",
+        "style": "script"
+      },
+      "body": "Six months, fortnightly ninety-minute sessions, unlimited asynchronous review in between. I work through the four pillars in order and I do not skip. Between sessions I do the construction work; your commitment is roughly two hours a week of thinking and reviewing.",
+      "deliverables": [
+        "Positioning statement, named enemy and three defensible claims, all pressure-tested",
+        "A quantified evidence library — outcomes, case narratives and third-party endorsements",
+        "Your named framework, built and stress-tested against live client situations",
+        "Signature talk structure plus a one-page point of view for circulation",
+        "Twelve-month distribution plan across three channels with a sustainable cadence",
+        "Warm introductions where my network genuinely overlaps your target rooms"
+      ],
+      "idealFor": [
+        "You lead a company between $20M and $500M in revenue",
+        "You have a real record that is currently invisible outside your own building",
+        "You are willing to narrow your position and lose part of the market on purpose",
+        "You can commit two hours a week for six months"
+      ],
+      "investment": "From $45,000 for six months",
+      "media": {
+        "src": "/images/workshop.webp",
+        "alt": "Priya Raghavan working with a client",
+        "width": 1920,
+        "height": 1280
+      },
+      "mediaSide": "right",
+      "ctas": [
+        {
+          "label": "Book a strategy call",
+          "href": "/contact/",
+          "intent": "primary"
+        }
+      ]
+    },
+    {
+      "type": "TestimonialSlider",
+      "tone": "default",
+      "pad": "default",
+      "eyebrow": "Client voices",
+      "heading": "What they say afterwards",
+      "align": "center",
+      "testimonials": [
+        {
+          "quote": "I expected a communications coach. What I got was someone who reorganised how I think about my own record and then made it impossible to ignore. The board conversations started arriving unprompted.",
+          "author": "Daniel Weiss",
+          "role": "Chief Executive",
+          "company": "Northline Logistics",
+          "avatar": {
+            "src": "/images/avatar-1.webp",
+            "alt": "Daniel Weiss",
+            "width": 256,
+            "height": 256
+          },
+          "result": "Two board invitations in nine months"
+        },
+        {
+          "quote": "The framework we built in month three is now the first slide of every deck our sales team uses. It has outlived the engagement by two years and counting.",
+          "author": "Ama Osei",
+          "role": "Founder",
+          "company": "Aster Health",
+          "avatar": {
+            "src": "/images/avatar-2.webp",
+            "alt": "Ama Osei",
+            "width": 256,
+            "height": 256
+          },
+          "result": "Sales cycle cut from nine months to four"
+        },
+        {
+          "quote": "Priya is the only advisor I have worked with who told me to say less. It was the most profitable advice I received that year, and it was in week two.",
+          "author": "Marcus Hale",
+          "role": "Managing Partner",
+          "company": "Kestrel Capital",
+          "avatar": {
+            "src": "/images/avatar-3.webp",
+            "alt": "Marcus Hale",
+            "width": 256,
+            "height": 256
+          },
+          "result": "$180M fund close, above target"
+        }
+      ]
+    },
+    {
+      "type": "AudienceQualifier",
+      "tone": "default",
+      "pad": "default",
+      "eyebrow": "Fit",
+      "heading": "Who this works for, and who it does not",
+      "align": "center",
+      "forWhom": [
+        "You lead or co-lead a company between $20M and $500M in revenue",
+        "You have a track record you are tired of explaining from scratch",
+        "You will take a position that costs you part of the market",
+        "You want to be cited by others, not merely followed",
+        "You can protect two hours a week for six months"
+      ],
+      "notForWhom": [
+        "Follower growth is the outcome you are buying",
+        "You are pre-revenue and need a narrative to raise on",
+        "You want content written in your voice while you stay uninvolved",
+        "You will not publish anything that could be argued with",
+        "You need visible external results inside sixty days"
+      ]
+    },
+    {
+      "type": "ApplicationForm",
+      "tone": "inverse",
+      "pad": "loose",
+      "eyebrow": "Apply",
+      "heading": "Tell me what you have built.",
+      "mark": {
+        "word": "built",
+        "style": "accent"
+      },
+      "subheading": "Four questions. I read every one myself and reply within two business days either way.",
+      "form": {
+        "action": "demo://application",
+        "submitLabel": "Send application",
+        "consentNote": "Your answers stay between us. I do not add applicants to any mailing list.",
+        "fields": [
+          {
+            "name": "name",
+            "label": "Full name",
+            "type": "text",
+            "required": true
+          },
+          {
+            "name": "email",
+            "label": "Email",
+            "type": "email",
+            "required": true
+          },
+          {
+            "name": "company",
+            "label": "Company and your role",
+            "type": "text",
+            "required": true
+          },
+          {
+            "name": "revenue",
+            "label": "Approximate annual revenue",
+            "type": "select",
+            "required": true,
+            "options": [
+              "Under $20M",
+              "$20M-$50M",
+              "$50M-$150M",
+              "$150M-$500M",
+              "Over $500M"
+            ]
+          },
+          {
+            "name": "engagement",
+            "label": "Which engagement interests you",
+            "type": "select",
+            "required": true,
+            "options": [
+              "Executive Advisory",
+              "Leadership Team Intensive",
+              "Keynote",
+              "Not sure yet"
+            ]
+          },
+          {
+            "name": "situation",
+            "label": "What prompted you to look for help now?",
+            "type": "textarea",
+            "required": true,
+            "placeholder": "The specific thing that happened recently is more useful to me than a general description."
+          }
+        ]
+      },
+      "reassurance": [
+        "Read by me, not by an assistant",
+        "Reply within two business days",
+        "No automated sequence follows this"
+      ],
+      "afterSubmit": "If there is a plausible fit I will send two or three times for a thirty-minute call. If there is not, I will tell you why and, where I can, point you to someone better suited."
+    }
+  ]
+}

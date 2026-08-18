@@ -1,0 +1,184 @@
+---
+/**
+ * ServicesGrid — the ways to work together.
+ * ---------------------------------------------------------------------------
+ * 60% of the corpus has one. The differentiator on the strongest builds is a
+ * "who it's for" qualifier on every card — Mike Burnett does this explicitly,
+ * and it pre-qualifies leads before they ever reach a form.
+ *
+ * One card may be marked `featured: true` to break the visual tie and direct
+ * attention to the primary commercial offer.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+import Button from '../../components/primitives/Button.astro';
+
+const {
+  id,
+  tone = 'default',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  align = 'center',
+  width = 'wide',
+  services = [],
+  columns = 3,
+} = Astro.props;
+---
+
+<Section block="ServicesGrid" {id} {tone} {pad} class="bsv">
+  <Container {width}>
+    <div class="bsv__head">
+      <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} {align} />
+    </div>
+
+    <ul class="u-grid bsv__grid" style={`--cols:${columns};--cols-tablet:${Math.min(columns, 2)}`}>
+      {
+        services.map((service: any) => (
+          <li class="bsv__card u-card" data-hover="lift" data-featured={service.featured ? 'true' : undefined}>
+            {service.featured && <span class="bsv__flag">Most requested</span>}
+
+            {service.image && (
+              <img
+                class="bsv__image"
+                src={service.image.src}
+                alt={service.image.alt}
+                width={service.image.width ?? 800}
+                height={service.image.height ?? 520}
+                loading="lazy"
+                decoding="async"
+              />
+            )}
+
+            <div class="bsv__body">
+              <h3 class="bsv__name">{service.name}</h3>
+              {service.tagline && <p class="bsv__tagline">{service.tagline}</p>}
+              <p class="bsv__desc">{service.description}</p>
+
+              {service.forWhom && (
+                <p class="bsv__for">
+                  <span>Who it's for</span>
+                  {service.forWhom}
+                </p>
+              )}
+              {service.price && <p class="bsv__price">{service.price}</p>}
+            </div>
+
+            {service.cta && (
+              <div class="bsv__cta">
+                <Button cta={service.cta} size="sm" full />
+              </div>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+
+    {
+      ctas.length > 0 && (
+        <div class="u-cluster bsv__ctas">
+          {ctas.map((cta: any) => (
+            <Button {cta} size="lg" />
+          ))}
+        </div>
+      )
+    }
+  </Container>
+</Section>
+
+<style>
+  .bsv__head {
+    margin-bottom: var(--space-12);
+  }
+  .bsv__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    height: 100%;
+  }
+  .bsv__card[data-featured='true'] {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+  .bsv__flag {
+    position: absolute;
+    top: 0;
+    right: var(--space-5);
+    transform: translateY(-50%);
+    padding: 0.35em 0.9em;
+    background: var(--accent);
+    color: var(--accent-contrast);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+  }
+  .bsv__image {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+  }
+  .bsv__body {
+    display: grid;
+    gap: var(--space-3);
+  }
+  .bsv__name {
+    font-size: var(--fs-lg);
+    line-height: var(--lh-snug);
+  }
+  .bsv__tagline {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .bsv__desc {
+    margin: 0;
+    line-height: var(--lh-relaxed);
+    color: var(--text-muted);
+  }
+  .bsv__for {
+    margin: 0;
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--border);
+    font-size: var(--fs-sm);
+    line-height: var(--lh-normal);
+    color: var(--text-muted);
+  }
+  .bsv__for span {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+    color: var(--text-subtle);
+    margin-bottom: 0.25rem;
+  }
+  .bsv__price {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--fs-md);
+    font-weight: var(--fw-semibold);
+    color: var(--text);
+  }
+  .bsv__cta {
+    margin-top: auto;
+  }
+  .bsv__ctas {
+    justify-content: center;
+    margin-top: var(--space-12);
+  }
+</style>

@@ -1,0 +1,103 @@
+---
+/**
+ * The universal page route.
+ * ---------------------------------------------------------------------------
+ * Every page of a client site — home, about, services, landing pages — is
+ * generated from this single file by reading the `pages` collection. There are
+ * no per-page .astro files to maintain, which is why a new client site is a
+ * content task rather than a development task.
+ */
+import { getCollection, getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BlockRenderer from '../components/BlockRenderer.astro';
+import {
+  personSchema,
+  organizationSchema,
+  websiteSchema,
+  webPageSchema,
+  faqSchema,
+  servicesSchema,
+  graph,
+} from '../lib/schema';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+  return pages.map((page) => ({
+    /* "/" becomes undefined so it renders at the site root. */
+    params: { path: page.data.path === '/' ? undefined : page.data.path.replace(/^\/|\/$/g, '') },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props;
+const brandEntry = await getEntry(page.data.brand);
+if (!brandEntry) throw new Error(`Brand "${page.data.brand.id}" not found for page ${page.id}`);
+const brand = brandEntry.data;
+
+const siteUrl = (Astro.site ?? new URL(Astro.url.origin)).href.replace(/\/$/, '');
+const pageUrl = new URL(Astro.url.pathname, `${siteUrl}/`).href;
+
+/* Adapt the brand record to the shape the schema builders expect. */
+const brandForSchema = {
+  person: {
+    name: brand.name,
+    jobTitle: brand.title,
+    tagline: brand.tagline,
+    bio: brand.positioning.promise,
+    knowsAbout: [brand.positioning.audience, brand.positioning.differentiator].filter(Boolean),
+    portraitUrl: brand.assets.portrait?.src,
+    awards: brand.proof.awards.map((a) => a.name),
+  },
+  organization: brand.company
+    ? {
+        name: brand.company.name,
+        legalName: brand.legal.entity,
+        logoUrl: brand.assets.logo?.src,
+        email: brand.contact.email,
+        telephone: brand.contact.phone,
+      }
+    : undefined,
+  social: brand.social.map((s) => ({ platform: s.platform, url: s.href })),
+  site: { url: `${siteUrl}/`, name: brand.name },
+};
+
+const breadcrumbs =
+  page.data.path === '/'
+    ? [{ name: 'Home', url: `${siteUrl}/` }]
+    : [
+        { name: 'Home', url: `${siteUrl}/` },
+        { name: page.data.seo.title.split('|')[0].trim(), url: pageUrl },
+      ];
+
+const schema = graph([
+  personSchema(brandForSchema),
+  organizationSchema(brandForSchema),
+  websiteSchema(brandForSchema),
+  webPageSchema({
+    brand: brandForSchema,
+    url: pageUrl,
+    title: page.data.seo.title,
+    description: page.data.seo.description,
+    breadcrumbs,
+  }),
+  faqSchema(page.data.blocks as any),
+  ...servicesSchema(brandForSchema, page.data.blocks as any),
+]);
+
+/* A transparent header only makes sense when the first block is a hero that
+   paints its own full-bleed background. */
+const firstBlock = page.data.blocks[0]?.type ?? '';
+const transparentHeader = firstBlock.startsWith('Hero');
+---
+
+<BaseLayout
+  {brand}
+  title={page.data.seo.title}
+  description={page.data.seo.description}
+  ogImage={page.data.seo.ogImage}
+  noindex={page.data.seo.noindex}
+  {schema}
+  {transparentHeader}
+>
+  <BlockRenderer blocks={page.data.blocks} />
+</BaseLayout>

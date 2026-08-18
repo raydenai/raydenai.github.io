@@ -1,0 +1,121 @@
+---
+/**
+ * HeroCenteredStatement
+ * ---------------------------------------------------------------------------
+ * A typographic hero: the statement IS the visual. Use when the positioning
+ * line is strong enough to carry the screen alone, or when no premium portrait
+ * asset exists yet.
+ *
+ * Reference builds: Darren Frank ("When facing A MERGER / AN EXIT / AN
+ * ACQUISITION"), RJon Robins ("no excuses / regrets / apologies"),
+ * The People's Law Firm ("MORE THAN A LAW FIRM. A MOVEMENT.").
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+import RotatingWords from '../../components/primitives/RotatingWords.astro';
+
+const {
+  id,
+  tone = 'default',
+  pad = 'loose',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  width = 'content',
+  rotatingWords = [],
+  background,
+  overlayOpacity = 0.62,
+} = Astro.props;
+---
+
+<Section block="HeroCenteredStatement" {id} {tone} {pad} grain glow class="hcs">
+  {
+    background && (
+      <div class="hcs__bg" aria-hidden="true">
+        <img
+          src={background.src}
+          alt=""
+          width={background.width ?? 1920}
+          height={background.height ?? 1080}
+          loading="eager"
+          fetchpriority="high"
+          style={background.position ? `object-position:${background.position}` : undefined}
+        />
+        <span class="hcs__scrim" style={`--hcs-opacity:${overlayOpacity}`}></span>
+      </div>
+    )
+  }
+
+  <Container {width}>
+    <div class="hcs__inner">
+      {
+        rotatingWords.length > 0 && (
+          <p class="hcs__rotating">
+            <RotatingWords words={rotatingWords} style={mark?.style ?? 'accent'} />
+          </p>
+        )
+      }
+      <BlockHeader
+        {eyebrow}
+        {heading}
+        {mark}
+        {subheading}
+        {body}
+        {ctas}
+        align="center"
+        level={1}
+        size="display-1"
+      />
+    </div>
+  </Container>
+</Section>
+
+<style>
+  .hcs {
+    overflow: clip;
+    display: grid;
+    place-items: center;
+    min-height: min(88vh, 46rem);
+  }
+  .hcs__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hcs__bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hcs__scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--surface) calc(var(--hcs-opacity) * 100%), transparent),
+      color-mix(in oklab, var(--surface) calc(var(--hcs-opacity) * 118%), transparent)
+    );
+  }
+  .hcs .u-container {
+    position: relative;
+    z-index: 2;
+  }
+  .hcs__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-5);
+  }
+  .hcs__rotating {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-bold);
+    letter-spacing: var(--ls-widest);
+    text-transform: uppercase;
+  }
+</style>

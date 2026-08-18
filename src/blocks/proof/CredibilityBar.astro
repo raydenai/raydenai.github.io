@@ -1,0 +1,91 @@
+---
+/**
+ * CredibilityBar — the numeric proof band.
+ * ---------------------------------------------------------------------------
+ * 70% of the analysed corpus carries a numeric credibility stack. The pattern
+ * that works: 3-5 numbers, each irrefutable and specific, in a single band.
+ *
+ * Reference: Vinh Giang ("16M+ Followers · 100K+ Students · 45+ Countries"),
+ * FinTitan ("$2.12B+ credits captured"), Rutherford ("25k+ leaders, 32+ countries").
+ *
+ * Copy rule: never round to a vague number. "$2.12B+" outperforms "billions".
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import StatItem from '../../components/primitives/StatItem.astro';
+
+const {
+  id,
+  tone = 'raised',
+  pad = 'tight',
+  eyebrow,
+  heading,
+  width = 'base',
+  stats = [],
+  animate = true,
+  align = 'center',
+} = Astro.props;
+---
+
+<Section block="CredibilityBar" {id} {tone} {pad} class="bcb">
+  <Container {width}>
+    {eyebrow && <p class="bcb__eyebrow u-eyebrow">{eyebrow}</p>}
+    {heading && <h2 class="bcb__heading u-heading">{heading}</h2>}
+    <ul class="bcb__list" data-count={stats.length}>
+      {
+        stats.map((s: any) => (
+          <li>
+            <StatItem
+              value={s.value}
+              label={s.label}
+              detail={s.detail}
+              {animate}
+              size="lg"
+              align={align}
+            />
+          </li>
+        ))
+      }
+    </ul>
+  </Container>
+</Section>
+
+<style>
+  .bcb__eyebrow,
+  .bcb__heading {
+    text-align: center;
+    display: block;
+    margin: 0 0 var(--space-8);
+  }
+  .bcb__list {
+    display: grid;
+    gap: clamp(2rem, 1rem + 3vw, 3.5rem);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+  @media (min-width: 900px) {
+    .bcb__list {
+      grid-template-columns: repeat(var(--data-count, 4), minmax(0, 1fr));
+    }
+    .bcb__list[data-count='2'] {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .bcb__list[data-count='3'] {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .bcb__list[data-count='4'] {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .bcb__list[data-count='5'] {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
+  /* Vertical hairlines between stats — the "institutional" cue used by the
+     finance and legal builds in the corpus. */
+  @media (min-width: 900px) {
+    .bcb__list li + li {
+      border-left: 1px solid var(--border);
+      padding-left: clamp(2rem, 1rem + 3vw, 3.5rem);
+    }
+  }
+</style>

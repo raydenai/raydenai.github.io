@@ -1,0 +1,205 @@
+{
+  "path": "/about/",
+  "brand": "priya-raghavan",
+  "archetype": "about",
+  "seo": {
+    "title": "About Priya Raghavan | Executive Authority Advisor",
+    "description": "Priya Raghavan spent nine years in executive communications before building the Quiet Authority Method. 270+ executives advised across 19 countries.",
+    "schemaType": "AboutPage"
+  },
+  "blocks": [
+    {
+      "type": "HeroCenteredStatement",
+      "tone": "default",
+      "pad": "loose",
+      "eyebrow": "About",
+      "heading": "I am not in the business of making people louder.",
+      "mark": {
+        "word": "louder",
+        "style": "outline"
+      },
+      "subheading": "I help leaders who have already done the work make that work legible to the people who decide things.",
+      "width": "content"
+    },
+    {
+      "type": "CrucibleMoment",
+      "tone": "inverse",
+      "pad": "loose",
+      "year": "2014",
+      "eyebrow": "The moment this became a method",
+      "moment": "He read the acquisition announcement out loud in the boardroom, put the page down, and said: they didn't even know we existed.",
+      "aftermath": "Our product was better. Our margins were better. Our founder had been building in that category for eleven years. The company that won had a chief executive with a book, a podcast, and a phrase that everyone in the industry had started repeating. I had spent four years writing accurate sentences about a man nobody could recall.",
+      "background": {
+        "src": "/images/texture-dark.webp",
+        "alt": "",
+        "width": 1920,
+        "height": 1080
+      }
+    },
+    {
+      "type": "RichText",
+      "tone": "default",
+      "pad": "default",
+      "width": "content",
+      "eyebrow": "The long version",
+      "heading": "How I got here",
+      "dropCap": true,
+      "markdown": "I started in corporate communications in 2009, which was a strange time to start. The trade I had trained for — press releases, embargoes, careful relationships with twelve journalists — was quietly being replaced by something nobody had a name for yet. My job was to protect executives from attention. Within five years my job was to manufacture it.\n\nI was good at the mechanics and increasingly uneasy about the results. We could reliably generate coverage. We could not reliably generate **standing**. Those are different things, and confusing them is the central error of the personal branding industry.\n\n### What I noticed\n\nBetween 2014 and 2018 I worked with roughly forty senior executives across logistics, healthcare and financial services. The ones whose reputations compounded had almost nothing in common stylistically. Some were charismatic; several were not. Some published constantly; two published roughly four times a year.\n\nWhat they shared was structural:\n\n1. They had a **position** narrow enough to be repeated by someone else accurately.\n2. They had **evidence** they could produce on demand, with numbers attached.\n3. They had a **named method** that travelled without them in the room.\n4. They were **present in a small number of the right places**, not in all places.\n\nEverything I do now is an attempt to reproduce those four conditions deliberately rather than accidentally. That is the whole method. It is not complicated. It is just unusual to do in the correct order.\n\n### What I believe about this work\n\nAuthority built on evidence is durable. Authority built on exposure is a treadmill, and the treadmill speeds up. I would rather help six people a year build the first kind than sixty build the second.\n\nI live in San Francisco. I have advised leaders in nineteen countries. I write about this most weeks, badly at first and then better after editing, which is also roughly how I advise clients to work."
+    },
+    {
+      "type": "CredibilityStack",
+      "tone": "raised",
+      "pad": "default",
+      "eyebrow": "Track record",
+      "heading": "The record, stated plainly",
+      "align": "center",
+      "credentials": [
+        {
+          "title": "Experience",
+          "value": "17 years in executive positioning",
+          "detail": "Nine in-house leading communications for private equity-backed operators, eight independent."
+        },
+        {
+          "title": "Reach",
+          "value": "270 executives across 19 countries",
+          "detail": "Founders, chief executives, managing partners and functional C-suite leaders."
+        },
+        {
+          "title": "Recognition",
+          "value": "Thinkers50 Radar nominee, 2024",
+          "detail": "Selected to the Marshall Goldsmith 100 Coaches cohort in 2021."
+        },
+        {
+          "title": "Published",
+          "value": "The Quiet Authority, 2026",
+          "detail": "Plus bylines in Harvard Business Review and Forbes on executive positioning."
+        }
+      ]
+    },
+    {
+      "type": "BookShowcase",
+      "id": "book",
+      "tone": "default",
+      "pad": "default",
+      "eyebrow": "The book",
+      "heading": "The Quiet Authority",
+      "align": "center",
+      "books": [
+        {
+          "title": "The Quiet Authority",
+          "subtitle": "Why the best leaders stop performing",
+          "description": "A working manual for executives who have built something real and are tired of watching louder operators take the room. Four pillars, nineteen worked examples, and a diagnostic you can run on yourself in an afternoon. Written for people who would rather have standing than followers.",
+          "cover": {
+            "src": "/images/book-cover.png",
+            "alt": "The Quiet Authority by Priya Raghavan",
+            "width": 900,
+            "height": 900
+          },
+          "badge": "New release",
+          "rating": 4.7,
+          "reviewCount": 412,
+          "ctas": [
+            {
+              "label": "Order the book",
+              "href": "https://example.com/book",
+              "intent": "primary",
+              "external": true
+            },
+            {
+              "label": "Read chapter one free",
+              "href": "/#authority-audit",
+              "intent": "secondary"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "PersonalStats",
+      "tone": "inverse",
+      "pad": "default",
+      "eyebrow": "Off the clock",
+      "heading": "Things that are also true",
+      "align": "center",
+      "subheading": "Because a track record is not a personality.",
+      "stats": [
+        {
+          "value": "19",
+          "label": "Countries worked in",
+          "detail": "Longest engagement ran across four of them"
+        },
+        {
+          "value": "1,400km",
+          "label": "Cycled last year",
+          "detail": "Mostly badly, mostly uphill"
+        },
+        {
+          "value": "62",
+          "label": "Books read in 2025",
+          "detail": "Eleven of them worth recommending"
+        },
+        {
+          "value": "2",
+          "label": "Languages learned late",
+          "detail": "Tamil relearned at 34, Portuguese at 39"
+        }
+      ]
+    },
+    {
+      "type": "MediaFeatures",
+      "id": "press",
+      "tone": "default",
+      "pad": "default",
+      "eyebrow": "Press",
+      "heading": "Selected coverage and bylines",
+      "features": [
+        {
+          "outlet": "Harvard Business Review",
+          "title": "Your Expertise Is Not a Position",
+          "href": "https://example.com/hbr",
+          "date": "March 2026"
+        },
+        {
+          "outlet": "Forbes",
+          "title": "The Executives Who Win Without Being Loud",
+          "href": "https://example.com/forbes",
+          "date": "January 2026"
+        },
+        {
+          "outlet": "The Wall Street Journal",
+          "title": "Quoted: What Boards Actually Look For in a Public Profile",
+          "href": "https://example.com/wsj",
+          "date": "November 2025"
+        },
+        {
+          "outlet": "Fast Company",
+          "title": "Stop Building a Personal Brand. Build a Referenceable Method.",
+          "href": "https://example.com/fastcompany",
+          "date": "August 2025"
+        }
+      ]
+    },
+    {
+      "type": "FinalCta",
+      "tone": "accent",
+      "pad": "loose",
+      "eyebrow": "Next step",
+      "heading": "If any of this sounded like your situation, the call is thirty minutes.",
+      "mark": {
+        "word": "thirty minutes",
+        "style": "underline"
+      },
+      "ctas": [
+        {
+          "label": "Book a strategy call",
+          "href": "/contact/",
+          "intent": "primary"
+        }
+      ],
+      "reassurance": [
+        "No pitch",
+        "Honest read either way"
+      ]
+    }
+  ]
+}

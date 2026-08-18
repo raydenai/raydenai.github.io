@@ -1,0 +1,108 @@
+---
+/**
+ * IconGrid — a small set of parallel ideas, evenly weighted.
+ * ---------------------------------------------------------------------------
+ * Deliberately generic: serves the "emotional cost" grid (Darren Frank's
+ * loneliness triad), outcome grids (Dave Asprey's Restore / Increase / Build /
+ * Achieve), and simple benefit grids.
+ *
+ * Icons are inline SVG paths referenced by name so no icon-font is loaded.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+import Icon from '../../components/primitives/Icon.astro';
+
+const {
+  id,
+  tone = 'default',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  align = 'center',
+  width = 'base',
+  items = [],
+  columns = 3,
+} = Astro.props;
+---
+
+<Section block="IconGrid" {id} {tone} {pad} class="big">
+  <Container {width}>
+    {
+      (eyebrow || heading || body) && (
+        <div class="big__head">
+          <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} {align} />
+        </div>
+      )
+    }
+
+    <ul class="u-grid big__grid" style={`--cols:${columns};--cols-tablet:${Math.min(columns, 2)}`}>
+      {
+        items.map((item: any) => (
+          <li class="big__item">
+            {item.icon && (
+              <span class="big__icon" aria-hidden="true">
+                <Icon name={item.icon} />
+              </span>
+            )}
+            <h3 class="big__title">{item.title}</h3>
+            {item.description && <p class="big__desc">{item.description}</p>}
+          </li>
+        ))
+      }
+    </ul>
+
+    {
+      ctas.length > 0 && (
+        <div class="big__ctas u-cluster">
+          {ctas.map((cta: any) => (
+            <a
+              class="u-btn"
+              data-variant={cta.intent === 'primary' ? undefined : 'secondary'}
+              href={cta.href}
+            >
+              {cta.label}
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </Container>
+</Section>
+
+<style>
+  .big__head {
+    margin-bottom: var(--space-12);
+  }
+  .big__item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  .big__icon {
+    display: grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border: 1px solid var(--accent);
+    border-radius: var(--card-radius);
+    color: var(--accent);
+  }
+  .big__title {
+    font-size: var(--fs-md);
+    line-height: var(--lh-snug);
+  }
+  .big__desc {
+    margin: 0;
+    line-height: var(--lh-relaxed);
+    color: var(--text-muted);
+  }
+  .big__ctas {
+    justify-content: center;
+    margin-top: var(--space-12);
+  }
+</style>

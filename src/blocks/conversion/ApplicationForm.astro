@@ -1,0 +1,133 @@
+---
+/**
+ * ApplicationForm — the qualification gate for high-ticket work.
+ * ---------------------------------------------------------------------------
+ * The inverse of LeadMagnet: friction here is a feature. Asking for revenue,
+ * timeline and context does three things at once — it filters out unqualified
+ * enquiries, it signals that the engagement is selective, and it gives the
+ * consultant a briefed call instead of a cold one.
+ *
+ * Pattern from the corpus: pair the form with a short reassurance list and an
+ * explicit statement of what happens after submission. Uncertainty about "what
+ * happens if I press this" is the main cause of abandonment at this stage.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+import Form from '../../components/primitives/Form.astro';
+
+const {
+  id,
+  tone = 'raised',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  width = 'base',
+  form,
+  reassurance = [],
+  afterSubmit,
+} = Astro.props;
+---
+
+<Section block="ApplicationForm" {id} {tone} {pad} class="baf">
+  <Container {width}>
+    <div class="baf__grid">
+      <div class="baf__copy">
+        <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} />
+
+        {
+          reassurance.length > 0 && (
+            <ul class="baf__reassurance">
+              {reassurance.map((item: string) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          )
+        }
+
+        {
+          afterSubmit && (
+            <p class="baf__after">
+              <span>What happens next</span>
+              {afterSubmit}
+            </p>
+          )
+        }
+      </div>
+
+      <div class="baf__form">
+        <Form
+          action={form.action}
+          fields={form.fields}
+          submitLabel={form.submitLabel}
+          consentNote={form.consentNote}
+          layout="two-col"
+        />
+      </div>
+    </div>
+  </Container>
+</Section>
+
+<style>
+  .baf__grid {
+    display: grid;
+    gap: clamp(2rem, 1.5rem + 3vw, 4rem);
+    align-items: start;
+  }
+  @media (min-width: 960px) {
+    .baf__grid {
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    }
+  }
+  .baf__copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+  .baf__reassurance {
+    display: grid;
+    gap: var(--space-3);
+  }
+  .baf__reassurance li {
+    position: relative;
+    padding-left: 1.9rem;
+    line-height: var(--lh-relaxed);
+    color: var(--text-muted);
+  }
+  .baf__reassurance li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: var(--fw-bold);
+  }
+  .baf__after {
+    margin: 0;
+    padding: var(--space-5);
+    background: color-mix(in oklab, var(--accent) 8%, transparent);
+    border-left: 2px solid var(--accent);
+    border-radius: var(--radius-xs);
+    font-size: var(--fs-sm);
+    line-height: var(--lh-relaxed);
+    color: var(--text-muted);
+  }
+  .baf__after span {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-widest);
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .baf__form {
+    padding: clamp(1.5rem, 1.1rem + 1.6vw, 2.5rem);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius);
+  }
+</style>

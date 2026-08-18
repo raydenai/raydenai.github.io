@@ -1,0 +1,53 @@
+---
+/**
+ * AuthorityQuote — one borrowed endorsement, given a whole section.
+ * ---------------------------------------------------------------------------
+ * The corpus's most efficient trust device: a single quote from someone the
+ * audience already respects, placed high on the page.
+ *
+ * Reference: Mike Koenigs puts a Tony Robbins quote immediately below the fold;
+ * Christian Simpson uses a peer endorsement as block two; Steve Rodgers uses
+ * Marshall Goldsmith.
+ *
+ * Rule: the endorser's authority must exceed the site owner's in the reader's
+ * mind, otherwise use TestimonialGrid instead.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import TestimonialCard from '../../components/primitives/TestimonialCard.astro';
+
+const {
+  id,
+  tone = 'inverse',
+  pad = 'default',
+  eyebrow,
+  width = 'content',
+  testimonial,
+} = Astro.props;
+---
+
+<Section block="AuthorityQuote" {id} {tone} {pad} class="baq">
+  <Container {width}>
+    {eyebrow && <p class="baq__eyebrow u-eyebrow">{eyebrow}</p>}
+    <TestimonialCard
+      quote={testimonial.quote}
+      author={testimonial.author}
+      role={testimonial.role}
+      company={testimonial.company}
+      avatar={testimonial.avatar}
+      rating={testimonial.rating}
+      variant="feature"
+      class="baq__quote"
+    />
+  </Container>
+</Section>
+
+<style>
+  .baq__eyebrow {
+    display: block;
+    margin-bottom: var(--space-6);
+  }
+  .baq :global(.baq__quote .at__quote) {
+    font-size: var(--fs-xl);
+  }
+</style>

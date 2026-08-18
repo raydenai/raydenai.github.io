@@ -1,0 +1,122 @@
+---
+/**
+ * LeadMagnet — the named, specific offer in exchange for an email.
+ * ---------------------------------------------------------------------------
+ * 80% of the corpus runs one. What separates the good from the ignored is
+ * naming and specificity:
+ *
+ *   weak   — "Sign up for my newsletter"
+ *   strong — "7 Big Mistakes To Avoid When Selling Your Medical Billing
+ *             Business" (Rosebell Murigu)
+ *   strong — "Rigged: 9 Secret Ways the System Screws Injured People" (The PLF)
+ *   strong — "The Abundance Appraisal" — a quiz reframed as a professional
+ *             assessment (Eric Tippetts)
+ *
+ * Field-count rule: two fields max for a top-of-funnel magnet. Every extra
+ * field is a measurable drop in completion for zero qualification gain at this
+ * stage — qualify later, in ApplicationForm.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+import Form from '../../components/primitives/Form.astro';
+
+const {
+  id,
+  tone = 'accent',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  width = 'base',
+  magnetName,
+  benefits = [],
+  mockup,
+  mediaSide = 'left',
+  form,
+} = Astro.props;
+---
+
+<Section block="LeadMagnet" {id} {tone} {pad} grain class="blm">
+  <Container {width}>
+    <div class="u-split" data-media={mediaSide} data-ratio={mockup ? '40-60' : undefined}>
+      {
+        mockup && (
+          <div class="blm__mockup">
+            <img
+              src={mockup.src}
+              alt={mockup.alt}
+              width={mockup.width ?? 720}
+              height={mockup.height ?? 900}
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        )
+      }
+
+      <div class="blm__copy">
+        <BlockHeader eyebrow={eyebrow ?? magnetName} {heading} {mark} {subheading} {body} />
+
+        {
+          benefits.length > 0 && (
+            <ul class="blm__benefits">
+              {benefits.map((benefit: string) => (
+                <li>{benefit}</li>
+              ))}
+            </ul>
+          )
+        }
+
+        <div class="blm__form">
+          <Form
+            action={form.action}
+            fields={form.fields}
+            submitLabel={form.submitLabel}
+            consentNote={form.consentNote}
+            layout={form.fields.length <= 2 ? 'inline' : 'stacked'}
+          />
+        </div>
+      </div>
+    </div>
+  </Container>
+</Section>
+
+<style>
+  .blm__copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+  .blm__benefits {
+    display: grid;
+    gap: var(--space-3);
+  }
+  .blm__benefits li {
+    position: relative;
+    padding-left: 1.9rem;
+    line-height: var(--lh-relaxed);
+  }
+  .blm__benefits li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    font-weight: var(--fw-bold);
+    opacity: 0.85;
+  }
+  .blm__form {
+    max-width: 34rem;
+  }
+  .blm__mockup img {
+    width: 100%;
+    max-width: 22rem;
+    filter: drop-shadow(0 22px 42px rgb(0 0 0 / 0.34));
+  }
+  @media (max-width: 899px) {
+    .blm__mockup {
+      max-width: 15rem;
+    }
+  }
+</style>

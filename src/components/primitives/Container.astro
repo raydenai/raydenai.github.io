@@ -1,0 +1,20 @@
+---
+/**
+ * Container — horizontal measure control.
+ * Defaults to 1140px, the modal container width across the analysed corpus.
+ */
+interface Props {
+  width?: 'narrow' | 'content' | 'base' | 'wide' | 'full';
+  class?: string;
+  as?: 'div' | 'header' | 'footer' | 'nav';
+}
+
+const { width = 'base', class: className = '', as: Tag = 'div' } = Astro.props;
+---
+
+<Tag
+  class:list={['u-container', className]}
+  data-width={width === 'base' ? undefined : width}
+>
+  <slot />
+</Tag>

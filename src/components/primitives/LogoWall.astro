@@ -1,0 +1,105 @@
+---
+/**
+ * LogoWall — the "As Seen In" borrowed-authority device.
+ * Static wrap grid by default; infinite marquee when there are many logos.
+ */
+interface Props {
+  logos: { src: string; alt: string; href?: string; width?: number }[];
+  marquee?: boolean;
+  grayscale?: boolean;
+}
+
+const { logos, marquee = false, grayscale = true } = Astro.props;
+/* Duplicate the row so the marquee loop is seamless. */
+const row = marquee ? [...logos, ...logos] : logos;
+---
+
+<div class="al" data-marquee={marquee ? 'true' : undefined} data-grayscale={grayscale ? 'true' : undefined}>
+  <div class="al__track">
+    {
+      row.map((logo, i) => {
+        const img = (
+          <img
+            src={logo.src}
+            alt={logo.alt}
+            loading="lazy"
+            decoding="async"
+            width={logo.width ?? 132}
+            height="40"
+            style={logo.width ? `--al-w:${logo.width}px` : undefined}
+          />
+        );
+        return (
+          <div class="al__item" aria-hidden={marquee && i >= logos.length ? 'true' : undefined}>
+            {logo.href ? (
+              <a href={logo.href} rel="noopener noreferrer" target="_blank">
+                {img}
+              </a>
+            ) : (
+              img
+            )}
+          </div>
+        );
+      })
+    }
+  </div>
+</div>
+
+<style>
+  .al {
+    width: 100%;
+  }
+  .al__track {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(1.75rem, 1rem + 3vw, 3.75rem);
+  }
+  .al__item img {
+    width: var(--al-w, auto);
+    max-width: 9rem;
+    height: clamp(1.5rem, 1.1rem + 1vw, 2.25rem);
+    object-fit: contain;
+  }
+  .al[data-grayscale='true'] .al__item img {
+    filter: grayscale(1) brightness(1.9) contrast(0.6);
+    opacity: 0.62;
+    transition:
+      opacity var(--dur-base) var(--ease-out),
+      filter var(--dur-base) var(--ease-out);
+  }
+  .al[data-grayscale='true'] .al__item:hover img {
+    filter: grayscale(0);
+    opacity: 1;
+  }
+  [data-tone='inverse'] .al[data-grayscale='true'] .al__item img {
+    filter: grayscale(1) brightness(0.4) contrast(1.4);
+  }
+
+  .al[data-marquee='true'] {
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .al[data-marquee='true'] .al__track {
+    flex-wrap: nowrap;
+    width: max-content;
+    animation: al-scroll 42s linear infinite;
+  }
+  .al[data-marquee='true']:hover .al__track {
+    animation-play-state: paused;
+  }
+  @keyframes al-scroll {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .al[data-marquee='true'] .al__track {
+      animation: none;
+      flex-wrap: wrap;
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

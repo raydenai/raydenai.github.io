@@ -1,0 +1,211 @@
+---
+/**
+ * BaseLayout — the document shell.
+ * ---------------------------------------------------------------------------
+ * Owns everything that must be identical on every page of every client site:
+ * head metadata, theme application, font loading, structured data, analytics,
+ * header, footer, and the shared lightbox.
+ *
+ * Because the theme is applied as a `data-theme` attribute on <html>, an entire
+ * site can be re-skinned by changing one string in the brand file.
+ */
+import type { CollectionEntry } from 'astro:content';
+import '../styles/global.css';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import Lightbox from '../components/layout/Lightbox.astro';
+import AnnouncementBar from '../components/layout/AnnouncementBar.astro';
+
+interface Props {
+  brand: CollectionEntry<'brand'>['data'];
+  title: string;
+  description: string;
+  ogImage?: string;
+  noindex?: boolean;
+  schema?: string;
+  transparentHeader?: boolean;
+  bodyClass?: string;
+}
+
+const {
+  brand,
+  title,
+  description,
+  ogImage,
+  noindex = false,
+  schema,
+  transparentHeader = true,
+  bodyClass = '',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).href;
+const socialImage = ogImage ?? brand.assets.ogImage?.src ?? brand.assets.portrait?.src;
+const socialImageUrl = socialImage
+  ? new URL(socialImage, Astro.site ?? Astro.url.origin).href
+  : undefined;
+
+const nav = brand.nav.map((item) => ({ label: item.label, href: item.href }));
+const footerNav = brand.footerNav.map((group) => ({
+  title: group.heading,
+  links: group.links,
+}));
+const social = brand.social.map((s) => ({ platform: s.platform, url: s.href }));
+
+const optin = brand.conversion.leadMagnet
+  ? {
+      title: brand.conversion.leadMagnet.name,
+      description: brand.conversion.leadMagnet.promise,
+      form: {
+        action: brand.conversion.leadMagnet.formAction,
+        fields: ['firstName', 'email'] as const,
+        submitLabel: 'Send it to me',
+        consentNote: 'No spam. Unsubscribe any time.',
+      },
+    }
+  : undefined;
+---
+
+<!doctype html>
+<html lang="en" data-theme={brand.theme}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={brand.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {socialImageUrl && <meta property="og:image" content={socialImageUrl} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {socialImageUrl && <meta name="twitter:image" content={socialImageUrl} />}
+
+    {brand.assets.favicon && <link rel="icon" href={brand.assets.favicon} />}
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Fonts: preconnect + a single stylesheet request, display=swap.
+         Self-hosting is preferred in production; see docs/DEPLOYMENT.md. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&display=swap"
+    />
+
+    <!-- Marks the document as script-capable so the scroll-reveal hidden state
+         can be applied. Without JS nothing is ever hidden. Inline and first so
+         it runs before paint and avoids a flash of revealed content. -->
+    <script is:inline>
+      document.documentElement.dataset.js = 'true';
+    </script>
+
+    {schema && <script type="application/ld+json" is:inline set:html={schema} />}
+
+    {
+      brand.integrations.gtmId && (
+        <script
+          is:inline
+          define:vars={{ gtmId: brand.integrations.gtmId }}
+          set:html={`window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=document.getElementsByTagName('script')[0],j=document.createElement('script');j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+gtmId;f.parentNode.insertBefore(j,f);`}
+        />
+      )
+    }
+  </head>
+
+  <body class={bodyClass}>
+    <a class="u-skip-link" href="#main">Skip to content</a>
+
+    {
+      brand.announcement?.active && (
+        <AnnouncementBar
+          message={brand.announcement.text}
+          cta={{ label: 'Learn more', href: brand.announcement.href }}
+        />
+      )
+    }
+
+    <Header
+      brand={{ name: brand.name, logoUrl: brand.assets.logo?.src }}
+      {nav}
+      cta={brand.conversion.primaryCta}
+      transparent={transparentHeader}
+    />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Footer
+      brand={{ name: brand.name, legalName: brand.legal.entity }}
+      nav={footerNav}
+      {social}
+      legal={brand.legal.links}
+      {optin}
+      tagline={brand.tagline}
+    />
+
+    <Lightbox />
+
+    <script>
+      /* Scroll reveal: one observer for every [data-reveal] element on the page.
+         Opt-out is automatic under prefers-reduced-motion (handled in CSS). */
+      const reveals = document.querySelectorAll<HTMLElement>('[data-reveal]');
+      if (reveals.length && 'IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              entry.target.setAttribute('data-revealed', 'true');
+              observer.unobserve(entry.target);
+            });
+          },
+          { rootMargin: '0px 0px -12% 0px', threshold: 0.08 },
+        );
+        reveals.forEach((el) => observer.observe(el));
+      } else {
+        reveals.forEach((el) => el.setAttribute('data-revealed', 'true'));
+      }
+
+      /* Analytics: every [data-event] element reports once on click. */
+      document.addEventListener('click', (event) => {
+        const el = (event.target as HTMLElement).closest<HTMLElement>('[data-event]');
+        if (!el) return;
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: el.dataset.event,
+          cta_label: el.textContent?.trim().slice(0, 80),
+          cta_intent: el.dataset.intent,
+          cta_href: el.getAttribute('href') ?? undefined,
+          page_path: window.location.pathname,
+        });
+      });
+
+      /* Scroll-depth milestones — needed to evaluate whether long persuasion
+         pages are actually being read. */
+      const seen = new Set<number>();
+      const milestones = [25, 50, 75, 100];
+      window.addEventListener(
+        'scroll',
+        () => {
+          const scrolled =
+            (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight;
+          const pct = Math.round(scrolled * 100);
+          milestones.forEach((m) => {
+            if (pct >= m && !seen.has(m)) {
+              seen.add(m);
+              window.dataLayer = window.dataLayer || [];
+              window.dataLayer.push({ event: 'scroll_depth', percent: m });
+            }
+          });
+        },
+        { passive: true },
+      );
+    </script>
+  </body>
+</html>

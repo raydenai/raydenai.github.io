@@ -1,0 +1,187 @@
+{
+  "path": "/speaking/",
+  "brand": "priya-raghavan",
+  "archetype": "speaking",
+  "seo": {
+    "title": "Speaking | Priya Raghavan",
+    "description": "Keynotes and working sessions on executive authority for conferences, private offsites and portfolio events. From $35,000.",
+    "schemaType": "WebPage"
+  },
+  "blocks": [
+    {
+      "type": "HeroVideoOverlay",
+      "tone": "inverse",
+      "pad": "loose",
+      "eyebrow": "Speaking",
+      "heading": "A ninety-minute working session disguised as a keynote.",
+      "mark": {
+        "word": "working session",
+        "style": "accent"
+      },
+      "subheading": "Audiences leave having scored their own authority gaps, not having watched someone describe theirs. No slide is longer than nine words.",
+      "background": {
+        "src": "/images/stage-wide.webp",
+        "alt": "Priya Raghavan speaking to a full auditorium",
+        "width": 1920,
+        "height": 1080
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "playLabel": "Watch the reel (2 min)",
+      "overlayOpacity": 0.58,
+      "ctas": [
+        {
+          "label": "Check availability",
+          "href": "/contact/",
+          "intent": "primary"
+        }
+      ]
+    },
+    {
+      "type": "LogoStrip",
+      "tone": "default",
+      "pad": "tight",
+      "eyebrow": "Recent stages",
+      "logos": [
+        {
+          "src": "/images/logos/forbes.svg",
+          "alt": "Forbes Leadership Summit",
+          "width": 92
+        },
+        {
+          "src": "/images/logos/hbr.svg",
+          "alt": "HBR Live",
+          "width": 168
+        },
+        {
+          "src": "/images/logos/fastcompany.svg",
+          "alt": "Fast Company Innovation Festival",
+          "width": 128
+        },
+        {
+          "src": "/images/logos/bloomberg.svg",
+          "alt": "Bloomberg Leadership Forum",
+          "width": 118
+        }
+      ]
+    },
+    {
+      "type": "SpeakingTopics",
+      "tone": "raised",
+      "pad": "default",
+      "eyebrow": "Signature talks",
+      "heading": "Three talks, each built for a specific room",
+      "mark": {
+        "word": "a specific room",
+        "style": "accent"
+      },
+      "subheading": "Every talk is rebuilt against your audience before delivery. The structure holds; the examples change.",
+      "reelUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "topics": [
+        {
+          "title": "The Quiet Authority",
+          "audience": "Founders and C-suite leaders",
+          "description": "Why the most capable person in the room is so often the least known outside it, and what the four-pillar alternative to louder self-promotion looks like in practice. The core talk, and the one most events book.",
+          "takeaways": [
+            "The difference between exposure and standing, and why only one compounds",
+            "A live diagnostic across the four pillars every attendee completes in the room",
+            "The three failure modes that waste most executive branding budgets"
+          ]
+        },
+        {
+          "title": "Your Expertise Is Not a Position",
+          "audience": "Professional services and advisory firms",
+          "description": "Firms sell expertise; buyers cannot evaluate expertise. This session covers how to convert what your people know into positions the market can compare, choose between and repeat accurately.",
+          "takeaways": [
+            "Why accurate self-description is the most common commercial error in advisory",
+            "How to name a method without inventing jargon",
+            "A workable process for making partner-level judgement portable"
+          ]
+        },
+        {
+          "title": "The Referenceable Leader",
+          "audience": "Executive teams and portfolio companies",
+          "description": "A team-level session on aligning individual authority with company narrative, so that senior leaders reinforce rather than compete with each other in market. Usually run as a half-day.",
+          "takeaways": [
+            "How to divide narrative territory across a leadership team",
+            "The company-versus-individual authority tension, resolved deliberately",
+            "A ninety-day plan each leader leaves the room holding"
+          ]
+        }
+      ],
+      "ctas": [
+        {
+          "label": "Check availability",
+          "href": "/contact/",
+          "intent": "primary"
+        }
+      ]
+    },
+    {
+      "type": "IconGrid",
+      "tone": "default",
+      "pad": "default",
+      "eyebrow": "For organisers",
+      "heading": "What you get when you book",
+      "align": "center",
+      "columns": 3,
+      "items": [
+        {
+          "icon": "check",
+          "title": "A rebuilt talk",
+          "description": "Two preparation calls, including one with three of your attendees, so the examples are drawn from your industry rather than mine."
+        },
+        {
+          "icon": "shield",
+          "title": "Zero admin friction",
+          "description": "Press kit, headshots, bio in three lengths, AV requirements and a signed contract within two business days of confirmation."
+        },
+        {
+          "icon": "sparkle",
+          "title": "Something to keep",
+          "description": "Every attendee receives the scored diagnostic and a follow-up note two weeks later, which measurably improves event feedback scores."
+        }
+      ]
+    },
+    {
+      "type": "AuthorityQuote",
+      "tone": "inverse",
+      "pad": "default",
+      "eyebrow": "From an organiser",
+      "testimonial": {
+        "quote": "Highest-rated session of the conference, and the only one attendees were still quoting at dinner. She rebuilt the whole talk around our industry after one call with three delegates.",
+        "author": "Helena Fischer",
+        "role": "Programme Director",
+        "company": "Bloomberg Leadership Forum",
+        "avatar": {
+          "src": "/images/avatar-4.webp",
+          "alt": "Helena Fischer",
+          "width": 256,
+          "height": 256
+        }
+      }
+    },
+    {
+      "type": "FinalCta",
+      "tone": "accent",
+      "pad": "loose",
+      "eyebrow": "Availability",
+      "heading": "Currently booking from the second quarter onward.",
+      "mark": {
+        "word": "second quarter",
+        "style": "underline"
+      },
+      "subheading": "Send the date, the audience and the outcome you need. I will tell you within two days whether I am the right speaker for it.",
+      "ctas": [
+        {
+          "label": "Check availability",
+          "href": "/contact/",
+          "intent": "primary"
+        }
+      ],
+      "reassurance": [
+        "Reply within two business days",
+        "Fee quoted upfront, no negotiation theatre"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,270 @@
+{
+  "name": "Priya Raghavan",
+  "title": "Executive Authority Advisor to Founders & C-Suite Leaders",
+  "tagline": "I help proven leaders stop performing competence and start commanding rooms.",
+  "archetype": "personal-authority-hub",
+  "theme": "obsidian-gold",
+  "positioning": {
+    "audience": "Founders and C-suite executives at companies between $20M and $500M in revenue who are respected internally but invisible externally",
+    "promise": "Within six months you will be the name that comes up in the room you are not in",
+    "differentiator": "Most executive coaching works on confidence. I work on evidence — the specific, repeatable assets that make authority undeniable before you ever open your mouth.",
+    "methodName": "The Quiet Authority Method",
+    "enemy": "Performance coaching that teaches executives to project louder instead of building something worth listening to"
+  },
+  "contact": {
+    "email": "office@priyaraghavan.com",
+    "phone": "+1 (415) 555-0142",
+    "location": "San Francisco, California",
+    "bookingUrl": "/contact/"
+  },
+  "social": [
+    {
+      "platform": "LinkedIn",
+      "href": "https://www.linkedin.com/",
+      "followers": "84,000"
+    },
+    {
+      "platform": "X",
+      "href": "https://x.com/",
+      "followers": "31,500"
+    },
+    {
+      "platform": "YouTube",
+      "href": "https://www.youtube.com/",
+      "followers": "12,400"
+    }
+  ],
+  "company": {
+    "name": "Raghavan Advisory",
+    "role": "Founder & Principal",
+    "url": "https://priyaraghavan.com"
+  },
+  "conversion": {
+    "primaryGoal": "book-call",
+    "primaryCta": {
+      "label": "Book a strategy call",
+      "href": "/contact/",
+      "intent": "primary",
+      "event": "book_call_click"
+    },
+    "secondaryCta": {
+      "label": "See how it works",
+      "href": "/method/",
+      "intent": "secondary"
+    },
+    "leadMagnet": {
+      "name": "The Authority Audit",
+      "type": "toolkit",
+      "promise": "A 12-point diagnostic that shows you exactly where your authority leaks — and which gap to close first.",
+      "formAction": "https://formspree.io/f/demo-authority-audit"
+    }
+  },
+  "proof": {
+    "stats": [
+      {
+        "value": "$4.2B+",
+        "label": "Enterprise value led",
+        "detail": "Combined revenue of client organisations"
+      },
+      {
+        "value": "270+",
+        "label": "Executives advised",
+        "detail": "Across 19 countries since 2013"
+      },
+      {
+        "value": "11",
+        "label": "IPOs & exits",
+        "detail": "Clients who led their company through a liquidity event"
+      },
+      {
+        "value": "94%",
+        "label": "Renewal rate",
+        "detail": "Clients who extend beyond the initial engagement"
+      }
+    ],
+    "mediaLogos": [
+      {
+        "src": "/images/logos/forbes.svg",
+        "alt": "Forbes",
+        "width": 92
+      },
+      {
+        "src": "/images/logos/hbr.svg",
+        "alt": "Harvard Business Review",
+        "width": 168
+      },
+      {
+        "src": "/images/logos/wsj.svg",
+        "alt": "The Wall Street Journal",
+        "width": 176
+      },
+      {
+        "src": "/images/logos/fastcompany.svg",
+        "alt": "Fast Company",
+        "width": 128
+      },
+      {
+        "src": "/images/logos/bloomberg.svg",
+        "alt": "Bloomberg",
+        "width": 118
+      },
+      {
+        "src": "/images/logos/inc.svg",
+        "alt": "Inc.",
+        "width": 56
+      }
+    ],
+    "clientLogos": [],
+    "testimonials": [],
+    "awards": [
+      {
+        "name": "Thinkers50 Radar Nominee",
+        "year": "2024"
+      },
+      {
+        "name": "Marshall Goldsmith 100 Coaches",
+        "year": "2021"
+      }
+    ]
+  },
+  "assets": {
+    "portrait": {
+      "src": "/images/portrait-hero.png",
+      "alt": "Priya Raghavan, executive authority advisor",
+      "width": 1200,
+      "height": 1500
+    },
+    "portraitAlt": {
+      "src": "/images/portrait-story.webp",
+      "alt": "Priya Raghavan in a client boardroom session",
+      "width": 1920,
+      "height": 1440
+    },
+    "signature": {
+      "src": "/images/signature.png",
+      "alt": "Priya Raghavan's signature",
+      "width": 500,
+      "height": 333
+    },
+    "ogImage": {
+      "src": "/images/portrait-story.webp",
+      "alt": "Priya Raghavan",
+      "width": 1920,
+      "height": 1440
+    }
+  },
+  "nav": [
+    {
+      "label": "About",
+      "href": "/about/",
+      "children": []
+    },
+    {
+      "label": "The Method",
+      "href": "/method/",
+      "children": []
+    },
+    {
+      "label": "Work With Me",
+      "href": "/work-with-me/",
+      "children": []
+    },
+    {
+      "label": "Speaking",
+      "href": "/speaking/",
+      "children": []
+    },
+    {
+      "label": "Insights",
+      "href": "/blog/",
+      "children": []
+    }
+  ],
+  "footerNav": [
+    {
+      "heading": "Work together",
+      "links": [
+        {
+          "label": "Executive advisory",
+          "href": "/work-with-me/#advisory"
+        },
+        {
+          "label": "Leadership team intensive",
+          "href": "/work-with-me/#intensive"
+        },
+        {
+          "label": "Keynotes",
+          "href": "/speaking/"
+        },
+        {
+          "label": "Book a call",
+          "href": "/contact/"
+        }
+      ]
+    },
+    {
+      "heading": "Learn",
+      "links": [
+        {
+          "label": "The Quiet Authority Method",
+          "href": "/method/"
+        },
+        {
+          "label": "Insights",
+          "href": "/blog/"
+        },
+        {
+          "label": "The Authority Audit",
+          "href": "/#authority-audit"
+        },
+        {
+          "label": "The book",
+          "href": "/about/#book"
+        }
+      ]
+    },
+    {
+      "heading": "About",
+      "links": [
+        {
+          "label": "Priya's story",
+          "href": "/about/"
+        },
+        {
+          "label": "Results",
+          "href": "/work-with-me/#results"
+        },
+        {
+          "label": "Press",
+          "href": "/about/#press"
+        },
+        {
+          "label": "Contact",
+          "href": "/contact/"
+        }
+      ]
+    }
+  ],
+  "legal": {
+    "entity": "Raghavan Advisory LLC",
+    "disclaimer": "Results described reflect the outcomes of specific engagements and are not a guarantee of future performance.",
+    "links": [
+      {
+        "label": "Privacy",
+        "href": "/privacy/"
+      },
+      {
+        "label": "Terms",
+        "href": "/terms/"
+      }
+    ]
+  },
+  "integrations": {
+    "formEndpoint": "https://formspree.io/f/demo-authority-audit"
+  },
+  "announcement": {
+    "text": "The Quiet Authority is out now — signed first-edition copies available.",
+    "href": "/about/#book",
+    "active": true
+  }
+}

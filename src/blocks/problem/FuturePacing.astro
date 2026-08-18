@@ -1,0 +1,117 @@
+---
+/**
+ * FuturePacing — "Just imagine…"
+ * ---------------------------------------------------------------------------
+ * Placed immediately after ProblemAgitation to create emotional contrast. The
+ * reader has just felt the pain; this shows the alternative timeline in
+ * concrete, sensory terms.
+ *
+ * Reference: Mathieu Jang ("Just Imagine — Making 2-10x more money each
+ * month…"), Dave Asprey ("With GREAT Energy. A Better Brain… In CONTROL.").
+ *
+ * Copy rule: outcomes must be observable by a third party. "More confidence" is
+ * weak; "walking into the board meeting without rehearsing in the car" is strong.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+import Portrait from '../../components/primitives/Portrait.astro';
+
+const {
+  id,
+  tone = 'default',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  width = 'base',
+  outcomes = [],
+  media,
+  mediaSide = 'right',
+} = Astro.props;
+---
+
+<Section block="FuturePacing" {id} {tone} {pad} glow class="bfp">
+  <Container width={media ? width : 'content'}>
+    {
+      media ? (
+        <div class="u-split" data-media={mediaSide}>
+          <div class="bfp__copy">
+            <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} {ctas} />
+            <ul class="bfp__list">
+              {outcomes.map((o: string) => (
+                <li>{o}</li>
+              ))}
+            </ul>
+          </div>
+          <Portrait
+            src={media.src}
+            alt={media.alt}
+            width={media.width}
+            height={media.height}
+            position={media.position}
+            treatment="framed"
+          />
+        </div>
+      ) : (
+        <div class="bfp__copy">
+          <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} {ctas} align="center" />
+          <ul class="bfp__list" data-center="true">
+            {outcomes.map((o: string) => (
+              <li>{o}</li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+  </Container>
+</Section>
+
+<style>
+  .bfp__copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+  .bfp__list {
+    display: grid;
+    gap: var(--space-4);
+  }
+  .bfp__list[data-center='true'] {
+    max-width: 44rem;
+    margin-inline: auto;
+    text-align: left;
+  }
+  .bfp__list li {
+    position: relative;
+    padding-left: 2.25rem;
+    font-size: var(--fs-md);
+    line-height: var(--lh-relaxed);
+    color: var(--text);
+  }
+  .bfp__list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: var(--radius-circle);
+    background: color-mix(in oklab, var(--accent) 22%, transparent);
+    border: 1px solid var(--accent);
+  }
+  .bfp__list li::after {
+    content: '';
+    position: absolute;
+    left: 0.34rem;
+    top: 0.78em;
+    width: 0.42rem;
+    height: 0.22rem;
+    border-left: 1.5px solid var(--accent);
+    border-bottom: 1.5px solid var(--accent);
+    rotate: -45deg;
+  }
+</style>

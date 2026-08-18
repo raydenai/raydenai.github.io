@@ -1,0 +1,103 @@
+---
+/**
+ * Gallery — the "life in the field" evidence grid.
+ * ---------------------------------------------------------------------------
+ * Photographs of the person on stage, with clients, in the work. For speakers
+ * and coaches this is stronger proof than a logo strip: it shows the room, the
+ * audience size, and the person's ease in front of it.
+ *
+ * Images open in the shared Lightbox.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+
+const {
+  id,
+  tone = 'default',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  align = 'start',
+  width = 'wide',
+  images = [],
+  columns = 3,
+} = Astro.props;
+---
+
+<Section block="Gallery" {id} {tone} {pad} class="bgl">
+  <Container {width}>
+    {
+      (eyebrow || heading || body) && (
+        <div class="bgl__head">
+          <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} {align} />
+        </div>
+      )
+    }
+
+    <ul class="bgl__grid" style={`--bgl-cols:${columns}`}>
+      {
+        images.map((image: any, i: number) => (
+          <li class="bgl__item" data-feature={i === 0 ? 'true' : undefined}>
+            <a href={image.src} data-modal="image" aria-label={image.alt}>
+              <img
+                src={image.src}
+                alt={image.alt}
+                width={image.width ?? 900}
+                height={image.height ?? 700}
+                loading="lazy"
+                decoding="async"
+                style={image.position ? `object-position:${image.position}` : undefined}
+              />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </Container>
+</Section>
+
+<style>
+  .bgl__head {
+    margin-bottom: var(--space-10);
+  }
+  .bgl__grid {
+    display: grid;
+    gap: clamp(0.5rem, 0.35rem + 0.6vw, 1rem);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @media (min-width: 760px) {
+    .bgl__grid {
+      grid-template-columns: repeat(var(--bgl-cols, 3), minmax(0, 1fr));
+    }
+    /* First image spans a 2x2 cell — breaks the monotony of an even grid. */
+    .bgl__item[data-feature='true'] {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+  }
+  .bgl__item a {
+    display: block;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    height: 100%;
+  }
+  .bgl__item img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    transition:
+      transform var(--dur-slow) var(--ease-out),
+      filter var(--dur-base) var(--ease-out);
+  }
+  .bgl__item[data-feature='true'] img {
+    aspect-ratio: 1;
+  }
+  .bgl__item a:hover img {
+    transform: scale(1.05);
+  }
+</style>

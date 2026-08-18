@@ -1,0 +1,118 @@
+---
+/**
+ * NumberedFramework — the sequential system, 01 → 0n.
+ * ---------------------------------------------------------------------------
+ * Where MethodologyPillars presents parallel principles, this presents an
+ * *ordered* process, which implies a proven path and reduces perceived risk.
+ *
+ * Reference: Christian Espinosa's Secure Methodology (01 Awareness, 02 Mindset,
+ * 03 Acknowledgement, 04 Communication, 05 Monotasking, 06 Empathy) and Jon
+ * Benson's "5-Step VSL Process™".
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+
+const {
+  id,
+  tone = 'default',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  align = 'start',
+  width = 'base',
+  methodName,
+  steps = [],
+  columns = 3,
+} = Astro.props;
+---
+
+<Section block="NumberedFramework" {id} {tone} {pad} class="bnf">
+  <Container {width}>
+    <div class="bnf__head">
+      {methodName && <p class="bnf__method">{methodName}</p>}
+      <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} {ctas} {align} />
+    </div>
+
+    <ol class="bnf__steps" style={`--bnf-cols:${columns}`}>
+      {
+        steps.map((step: any, i: number) => (
+          <li class="bnf__step">
+            <span class="bnf__num">{String(i + 1).padStart(2, '0')}</span>
+            <div class="bnf__body">
+              <h3 class="bnf__title">{step.title}</h3>
+              <p class="bnf__desc">{step.description}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </Container>
+</Section>
+
+<style>
+  .bnf__head {
+    margin-bottom: var(--space-12);
+  }
+  .bnf__method {
+    margin: 0 0 var(--space-4);
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-widest);
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .bnf__steps {
+    display: grid;
+    gap: 1px;
+    background: var(--border);
+    border-block: 1px solid var(--border);
+  }
+  @media (min-width: 720px) {
+    .bnf__steps {
+      grid-template-columns: repeat(min(var(--bnf-cols, 3), 2), minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 1024px) {
+    .bnf__steps {
+      grid-template-columns: repeat(var(--bnf-cols, 3), minmax(0, 1fr));
+    }
+  }
+  .bnf__step {
+    display: flex;
+    gap: var(--space-4);
+    padding: clamp(1.5rem, 1.1rem + 1.5vw, 2.5rem);
+    background: var(--surface);
+    transition: background-color var(--dur-base) var(--ease-out);
+  }
+  .bnf__step:hover {
+    background: var(--surface-raised);
+  }
+  .bnf__num {
+    font-family: var(--font-display);
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-black);
+    line-height: 1;
+    color: var(--accent);
+    flex: none;
+    font-variant-numeric: tabular-nums;
+  }
+  .bnf__body {
+    display: grid;
+    gap: var(--space-2);
+  }
+  .bnf__title {
+    font-size: var(--fs-md);
+    line-height: var(--lh-snug);
+  }
+  .bnf__desc {
+    margin: 0;
+    line-height: var(--lh-relaxed);
+    color: var(--text-muted);
+  }
+</style>

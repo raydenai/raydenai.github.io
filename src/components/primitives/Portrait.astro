@@ -1,0 +1,72 @@
+---
+/**
+ * Portrait — 93% of the analysed corpus leads with a cut-out portrait, so the
+ * treatment is a first-class, reusable primitive rather than per-block CSS.
+ *
+ * Treatments:
+ *   cutout   — transparent PNG with a deep drop shadow (the InfluEx signature)
+ *   framed   — rectangular image with border + radius
+ *   arch     — arched top (editorial / coach aesthetic)
+ *   duotone  — desaturated, high contrast (editorial / gritty)
+ */
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  position?: string;
+  treatment?: 'cutout' | 'framed' | 'arch' | 'duotone';
+  accentShape?: boolean;
+  priority?: boolean;
+  aspect?: string;
+  class?: string;
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  position,
+  treatment = 'cutout',
+  accentShape = false,
+  priority = false,
+  aspect,
+  class: className = '',
+} = Astro.props;
+---
+
+<figure
+  class:list={['u-portrait', 'ap', className]}
+  data-treatment={treatment}
+  data-accent-shape={accentShape ? 'true' : undefined}
+  style={aspect ? `--ap-aspect:${aspect}` : undefined}
+>
+  <img
+    {src}
+    {alt}
+    width={width ?? 900}
+    height={height ?? 1200}
+    loading={priority ? 'eager' : 'lazy'}
+    fetchpriority={priority ? 'high' : 'auto'}
+    decoding={priority ? 'sync' : 'async'}
+    style={position ? `object-position:${position}` : undefined}
+  />
+  <slot />
+</figure>
+
+<style>
+  .ap {
+    margin: 0;
+    position: relative;
+    isolation: isolate;
+  }
+  .ap img {
+    aspect-ratio: var(--ap-aspect, auto);
+  }
+  .ap[data-treatment='framed'] img,
+  .ap[data-treatment='duotone'] img,
+  .ap[data-treatment='arch'] img {
+    aspect-ratio: var(--ap-aspect, 4 / 5);
+  }
+</style>

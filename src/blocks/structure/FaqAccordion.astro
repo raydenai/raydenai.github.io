@@ -1,0 +1,129 @@
+---
+/**
+ * FaqAccordion — objection handling, and the AEO surface.
+ * ---------------------------------------------------------------------------
+ * Two jobs. First, answer the last three objections before the CTA. Second — and
+ * this is where the source corpus loses ground — an FAQ written as literal
+ * questions with self-contained answers is the most extractable content format
+ * for AI answer engines and Google rich results.
+ *
+ * Implementation notes:
+ *   - native <details>/<summary>, so it works with zero JS and is accessible
+ *   - the page layout collects these Q&As and emits FAQPage JSON-LD
+ *   - answers must stand alone (no "as mentioned above"), because they will be
+ *     quoted out of context by an answer engine
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+
+const {
+  id,
+  tone = 'default',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  align = 'start',
+  width = 'content',
+  faqs = [],
+} = Astro.props;
+---
+
+<Section block="FaqAccordion" {id} {tone} {pad} class="bfq">
+  <Container {width}>
+    <div class="bfq__head">
+      <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} {ctas} {align} />
+    </div>
+
+    <div class="bfq__list">
+      {
+        faqs.map((faq: any, i: number) => (
+          <details class="bfq__item" name="faq" open={i === 0 ? true : undefined}>
+            <summary class="bfq__q">
+              <span>{faq.question}</span>
+              <span class="bfq__icon" aria-hidden="true"></span>
+            </summary>
+            <div class="bfq__a">
+              {faq.answer.split(/\n\n+/).map((p: string) => (
+                <p>{p}</p>
+              ))}
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </Container>
+</Section>
+
+<style>
+  .bfq__head {
+    margin-bottom: var(--space-10);
+  }
+  .bfq__list {
+    border-top: 1px solid var(--border);
+  }
+  .bfq__item {
+    border-bottom: 1px solid var(--border);
+  }
+  .bfq__q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-5);
+    padding-block: var(--space-5);
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-display);
+    font-size: var(--fs-md);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-snug);
+    color: var(--text);
+    transition: color var(--dur-base) var(--ease-out);
+  }
+  .bfq__q::-webkit-details-marker {
+    display: none;
+  }
+  .bfq__q:hover {
+    color: var(--accent);
+  }
+  .bfq__icon {
+    position: relative;
+    flex: none;
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+  .bfq__icon::before,
+  .bfq__icon::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    background: var(--accent);
+  }
+  .bfq__icon::before {
+    width: 1.1rem;
+    height: 1.5px;
+  }
+  .bfq__icon::after {
+    width: 1.5px;
+    height: 1.1rem;
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+  .bfq__item[open] .bfq__icon::after {
+    transform: scaleY(0);
+  }
+  .bfq__a {
+    display: grid;
+    gap: var(--space-3);
+    padding-bottom: var(--space-6);
+    max-width: 68ch;
+  }
+  .bfq__a p {
+    line-height: var(--lh-relaxed);
+    color: var(--text-muted);
+  }
+</style>

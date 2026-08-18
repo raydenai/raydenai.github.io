@@ -1,0 +1,173 @@
+---
+/**
+ * HeroVideoOverlay
+ * ---------------------------------------------------------------------------
+ * Full-bleed image with a lightbox play affordance. Highest-impact hero when a
+ * strong sizzle reel or manifesto film exists — the film does the persuading.
+ *
+ * Reference builds: Rutherford Group, The People's Law Firm, Eric Tippetts.
+ *
+ * Performance note: the video iframe is never in the initial HTML. It is
+ * injected on click by the shared Lightbox, so this hero costs one image.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+
+const {
+  id,
+  tone = 'default',
+  pad = 'loose',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  width = 'content',
+  background,
+  videoUrl,
+  overlayOpacity = 0.55,
+  playLabel = 'Play film',
+} = Astro.props;
+---
+
+<Section block="HeroVideoOverlay" {id} {tone} {pad} grain class="hvo">
+  <div class="hvo__bg" aria-hidden="true">
+    <img
+      src={background.src}
+      alt=""
+      width={background.width ?? 1920}
+      height={background.height ?? 1080}
+      loading="eager"
+      fetchpriority="high"
+      style={background.position ? `object-position:${background.position}` : undefined}
+    />
+    <span class="hvo__scrim" style={`--hvo-opacity:${overlayOpacity}`}></span>
+  </div>
+
+  <Container {width}>
+    <div class="hvo__inner">
+      <BlockHeader
+        {eyebrow}
+        {heading}
+        {mark}
+        {subheading}
+        {body}
+        {ctas}
+        align="center"
+        level={1}
+        size="display-1"
+      />
+
+      <button class="hvo__play" data-modal="video" data-video={videoUrl} type="button">
+        <span class="hvo__play-icon" aria-hidden="true">
+          <svg width="18" height="20" viewBox="0 0 18 20" fill="currentColor">
+            <path d="M17 8.27a2 2 0 0 1 0 3.46L3 19.8A2 2 0 0 1 0 18.07V1.93A2 2 0 0 1 3 .2z"></path>
+          </svg>
+        </span>
+        <span class="hvo__play-label">{playLabel}</span>
+      </button>
+    </div>
+  </Container>
+</Section>
+
+<style>
+  .hvo {
+    overflow: clip;
+    display: grid;
+    place-items: center;
+    min-height: min(92vh, 48rem);
+  }
+  .hvo__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hvo__bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hvo__scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      color-mix(in oklab, #000 calc(var(--hvo-opacity) * 70%), transparent),
+      color-mix(in oklab, #000 calc(var(--hvo-opacity) * 115%), transparent)
+    );
+  }
+  .hvo .u-container {
+    position: relative;
+    z-index: 2;
+  }
+  .hvo__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-8);
+    text-align: center;
+  }
+
+  .hvo__play {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: 0;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    color: var(--text);
+  }
+  .hvo__play-icon {
+    display: grid;
+    place-items: center;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: var(--radius-circle);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    transition:
+      background-color var(--dur-base) var(--ease-out),
+      color var(--dur-base) var(--ease-out),
+      transform var(--dur-base) var(--ease-out);
+  }
+  .hvo__play-icon::after {
+    content: '';
+    position: absolute;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: var(--radius-circle);
+    border: 1px solid var(--accent);
+    animation: hvo-pulse 2.6s var(--ease-out) infinite;
+  }
+  .hvo__play:hover .hvo__play-icon {
+    background: var(--accent);
+    color: var(--accent-contrast);
+    transform: scale(1.06);
+  }
+  .hvo__play-label {
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-widest);
+    text-transform: uppercase;
+  }
+  @keyframes hvo-pulse {
+    0% {
+      opacity: 0.7;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.55);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hvo__play-icon::after {
+      animation: none;
+      opacity: 0;
+    }
+  }
+</style>

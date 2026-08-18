@@ -1,0 +1,213 @@
+---
+/**
+ * Blog index — the organic search and AI-answer surface.
+ */
+import { getCollection, getEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+import { personSchema, websiteSchema, graph } from '../../lib/schema';
+
+const brandEntry = (await getCollection('brand'))[0];
+const brand = brandEntry.data;
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime(),
+);
+
+const siteUrl = (Astro.site ?? new URL(Astro.url.origin)).href.replace(/\/$/, '');
+const brandForSchema = {
+  person: {
+    name: brand.name,
+    jobTitle: brand.title,
+    bio: brand.positioning.promise,
+    portraitUrl: brand.assets.portrait?.src,
+  },
+  social: brand.social.map((s) => ({ platform: s.platform, url: s.href })),
+  site: { url: `${siteUrl}/`, name: brand.name },
+};
+
+const schema = graph([personSchema(brandForSchema), websiteSchema(brandForSchema)]);
+const dateFmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+const [featured, ...rest] = posts;
+---
+
+<BaseLayout
+  {brand}
+  title={`Insights | ${brand.name}`}
+  description={`Essays and field notes from ${brand.name} on ${brand.positioning.audience}.`}
+  {schema}
+  transparentHeader={false}
+>
+  <Section block="BlogIndex" pad="default">
+    <Container width="wide">
+      <BlockHeader
+        eyebrow="Insights"
+        heading="Field notes and essays"
+        mark={{ word: 'essays', style: 'accent' }}
+        subheading={`Practical thinking on ${brand.positioning.audience.toLowerCase()}.`}
+        size="display-2"
+        level={1}
+      />
+
+      {
+        featured && (
+          <a class="bi__featured" href={`/blog/${featured.id}/`}>
+            {featured.data.cover && (
+              <img
+                src={featured.data.cover.src}
+                alt={featured.data.cover.alt}
+                width="1200"
+                height="700"
+                loading="eager"
+              />
+            )}
+            <div class="bi__featured-body">
+              <div class="bi__meta">
+                {featured.data.category && <span class="bi__cat">{featured.data.category}</span>}
+                <time datetime={featured.data.publishDate.toISOString()}>
+                  {dateFmt.format(featured.data.publishDate)}
+                </time>
+                {featured.data.readingTime && <span>{featured.data.readingTime}</span>}
+              </div>
+              <h2>{featured.data.title}</h2>
+              <p>{featured.data.description}</p>
+              <span class="bi__more">Read the article →</span>
+            </div>
+          </a>
+        )
+      }
+
+      {
+        rest.length > 0 && (
+          <ul class="u-grid bi__grid" style="--cols:3;--cols-tablet:2">
+            {rest.map((post) => (
+              <li>
+                <a class="bi__card" href={`/blog/${post.id}/`}>
+                  {post.data.cover && (
+                    <img
+                      src={post.data.cover.src}
+                      alt={post.data.cover.alt}
+                      width="800"
+                      height="500"
+                      loading="lazy"
+                    />
+                  )}
+                  <div class="bi__card-body">
+                    <div class="bi__meta">
+                      {post.data.category && <span class="bi__cat">{post.data.category}</span>}
+                      <time datetime={post.data.publishDate.toISOString()}>
+                        {dateFmt.format(post.data.publishDate)}
+                      </time>
+                    </div>
+                    <h2>{post.data.title}</h2>
+                    <p>{post.data.description}</p>
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </Container>
+  </Section>
+</BaseLayout>
+
+<style>
+  .bi__featured {
+    display: grid;
+    gap: clamp(1.5rem, 1rem + 2.5vw, 3rem);
+    margin-top: var(--space-12);
+    padding-bottom: clamp(2.5rem, 2rem + 2vw, 4rem);
+    border-bottom: 1px solid var(--border);
+  }
+  @media (min-width: 900px) {
+    .bi__featured {
+      grid-template-columns: 1.15fr 1fr;
+      align-items: center;
+    }
+  }
+  .bi__featured img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: var(--card-radius);
+  }
+  .bi__featured-body {
+    display: grid;
+    gap: var(--space-4);
+  }
+  .bi__featured-body h2 {
+    font-size: var(--fs-2xl);
+    line-height: var(--lh-tight);
+  }
+  .bi__featured-body p {
+    margin: 0;
+    font-size: var(--fs-md);
+    line-height: var(--lh-relaxed);
+    color: var(--text-muted);
+  }
+  .bi__grid {
+    margin-top: clamp(2.5rem, 2rem + 2vw, 4rem);
+  }
+  .bi__card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    background: var(--card-bg);
+    transition:
+      border-color var(--dur-base) var(--ease-out),
+      transform var(--dur-base) var(--ease-out);
+  }
+  .bi__card:hover {
+    border-color: color-mix(in oklab, var(--accent) 55%, transparent);
+    transform: translateY(-4px);
+  }
+  .bi__card img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+  .bi__card-body {
+    display: grid;
+    gap: var(--space-3);
+    padding: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  }
+  .bi__card-body h2 {
+    font-size: var(--fs-md);
+    line-height: var(--lh-snug);
+  }
+  .bi__card-body p {
+    margin: 0;
+    font-size: var(--fs-sm);
+    line-height: var(--lh-relaxed);
+    color: var(--text-muted);
+  }
+  .bi__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--fs-xs);
+    color: var(--text-subtle);
+  }
+  .bi__cat {
+    font-family: var(--font-display);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .bi__more {
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+</style>

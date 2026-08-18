@@ -1,0 +1,160 @@
+---
+/**
+ * Manifesto — "I believe…"
+ * ---------------------------------------------------------------------------
+ * 63% of the corpus carries an explicit belief statement. It converts a service
+ * provider into a point of view, which is what makes a personal brand
+ * defensible against a cheaper competitor.
+ *
+ * Reference: Mike Dillard ("I Believe You're Meant For More…"), RJon Robins
+ * ("Running a business is amongst one of the highest callings of a human
+ * being"), The PLF ("We're not just a law firm. We're a movement"),
+ * Scott Jarred ("Traditional thinking has limited the financial industry").
+ *
+ * Optional video: when a founder film exists, it belongs here, not in the hero.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+
+const {
+  id,
+  tone = 'accent',
+  pad = 'loose',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  align = 'center',
+  width = 'content',
+  beliefs = [],
+  videoUrl,
+  signature,
+  attribution,
+} = Astro.props;
+---
+
+<Section block="Manifesto" {id} {tone} {pad} grain class="bmf">
+  <Container {width}>
+    <div class="bmf__inner">
+      <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} {align} size="display-3" />
+
+      {
+        beliefs.length > 0 && (
+          <ul class="bmf__beliefs">
+            {beliefs.map((belief: string) => (
+              <li>{belief}</li>
+            ))}
+          </ul>
+        )
+      }
+
+      {
+        videoUrl && (
+          <button class="bmf__video" type="button" data-modal="video" data-video={videoUrl}>
+            <span aria-hidden="true">▶</span>
+            <span>Watch the manifesto</span>
+          </button>
+        )
+      }
+
+      {
+        signature && (
+          <img
+            class="bmf__signature"
+            src={signature.src}
+            alt={signature.alt}
+            width={signature.width ?? 240}
+            height={signature.height ?? 80}
+            loading="lazy"
+          />
+        )
+      }
+
+      {attribution && <p class="bmf__attribution">{attribution}</p>}
+
+      {
+        ctas.length > 0 && (
+          <div class="u-cluster bmf__ctas">
+            {ctas.map((cta: any) => (
+              <a class="u-btn" data-variant="inverse" href={cta.href} data-size="lg">
+                {cta.label}
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </Container>
+</Section>
+
+<style>
+  .bmf__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-8);
+    text-align: center;
+  }
+  .bmf__beliefs {
+    display: grid;
+    gap: var(--space-4);
+    max-width: 46rem;
+    text-align: left;
+  }
+  .bmf__beliefs li {
+    position: relative;
+    padding-left: 2.4rem;
+    font-family: var(--font-accent);
+    font-size: var(--fs-lg);
+    line-height: var(--lh-snug);
+    text-transform: none;
+  }
+  .bmf__beliefs li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 1.5rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.55;
+  }
+  .bmf__video {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 0.8em 1.6em;
+    background: transparent;
+    border: 1px solid currentColor;
+    border-radius: var(--btn-radius);
+    color: inherit;
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity var(--dur-base) var(--ease-out);
+  }
+  .bmf__video:hover {
+    opacity: 0.75;
+  }
+  .bmf__signature {
+    width: clamp(9rem, 8rem + 4vw, 13rem);
+  }
+  .bmf__attribution {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-widest);
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+  .bmf__ctas {
+    justify-content: center;
+  }
+</style>

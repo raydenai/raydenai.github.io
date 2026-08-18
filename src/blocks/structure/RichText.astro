@@ -1,0 +1,60 @@
+---
+/**
+ * RichText — the escape hatch.
+ * ---------------------------------------------------------------------------
+ * Long-form prose for About pages, legal pages, and anything that does not
+ * deserve a bespoke block. Content is Markdown, rendered at build time.
+ *
+ * Deliberately the only block that accepts free-form markup: every other block
+ * takes structured fields. This is what keeps the system from degrading into a
+ * page builder where each site drifts into custom HTML.
+ */
+import { marked } from 'marked';
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+
+const {
+  id,
+  tone = 'default',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  align = 'start',
+  width = 'content',
+  markdown = '',
+  dropCap = false,
+} = Astro.props;
+
+const html = await marked.parse(markdown, { async: true });
+---
+
+<Section block="RichText" {id} {tone} {pad} class="brt">
+  <Container {width}>
+    {
+      (eyebrow || heading) && (
+        <div class="brt__head">
+          <BlockHeader {eyebrow} {heading} {mark} {subheading} {align} />
+        </div>
+      )
+    }
+    <div class="u-prose brt__body" data-drop-cap={dropCap ? 'true' : undefined} set:html={html} />
+  </Container>
+</Section>
+
+<style>
+  .brt__head {
+    margin-bottom: var(--space-8);
+  }
+  .brt__body[data-drop-cap='true'] > p:first-of-type::first-letter {
+    float: left;
+    font-family: var(--font-display);
+    font-size: 3.6em;
+    font-weight: var(--fw-bold);
+    line-height: 0.82;
+    padding: 0.08em 0.12em 0 0;
+    color: var(--accent);
+  }
+</style>

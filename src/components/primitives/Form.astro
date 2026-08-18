@@ -1,0 +1,327 @@
+---
+/**
+ * Form — one primitive for every capture point in the system.
+ *
+ * Supports two shapes:
+ *  1. shorthand field names ('firstName' | 'email' | ...) for opt-in blocks
+ *  2. full field objects for application / contact blocks
+ *
+ * Submission is provider-agnostic: `action` can be a ConvertKit/Mailchimp/
+ * Formspree endpoint, or an internal API route. Progressive enhancement gives
+ * inline success/error states without blocking on JS.
+ */
+type ShorthandField = 'firstName' | 'lastName' | 'email' | 'phone' | 'company';
+
+type FullField = {
+  name: string;
+  label: string;
+  type: 'text' | 'email' | 'tel' | 'textarea' | 'select' | 'checkbox';
+  required?: boolean;
+  options?: string[];
+  placeholder?: string;
+};
+
+interface Props {
+  action: string;
+  fields: (ShorthandField | FullField)[];
+  submitLabel: string;
+  consentNote?: string;
+  layout?: 'stacked' | 'inline' | 'two-col';
+  size?: 'sm' | 'default' | 'lg';
+  class?: string;
+}
+
+const {
+  action,
+  fields,
+  submitLabel,
+  consentNote,
+  layout = 'stacked',
+  size = 'default',
+  class: className = '',
+} = Astro.props;
+
+const shorthandMap: Record<ShorthandField, FullField> = {
+  firstName: { name: 'first_name', label: 'First name', type: 'text', required: true, placeholder: 'First name' },
+  lastName: { name: 'last_name', label: 'Last name', type: 'text', required: false, placeholder: 'Last name' },
+  email: { name: 'email', label: 'Email address', type: 'email', required: true, placeholder: 'you@company.com' },
+  phone: { name: 'phone', label: 'Phone', type: 'tel', required: false, placeholder: 'Phone number' },
+  company: { name: 'company', label: 'Company', type: 'text', required: false, placeholder: 'Company' },
+};
+
+const resolved: FullField[] = fields.map((f) =>
+  typeof f === 'string' ? shorthandMap[f] : f,
+);
+---
+
+<form
+  class:list={['af', className]}
+  data-layout={layout}
+  data-size={size}
+  method="post"
+  {action}
+  novalidate
+>
+  <div class="af__fields">
+    {
+      resolved.map((field) => (
+        <div class="af__field" data-type={field.type}>
+          <label class="af__label" for={`af-${field.name}`}>
+            {field.label}
+            {field.required && <span aria-hidden="true"> *</span>}
+          </label>
+
+          {field.type === 'textarea' ? (
+            <textarea
+              id={`af-${field.name}`}
+              name={field.name}
+              rows="4"
+              required={field.required}
+              placeholder={field.placeholder}
+            />
+          ) : field.type === 'select' ? (
+            <select id={`af-${field.name}`} name={field.name} required={field.required}>
+              <option value="">Select one…</option>
+              {(field.options ?? []).map((opt) => (
+                <option value={opt}>{opt}</option>
+              ))}
+            </select>
+          ) : field.type === 'checkbox' ? (
+            <input
+              id={`af-${field.name}`}
+              name={field.name}
+              type="checkbox"
+              required={field.required}
+            />
+          ) : (
+            <input
+              id={`af-${field.name}`}
+              name={field.name}
+              type={field.type}
+              required={field.required}
+              placeholder={field.placeholder}
+              autocomplete={
+                field.type === 'email'
+                  ? 'email'
+                  : field.name === 'first_name'
+                    ? 'given-name'
+                    : field.name === 'last_name'
+                      ? 'family-name'
+                      : field.type === 'tel'
+                        ? 'tel'
+                        : 'on'
+              }
+            />
+          )}
+        </div>
+      ))
+    }
+
+    <button type="submit" class="u-btn af__submit" data-size={size === 'sm' ? 'sm' : 'lg'}>
+      {submitLabel}
+    </button>
+  </div>
+
+  {consentNote && <p class="af__consent">{consentNote}</p>}
+
+  <p class="af__status" role="status" aria-live="polite" hidden></p>
+</form>
+
+<style>
+  .af {
+    width: 100%;
+  }
+  .af__fields {
+    display: grid;
+    gap: var(--space-3);
+  }
+  .af[data-layout='inline'] .af__fields {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+  }
+  @media (max-width: 640px) {
+    .af[data-layout='inline'] .af__fields {
+      grid-template-columns: 1fr;
+    }
+  }
+  .af[data-layout='two-col'] .af__fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .af[data-layout='two-col'] .af__field[data-type='textarea'],
+  .af[data-layout='two-col'] .af__submit {
+    grid-column: 1 / -1;
+  }
+  @media (max-width: 640px) {
+    .af[data-layout='two-col'] .af__fields {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .af__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .af__label {
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .af[data-layout='inline'] .af__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .af input:not([type='checkbox']),
+  .af select,
+  .af textarea {
+    width: 100%;
+    padding: 0.85em 1em;
+    background: color-mix(in oklab, var(--text) 5%, transparent);
+    border: 1px solid var(--border);
+    border-radius: var(--btn-radius);
+    color: var(--text);
+    font-size: var(--fs-sm);
+    transition:
+      border-color var(--dur-base) var(--ease-out),
+      background-color var(--dur-base) var(--ease-out);
+  }
+  .af input::placeholder,
+  .af textarea::placeholder {
+    color: var(--text-subtle);
+  }
+  .af input:focus,
+  .af select:focus,
+  .af textarea:focus {
+    border-color: var(--accent);
+    background: color-mix(in oklab, var(--text) 8%, transparent);
+    outline: none;
+  }
+  .af textarea {
+    resize: vertical;
+    min-height: 7rem;
+  }
+  .af__field[data-type='checkbox'] {
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.6rem;
+  }
+  .af__field[data-type='checkbox'] .af__label {
+    text-transform: none;
+    letter-spacing: normal;
+    font-family: var(--font-body);
+    font-weight: var(--fw-normal);
+    color: var(--text-muted);
+  }
+  .af__field[data-type='checkbox'] input {
+    width: 1.1rem;
+    height: 1.1rem;
+    accent-color: var(--accent);
+  }
+
+  .af__consent {
+    margin-top: var(--space-3);
+    font-size: var(--fs-xs);
+    line-height: var(--lh-normal);
+    color: var(--text-subtle);
+  }
+  .af__status {
+    margin-top: var(--space-3);
+    font-size: var(--fs-sm);
+  }
+  .af__status[data-state='success'] {
+    color: var(--accent);
+  }
+  .af__status[data-state='error'] {
+    color: #ff6b6b;
+  }
+</style>
+
+<script>
+  /* Progressive enhancement: intercept submit, POST as JSON-friendly form data,
+     show inline status. Falls back to a native POST if JS is unavailable. */
+  document.querySelectorAll<HTMLFormElement>('form.af').forEach((form) => {
+    form.addEventListener('submit', async (event) => {
+      const status = form.querySelector<HTMLParagraphElement>('.af__status');
+      const submit = form.querySelector<HTMLButtonElement>('.af__submit');
+      const isDemo = form.getAttribute('action')?.startsWith('demo://');
+
+      /* Public sample sites must not accidentally collect visitor data through
+         copied placeholder endpoints. A demo:// action makes the intent
+         explicit, preserves native field validation, and confirms that no
+         information has been sent anywhere. Production clients use their real
+         provider endpoint (Formspree, ConvertKit, HubSpot, or an API route). */
+      if (isDemo) {
+        event.preventDefault();
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+        if (status) {
+          status.textContent = 'This is a public system demo. No information has been submitted or stored.';
+          status.dataset.state = 'success';
+          status.hidden = false;
+        }
+        return;
+      }
+
+      if (!form.action || form.action.includes('#')) return;
+      event.preventDefault();
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const originalLabel = submit?.textContent ?? '';
+      if (submit) {
+        submit.disabled = true;
+        submit.textContent = 'Sending…';
+      }
+      if (status) {
+        status.hidden = true;
+        status.removeAttribute('data-state');
+      }
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (!response.ok) throw new Error(String(response.status));
+
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'form_submit',
+          form_action: form.action,
+        });
+
+        form.reset();
+        if (status) {
+          status.textContent = 'Thank you — check your inbox for the next step.';
+          status.dataset.state = 'success';
+          status.hidden = false;
+        }
+      } catch {
+        if (status) {
+          status.textContent = 'Something went wrong. Please try again or email us directly.';
+          status.dataset.state = 'error';
+          status.hidden = false;
+        }
+      } finally {
+        if (submit) {
+          submit.disabled = false;
+          submit.textContent = originalLabel;
+        }
+      }
+    });
+  });
+</script>

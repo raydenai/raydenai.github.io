@@ -1,0 +1,87 @@
+---
+/**
+ * LeadMagnetBanner — the thin, repeatable capture band.
+ * ---------------------------------------------------------------------------
+ * Ross Bushman's site places the identical opt-in banner near the top AND in
+ * the footer. That dual placement is the cheapest conversion win in the corpus:
+ * it catches both the impulsive visitor and the one who read everything.
+ *
+ * Intentionally low-height so it can be used twice on one page without the site
+ * feeling like a funnel.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import Form from '../../components/primitives/Form.astro';
+
+const {
+  id,
+  tone = 'raised',
+  pad = 'tight',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  width = 'base',
+  magnetName,
+  form,
+} = Astro.props;
+---
+
+<Section block="LeadMagnetBanner" {id} {tone} {pad} class="blb">
+  <Container {width}>
+    <div class="blb__inner">
+      <div class="blb__copy">
+        {(eyebrow ?? magnetName) && <p class="blb__eyebrow">{eyebrow ?? magnetName}</p>}
+        {heading && <h2 class="blb__heading">{heading}</h2>}
+        {subheading && <p class="blb__sub">{subheading}</p>}
+      </div>
+      <div class="blb__form">
+        <Form
+          action={form.action}
+          fields={form.fields}
+          submitLabel={form.submitLabel}
+          consentNote={form.consentNote}
+          layout="inline"
+          size="sm"
+        />
+      </div>
+    </div>
+  </Container>
+</Section>
+
+<style>
+  .blb__inner {
+    display: grid;
+    gap: var(--space-6);
+    align-items: center;
+    padding: clamp(1.5rem, 1.1rem + 1.5vw, 2.25rem);
+    border: 1px solid var(--accent);
+    border-radius: var(--card-radius);
+    background: color-mix(in oklab, var(--accent) 8%, var(--surface));
+  }
+  @media (min-width: 900px) {
+    .blb__inner {
+      grid-template-columns: 1fr minmax(0, 26rem);
+      gap: var(--space-10);
+    }
+  }
+  .blb__eyebrow {
+    margin: 0 0 var(--space-2);
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-widest);
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .blb__heading {
+    font-size: var(--fs-lg);
+    line-height: var(--lh-snug);
+  }
+  .blb__sub {
+    margin: var(--space-2) 0 0;
+    font-size: var(--fs-sm);
+    color: var(--text-muted);
+    max-width: 52ch;
+  }
+</style>

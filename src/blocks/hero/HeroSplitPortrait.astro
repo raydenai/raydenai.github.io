@@ -1,0 +1,213 @@
+---
+/**
+ * HeroSplitPortrait
+ * ---------------------------------------------------------------------------
+ * The workhorse. 16 of 30 analysed sites lead with this exact structure:
+ * copy stack on one side, cut-out portrait on the other, on a dark surface.
+ *
+ * Persuasion job: in one screen, answer "who are you, who is this for, what do
+ * I get, and what do I do next" — while the portrait does the trust work.
+ *
+ * Reference builds: Christian Espinosa, Aleric Heck, Vinh Giang, Karim Naoum,
+ * Mike Koenigs, Christian Simpson, Scott Jarred, Rosebell Murigu.
+ *
+ * Mobile art direction: the portrait moves below the copy and crops to a 4:5
+ * frame, because full cut-outs collapse badly on narrow viewports — one of the
+ * most common defects in the source corpus.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+import Portrait from '../../components/primitives/Portrait.astro';
+import StatItem from '../../components/primitives/StatItem.astro';
+import TestimonialCard from '../../components/primitives/TestimonialCard.astro';
+import RotatingWords from '../../components/primitives/RotatingWords.astro';
+
+const {
+  id,
+  tone = 'default',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  width = 'base',
+  portrait,
+  portraitTreatment = 'cutout',
+  mediaSide = 'right',
+  rotatingWords = [],
+  badges = [],
+  floatingProof,
+  stats = [],
+  backdrop = 'both',
+} = Astro.props;
+
+const grain = backdrop === 'grain' || backdrop === 'both';
+const glow = backdrop === 'glow' || backdrop === 'both';
+---
+
+<Section block="HeroSplitPortrait" {id} {tone} {pad} {grain} {glow} class="hsp">
+  <Container {width}>
+    <div class="u-split hsp__split" data-media={mediaSide}>
+      <div class="hsp__copy">
+        {
+          badges.length > 0 && (
+            <ul class="hsp__badges">
+              {badges.map((badge: string) => (
+                <li>{badge}</li>
+              ))}
+            </ul>
+          )
+        }
+
+        <BlockHeader
+          {eyebrow}
+          {heading}
+          {mark}
+          {subheading}
+          {body}
+          {ctas}
+          level={1}
+          size="display-2"
+          align="start"
+        />
+
+        {
+          rotatingWords.length > 0 && (
+            <p class="hsp__rotating">
+              <span class="hsp__rotating-label">For your</span>
+              <RotatingWords words={rotatingWords} style={mark?.style ?? 'accent'} />
+            </p>
+          )
+        }
+
+        {
+          stats.length > 0 && (
+            <ul class="hsp__stats">
+              {stats.map((s: any) => (
+                <li>
+                  <StatItem value={s.value} label={s.label} detail={s.detail} animate />
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+
+      <div class="hsp__media">
+        <Portrait
+          src={portrait.src}
+          alt={portrait.alt}
+          width={portrait.width}
+          height={portrait.height}
+          position={portrait.position}
+          treatment={portraitTreatment}
+          priority
+        />
+        {
+          floatingProof && (
+            <div class="hsp__proof">
+              <TestimonialCard
+                quote={floatingProof.quote}
+                author={floatingProof.author}
+                role={floatingProof.role}
+                company={floatingProof.company}
+                avatar={floatingProof.avatar}
+                variant="bubble"
+              />
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </Container>
+</Section>
+
+<style>
+  .hsp {
+    overflow: clip;
+  }
+  .hsp__split {
+    position: relative;
+    z-index: 2;
+    min-height: clamp(auto, 60vh, 44rem);
+    align-items: center;
+  }
+  .hsp__copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .hsp__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  .hsp__badges li {
+    padding: 0.4em 0.9em;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .hsp__rotating {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.4em;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-bold);
+    text-transform: var(--heading-casing);
+    letter-spacing: var(--heading-tracking);
+  }
+  .hsp__rotating-label {
+    color: var(--text-muted);
+  }
+
+  .hsp__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(1.5rem, 1rem + 2.5vw, 3rem);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--border);
+  }
+
+  .hsp__media {
+    position: relative;
+  }
+  .hsp__proof {
+    position: absolute;
+    left: -1.5rem;
+    bottom: 8%;
+    z-index: 3;
+  }
+  @media (max-width: 1100px) {
+    .hsp__proof {
+      left: 0;
+      bottom: -1rem;
+    }
+  }
+  /* Mobile art direction: crop the cut-out into a framed 4:5 block. */
+  @media (max-width: 899px) {
+    .hsp__media {
+      order: 2;
+      max-width: 26rem;
+      margin-inline: auto;
+    }
+    .hsp__proof {
+      position: static;
+      margin-top: var(--space-4);
+      max-width: none;
+    }
+  }
+</style>

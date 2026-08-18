@@ -1,0 +1,151 @@
+---
+/**
+ * BlockHeader — the standard eyebrow / heading / subheading / body cluster.
+ *
+ * Handles the corpus's signature emphasis device: a single highlighted word
+ * inside the headline (accent colour, brush underline, script, or outline).
+ * Authors declare `mark: { word, style }` and this component does the splitting
+ * — no HTML in content files, so content stays portable and safe.
+ */
+import Button from './Button.astro';
+
+type Mark = { word: string; style?: 'accent' | 'underline' | 'script' | 'outline' };
+type Cta = Parameters<typeof Button>[0]['cta'];
+
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  mark?: Mark;
+  subheading?: string;
+  body?: string;
+  ctas?: Cta[];
+  align?: 'start' | 'center';
+  level?: 1 | 2 | 3;
+  size?: 'display-1' | 'display-2' | 'display-3' | 'heading';
+  maxWidth?: string;
+  class?: string;
+}
+
+const {
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  align = 'start',
+  level = 2,
+  size = 'display-3',
+  maxWidth,
+  class: className = '',
+} = Astro.props;
+
+const Tag = `h${level}` as 'h1' | 'h2' | 'h3';
+
+/** Split the heading around the marked word, preserving surrounding text. */
+function splitHeading(text: string, word: string) {
+  const idx = text.toLowerCase().indexOf(word.toLowerCase());
+  if (idx === -1) return null;
+  return {
+    before: text.slice(0, idx),
+    match: text.slice(idx, idx + word.length),
+    after: text.slice(idx + word.length),
+  };
+}
+
+const parts = heading && mark?.word ? splitHeading(heading, mark.word) : null;
+const paragraphs = body ? body.split(/\n\n+/) : [];
+---
+
+<div
+  class:list={['ah', className]}
+  data-align={align}
+  style={maxWidth ? `--ah-max:${maxWidth}` : undefined}
+>
+  {
+    eyebrow && (
+      <p class="u-eyebrow ah__eyebrow" data-rule={align === 'start' ? 'true' : undefined}>
+        {eyebrow}
+      </p>
+    )
+  }
+
+  {
+    heading && (
+      <Tag class:list={[`u-${size}`, 'ah__heading']}>
+        {parts ? (
+          <>
+            {parts.before}
+            <span class="u-mark" data-style={mark?.style ?? 'accent'}>
+              {parts.match}
+            </span>
+            {parts.after}
+          </>
+        ) : (
+          heading
+        )}
+      </Tag>
+    )
+  }
+
+  {subheading && <p class="ah__subheading">{subheading}</p>}
+
+  {
+    paragraphs.length > 0 && (
+      <div class="u-prose ah__body">
+        {paragraphs.map((p) => (
+          <p set:html={p.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')} />
+        ))}
+      </div>
+    )
+  }
+
+  {
+    ctas.length > 0 && (
+      <div class="u-cluster ah__ctas">
+        {ctas.map((cta) => (
+          <Button {cta} size="lg" />
+        ))}
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .ah {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-5);
+    max-width: var(--ah-max, 100%);
+  }
+  .ah[data-align='center'] {
+    align-items: center;
+    text-align: center;
+    margin-inline: auto;
+    max-width: var(--ah-max, 52rem);
+  }
+  .ah[data-align='center'] .u-prose,
+  .ah[data-align='center'] .ah__subheading {
+    margin-inline: auto;
+  }
+  .ah__eyebrow {
+    margin: 0;
+  }
+  .ah__heading {
+    max-width: 26ch;
+  }
+  .ah[data-align='center'] .ah__heading {
+    max-width: 34ch;
+  }
+  .ah__subheading {
+    font-size: var(--fs-md);
+    line-height: var(--lh-relaxed);
+    color: var(--text-muted);
+    max-width: 56ch;
+  }
+  .ah__ctas {
+    --cluster-gap: var(--space-4);
+    margin-top: var(--space-2);
+  }
+</style>

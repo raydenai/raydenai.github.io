@@ -1,0 +1,185 @@
+---
+/**
+ * BookShowcase — the authority artefact.
+ * ---------------------------------------------------------------------------
+ * 93% of the corpus references a book or signature product. A book is the
+ * cheapest credibility instrument available to a consultant: it converts an
+ * opinion into an asset a stranger can evaluate.
+ *
+ * Patterns worth reusing:
+ *   - bestseller badge ("#1 Amazon Best Seller") — Aleric Heck
+ *   - star rating + review count (4.7, 1,340 reviews) — Steve Rodgers
+ *   - pre-launch teaser for an unreleased book — Darren Frank ("Coming Late 2026")
+ *   - free-chapter lead magnet instead of a sale — Scott Jarred
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+import Button from '../../components/primitives/Button.astro';
+
+const {
+  id,
+  tone = 'raised',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  align = 'center',
+  width = 'base',
+  books = [],
+} = Astro.props;
+
+const single = books.length === 1;
+---
+
+<Section block="BookShowcase" {id} {tone} {pad} glow class="bbs">
+  <Container {width}>
+    {
+      (eyebrow || heading || body) && (
+        <div class="bbs__head">
+          <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} {align} />
+        </div>
+      )
+    }
+
+    <ul class="bbs__list" data-single={single ? 'true' : undefined}>
+      {
+        books.map((book: any) => (
+          <li class="bbs__book">
+            <div class="bbs__cover">
+              <img
+                src={book.cover.src}
+                alt={book.cover.alt}
+                width={book.cover.width ?? 640}
+                height={book.cover.height ?? 960}
+                loading="lazy"
+                decoding="async"
+              />
+              {book.badge && <span class="bbs__badge">{book.badge}</span>}
+            </div>
+
+            <div class="bbs__body">
+              <h3 class="bbs__title">{book.title}</h3>
+              {book.subtitle && <p class="bbs__subtitle">{book.subtitle}</p>}
+
+              {book.rating && (
+                <p class="bbs__rating">
+                  <span aria-hidden="true">
+                    {'★'.repeat(Math.round(book.rating))}
+                  </span>
+                  <span>
+                    {book.rating.toFixed(1)}
+                    {book.reviewCount ? ` · ${book.reviewCount.toLocaleString()} reviews` : ''}
+                  </span>
+                </p>
+              )}
+
+              <p class="bbs__desc">{book.description}</p>
+
+              {book.ctas.length > 0 && (
+                <div class="u-cluster bbs__ctas">
+                  {book.ctas.map((cta: any) => (
+                    <Button {cta} />
+                  ))}
+                </div>
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </Container>
+</Section>
+
+<style>
+  .bbs__head {
+    margin-bottom: var(--space-12);
+  }
+  .bbs__list {
+    display: grid;
+    gap: clamp(2.5rem, 1.5rem + 4vw, 4.5rem);
+  }
+  .bbs__list:not([data-single='true']) {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr));
+  }
+  .bbs__book {
+    display: grid;
+    gap: clamp(1.75rem, 1.25rem + 2vw, 3rem);
+    align-items: center;
+  }
+  @media (min-width: 720px) {
+    .bbs__book {
+      grid-template-columns: minmax(0, 13rem) 1fr;
+    }
+    .bbs__list[data-single='true'] .bbs__book {
+      grid-template-columns: minmax(0, 18rem) 1fr;
+      max-width: 58rem;
+      margin-inline: auto;
+    }
+  }
+  .bbs__cover {
+    position: relative;
+  }
+  .bbs__cover img {
+    width: 100%;
+    border-radius: var(--radius-xs);
+    box-shadow:
+      0 18px 44px rgb(0 0 0 / 0.42),
+      -1px 0 0 rgb(255 255 255 / 0.06) inset;
+    rotate: -1.5deg;
+    transition: rotate var(--dur-slow) var(--ease-out);
+  }
+  .bbs__book:hover .bbs__cover img {
+    rotate: 0deg;
+  }
+  .bbs__badge {
+    position: absolute;
+    top: -0.75rem;
+    right: -0.75rem;
+    padding: 0.4em 0.85em;
+    background: var(--accent);
+    color: var(--accent-contrast);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-bold);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    box-shadow: var(--shadow-md);
+  }
+  .bbs__body {
+    display: grid;
+    gap: var(--space-4);
+  }
+  .bbs__title {
+    font-size: var(--fs-xl);
+    line-height: var(--lh-snug);
+  }
+  .bbs__subtitle {
+    margin: 0;
+    font-family: var(--font-accent);
+    font-size: var(--fs-md);
+    color: var(--text-muted);
+    text-transform: none;
+  }
+  .bbs__rating {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0;
+    font-size: var(--fs-sm);
+    color: var(--text-muted);
+  }
+  .bbs__rating span:first-child {
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+  .bbs__desc {
+    margin: 0;
+    line-height: var(--lh-relaxed);
+    color: var(--text-muted);
+    max-width: 58ch;
+  }
+</style>

@@ -1,0 +1,136 @@
+---
+/**
+ * AssociationGrid — status by adjacency.
+ * ---------------------------------------------------------------------------
+ * The single most under-used device in the corpus and one of the strongest.
+ * Instead of media logos, it shows the high-status *people* the subject has sat
+ * with. Karim Naoum's "In the Room With" section (Antonio Brown, Henry Cejudo,
+ * Brad Lea) elevates perceived status far more than a Forbes logo.
+ *
+ * Also serves as a podcast-guest showcase for interview-led brands.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+
+const {
+  id,
+  tone = 'default',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  align = 'start',
+  width = 'wide',
+  people = [],
+} = Astro.props;
+---
+
+<Section block="AssociationGrid" {id} {tone} {pad} class="bag">
+  <Container {width}>
+    <div class="bag__head">
+      <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} {ctas} {align} />
+    </div>
+
+    <ul class="bag__grid">
+      {
+        people.map((person: any) => {
+          const Wrapper = person.videoUrl ? 'a' : 'div';
+          return (
+            <li>
+              <Wrapper
+                class="bag__card"
+                href={person.videoUrl}
+                data-modal={person.videoUrl ? 'video' : undefined}
+                data-event={person.videoUrl ? 'association_video_play' : undefined}
+              >
+                <span class="bag__thumb">
+                  <img
+                    src={person.thumbnail.src}
+                    alt={person.thumbnail.alt}
+                    width={person.thumbnail.width ?? 600}
+                    height={person.thumbnail.height ?? 750}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  {person.videoUrl && (
+                    <span class="bag__play" aria-hidden="true">
+                      ▶
+                    </span>
+                  )}
+                </span>
+                <span class="bag__name">{person.name}</span>
+                {person.role && <span class="bag__role">{person.role}</span>}
+              </Wrapper>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </Container>
+</Section>
+
+<style>
+  .bag__head {
+    margin-bottom: var(--space-12);
+  }
+  .bag__grid {
+    display: grid;
+    gap: clamp(1rem, 0.75rem + 1.2vw, 1.75rem);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr));
+  }
+  .bag__card {
+    display: grid;
+    gap: 0.35rem;
+    height: 100%;
+  }
+  .bag__thumb {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: var(--card-radius);
+    border: 1px solid var(--border);
+    margin-bottom: var(--space-3);
+  }
+  .bag__thumb img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    filter: grayscale(0.35);
+    transition:
+      transform var(--dur-slow) var(--ease-out),
+      filter var(--dur-base) var(--ease-out);
+  }
+  .bag__card:hover .bag__thumb img {
+    transform: scale(1.04);
+    filter: grayscale(0);
+  }
+  .bag__play {
+    position: absolute;
+    inset: auto auto 0.75rem 0.75rem;
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--radius-circle);
+    background: var(--accent);
+    color: var(--accent-contrast);
+    font-size: 0.7rem;
+    padding-left: 2px;
+  }
+  .bag__name {
+    font-family: var(--font-display);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  .bag__role {
+    font-size: var(--fs-xs);
+    color: var(--text-subtle);
+  }
+</style>

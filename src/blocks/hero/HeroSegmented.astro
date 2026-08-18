@@ -1,0 +1,136 @@
+---
+/**
+ * HeroSegmented
+ * ---------------------------------------------------------------------------
+ * Routes two or more distinct audiences from the first screen. Use when the
+ * business genuinely serves opposing sides of a marketplace — otherwise this
+ * dilutes focus and you should use HeroSplitPortrait.
+ *
+ * Reference build: Palarino Partners ("I NEED A PRODUCT MANAGER" vs
+ * "I AM A PRODUCT MANAGER") — a two-sided recruiting marketplace.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+
+const {
+  id,
+  tone = 'default',
+  pad = 'loose',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  width = 'base',
+  background,
+  segments = [],
+} = Astro.props;
+---
+
+<Section block="HeroSegmented" {id} {tone} {pad} grain glow class="hsg">
+  {
+    background && (
+      <div class="hsg__bg" aria-hidden="true">
+        <img
+          src={background.src}
+          alt=""
+          width={background.width ?? 1920}
+          height={background.height ?? 1080}
+          loading="eager"
+          fetchpriority="high"
+        />
+        <span class="hsg__scrim"></span>
+      </div>
+    )
+  }
+
+  <Container {width}>
+    <div class="hsg__inner">
+      <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} level={1} size="display-2" />
+
+      <ul class="hsg__segments">
+        {
+          segments.map((segment: any) => (
+            <li>
+              <a class="hsg__segment" href={segment.href} data-event="hero_segment_click">
+                <span class="hsg__segment-label">{segment.label}</span>
+                {segment.description && (
+                  <span class="hsg__segment-desc">{segment.description}</span>
+                )}
+                <span class="hsg__segment-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Container>
+</Section>
+
+<style>
+  .hsg {
+    overflow: clip;
+  }
+  .hsg__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hsg__bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hsg__scrim {
+    position: absolute;
+    inset: 0;
+    background: color-mix(in oklab, var(--surface) 78%, transparent);
+  }
+  .hsg .u-container {
+    position: relative;
+    z-index: 2;
+  }
+  .hsg__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-10);
+  }
+  .hsg__segments {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  }
+  .hsg__segment {
+    display: grid;
+    gap: var(--space-2);
+    padding: clamp(1.4rem, 1rem + 1.4vw, 2.25rem);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius);
+    height: 100%;
+    transition:
+      border-color var(--dur-base) var(--ease-out),
+      transform var(--dur-base) var(--ease-out);
+  }
+  .hsg__segment:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+  }
+  .hsg__segment-label {
+    font-family: var(--font-display);
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-bold);
+    letter-spacing: var(--heading-tracking);
+    text-transform: var(--heading-casing);
+  }
+  .hsg__segment-desc {
+    font-size: var(--fs-sm);
+    color: var(--text-muted);
+    line-height: var(--lh-normal);
+  }
+  .hsg__segment-arrow {
+    color: var(--accent);
+    font-size: var(--fs-lg);
+  }
+</style>

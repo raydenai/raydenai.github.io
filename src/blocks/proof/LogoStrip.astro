@@ -1,0 +1,47 @@
+---
+/**
+ * LogoStrip — borrowed authority.
+ * ---------------------------------------------------------------------------
+ * Placement rule from the corpus: immediately below the hero, before any
+ * argument is made. Eric Tippetts and Karim Naoum both front-load a large
+ * "As Featured In" strip to buy credibility before the reader evaluates a claim.
+ *
+ * Keep the eyebrow short and lowercase-quiet ("As seen in", "Featured in") —
+ * the logos are the message.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import LogoWall from '../../components/primitives/LogoWall.astro';
+
+const {
+  id,
+  tone = 'default',
+  pad = 'tight',
+  eyebrow,
+  heading,
+  width = 'wide',
+  logos = [],
+  marquee = false,
+  grayscale = true,
+} = Astro.props;
+---
+
+<Section block="LogoStrip" {id} {tone} {pad} class="bls">
+  <Container width={marquee ? 'full' : width}>
+    {(eyebrow || heading) && <p class="bls__label">{eyebrow ?? heading}</p>}
+    <LogoWall {logos} {marquee} {grayscale} />
+  </Container>
+</Section>
+
+<style>
+  .bls__label {
+    margin: 0 0 var(--space-6);
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-widest);
+    text-transform: uppercase;
+    color: var(--text-subtle);
+  }
+</style>

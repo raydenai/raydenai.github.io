@@ -1,0 +1,75 @@
+---
+/**
+ * IdentityCallout — the tribe filter.
+ * ---------------------------------------------------------------------------
+ * Names the reader as a member of a specific group, then invites them in.
+ * Mike Koenigs' "Are You a High-Frequency Alien? If so, I've been looking for
+ * you." is the archetype; Jenna Ballard's "Your permission slip to fully
+ * express your self" is the softer variant.
+ *
+ * The mechanism is identity, not benefit: people act to confirm who they are
+ * far more reliably than to obtain a stated advantage.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+
+const {
+  id,
+  tone = 'raised',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  align = 'center',
+  width = 'content',
+  traits = [],
+} = Astro.props;
+---
+
+<Section block="IdentityCallout" {id} {tone} {pad} glow class="bic">
+  <Container {width}>
+    <div class="bic__inner">
+      <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} {ctas} {align} />
+
+      {
+        traits.length > 0 && (
+          <ul class="bic__traits">
+            {traits.map((trait: string) => (
+              <li>{trait}</li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </Container>
+</Section>
+
+<style>
+  .bic__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-8);
+  }
+  .bic__traits {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+  }
+  .bic__traits li {
+    padding: 0.55em 1.15em;
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-display);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-wide);
+    color: var(--text);
+    background: color-mix(in oklab, var(--accent) 10%, transparent);
+  }
+</style>

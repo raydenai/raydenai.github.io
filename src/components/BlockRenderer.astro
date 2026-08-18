@@ -1,0 +1,74 @@
+---
+/**
+ * BlockRenderer — turns an array of typed block data into rendered sections.
+ * ---------------------------------------------------------------------------
+ * This is the whole page-building engine: eight lines of logic. Every page in
+ * every client site is produced by this loop, which is what guarantees that a
+ * fix or an accessibility improvement made in one block propagates to every
+ * site built on the system.
+ *
+ * Unknown block types are skipped with a build-time warning rather than
+ * crashing, so a content error degrades gracefully in preview while still
+ * being caught by `astro check` in CI.
+ */
+import { blockRegistry, type BlockType } from '../lib/blockRegistry';
+
+interface Props {
+  blocks: any[];
+}
+
+const { blocks } = Astro.props;
+
+/* Exactly one h1 per page, automatically.
+   Hero blocks render their headline as an h1 by default, but not every page
+   opens with a hero — the contact page leads with ContactSplit, a section
+   block that renders h2. Rather than making authors remember to set a heading
+   level in content (which they will forget, and which is an accessibility
+   regression when they do), the renderer promotes the first heading-bearing
+   block on the page to level 1 if no hero is present. */
+const HERO_BLOCKS = new Set([
+  'HeroSplitPortrait',
+  'HeroSplitOptin',
+  'HeroCenteredStatement',
+  'HeroVideoOverlay',
+  'HeroSegmented',
+]);
+
+const hasHero = blocks.some((b) => HERO_BLOCKS.has(b?.type));
+const promoteIndex = hasHero
+  ? -1
+  : blocks.findIndex((b) => typeof b?.heading === 'string' && b.heading.length > 0);
+---
+
+{
+  blocks.map((block, index) => {
+    const Component = blockRegistry[block.type as BlockType];
+
+    if (!Component) {
+      console.warn(`[AURA] Unknown block type "${block.type}" at index ${index} — skipped.`);
+      return null;
+    }
+
+    const { type, reveal, ...props } = block;
+
+    /* Promote the leading heading to h1 on pages that do not open with a hero. */
+    if (index === promoteIndex && props.level === undefined) {
+      props.level = 1;
+    }
+
+    /* The first two blocks are above the fold on most viewports. Animating them
+       delays the largest contentful paint and, on slow connections, shows an
+       empty hero. They render revealed from the start. */
+    const eager = index < 2;
+
+    return (
+      <div
+        data-reveal={reveal === false ? undefined : 'true'}
+        data-revealed={eager ? 'true' : undefined}
+        data-block-index={index}
+      >
+        <Component {...props} />
+      </div>
+    );
+  })
+}

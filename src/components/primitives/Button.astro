@@ -1,0 +1,75 @@
+---
+/**
+ * Button — the single CTA primitive.
+ *
+ * Every CTA in the system flows through here so that:
+ *  - visual treatment is theme-driven (radius/casing/tracking come from tokens)
+ *  - measurement is automatic (data-event pushes to dataLayer)
+ *  - modal CTAs (video/form) are wired without per-block JS
+ */
+import type { CollectionEntry } from 'astro:content';
+
+type Cta = {
+  label: string;
+  href: string;
+  intent?: 'primary' | 'secondary' | 'tertiary';
+  variant?: 'primary' | 'secondary' | 'ghost' | 'inverse';
+  modal?: 'video' | 'form' | 'none';
+  external?: boolean;
+  event?: string;
+};
+
+interface Props {
+  cta: Cta;
+  size?: 'sm' | 'default' | 'lg';
+  full?: boolean;
+  class?: string;
+}
+
+const { cta, size = 'default', full = false, class: className = '' } = Astro.props;
+
+/* Intent maps to a default variant so authors only declare intent. */
+const variantFromIntent: Record<string, 'primary' | 'secondary' | 'ghost'> = {
+  primary: 'primary',
+  secondary: 'secondary',
+  tertiary: 'ghost',
+};
+const variant = cta.variant ?? variantFromIntent[cta.intent ?? 'primary'] ?? 'primary';
+const isModal = cta.modal && cta.modal !== 'none';
+const rel = cta.external ? 'noopener noreferrer' : undefined;
+const target = cta.external ? '_blank' : undefined;
+---
+
+<a
+  href={cta.href}
+  class:list={['u-btn', className]}
+  data-variant={variant === 'primary' ? undefined : variant}
+  data-size={size === 'default' ? undefined : size}
+  data-full={full ? 'true' : undefined}
+  data-intent={cta.intent ?? 'primary'}
+  data-event={cta.event ?? `cta_${(cta.intent ?? 'primary')}_click`}
+  data-modal={isModal ? cta.modal : undefined}
+  {rel}
+  {target}
+>
+  <span>{cta.label}</span>
+  {
+    variant === 'ghost' && (
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 14 14"
+        fill="none"
+        aria-hidden="true"
+        style="flex:none"
+      >
+        <path
+          d="M1 7h11M8 3l4 4-4 4"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    )
+  }
+</a>

@@ -1,0 +1,182 @@
+---
+/**
+ * PodcastPromo — the ongoing-relationship asset.
+ * ---------------------------------------------------------------------------
+ * 67% of the corpus promotes a podcast or media appearances. A show is the
+ * highest-retention nurture channel available: it converts one visit into
+ * recurring attention without paid media.
+ *
+ * Reference: Mike Dillard's phone-mockup + platform buttons, Dave Asprey's
+ * "350 million downloads" credibility claim, Aleric Heck's platform grid.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+
+const {
+  id,
+  tone = 'default',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  width = 'base',
+  showName,
+  artwork,
+  platforms = [],
+  episodes = [],
+} = Astro.props;
+---
+
+<Section block="PodcastPromo" {id} {tone} {pad} class="bpp">
+  <Container {width}>
+    <div class="u-split" data-media="right" data-ratio="60-40">
+      <div class="bpp__copy">
+        <BlockHeader
+          eyebrow={eyebrow ?? showName}
+          {heading}
+          {mark}
+          {subheading}
+          {body}
+          {ctas}
+        />
+
+        {
+          platforms.length > 0 && (
+            <ul class="bpp__platforms">
+              {platforms.map((p: any) => (
+                <li>
+                  <a href={p.href} rel="noopener noreferrer" target="_blank" data-event="podcast_platform_click">
+                    {p.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+
+        {
+          episodes.length > 0 && (
+            <ul class="bpp__episodes">
+              {episodes.map((ep: any) => (
+                <li>
+                  <a href={ep.href} class="bpp__episode">
+                    {ep.thumbnail && (
+                      <img
+                        src={ep.thumbnail.src}
+                        alt={ep.thumbnail.alt}
+                        width="112"
+                        height="112"
+                        loading="lazy"
+                      />
+                    )}
+                    <span class="bpp__episode-body">
+                      <span class="bpp__episode-title">{ep.title}</span>
+                      {ep.guest && <span class="bpp__episode-guest">with {ep.guest}</span>}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+
+      {
+        artwork && (
+          <div class="bpp__artwork">
+            <img
+              src={artwork.src}
+              alt={artwork.alt}
+              width={artwork.width ?? 800}
+              height={artwork.height ?? 800}
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        )
+      }
+    </div>
+  </Container>
+</Section>
+
+<style>
+  .bpp__copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+  .bpp__platforms {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  .bpp__platforms a {
+    display: inline-flex;
+    padding: 0.55em 1.15em;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--text-muted);
+    transition:
+      border-color var(--dur-base) var(--ease-out),
+      color var(--dur-base) var(--ease-out);
+  }
+  .bpp__platforms a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .bpp__episodes {
+    display: grid;
+    gap: var(--space-3);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--border);
+  }
+  .bpp__episode {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr;
+    gap: var(--space-4);
+    align-items: center;
+  }
+  .bpp__episode img {
+    width: 3.5rem;
+    height: 3.5rem;
+    object-fit: cover;
+    border-radius: var(--radius-xs);
+  }
+  .bpp__episode-body {
+    display: grid;
+    gap: 0.2rem;
+  }
+  .bpp__episode-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    color: var(--text);
+    transition: color var(--dur-base) var(--ease-out);
+  }
+  .bpp__episode:hover .bpp__episode-title {
+    color: var(--accent);
+  }
+  .bpp__episode-guest {
+    font-size: var(--fs-xs);
+    color: var(--text-subtle);
+  }
+
+  .bpp__artwork img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: var(--card-radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+  }
+</style>

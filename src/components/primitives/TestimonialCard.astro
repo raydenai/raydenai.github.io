@@ -1,0 +1,198 @@
+---
+/**
+ * TestimonialCard — used by TestimonialGrid, TestimonialSlider, AuthorityQuote
+ * and the hero's floating proof bubble.
+ *
+ * The `result` field is deliberately prominent: across the corpus, the
+ * testimonials that convert are the ones carrying a concrete outcome
+ * ("closed on 14 Section 8 properties") rather than generic praise.
+ */
+interface Props {
+  quote: string;
+  author: string;
+  role?: string;
+  company?: string;
+  avatar?: { src: string; alt: string };
+  result?: string;
+  rating?: number;
+  videoUrl?: string;
+  variant?: 'card' | 'bubble' | 'feature' | 'bare';
+  class?: string;
+}
+
+const {
+  quote,
+  author,
+  role,
+  company,
+  avatar,
+  result,
+  rating,
+  videoUrl,
+  variant = 'card',
+  class: className = '',
+} = Astro.props;
+
+const meta = [role, company].filter(Boolean).join(', ');
+---
+
+<figure class:list={['at', className]} data-variant={variant}>
+  {
+    rating && (
+      <div class="at__rating" aria-label={`${rating} out of 5`}>
+        {Array.from({ length: 5 }).map((_, i) => (
+          <span aria-hidden="true" data-filled={i < Math.round(rating) ? 'true' : 'false'}>
+            ★
+          </span>
+        ))}
+      </div>
+    )
+  }
+
+  {
+    videoUrl && (
+      <a class="at__video" href={videoUrl} data-modal="video" aria-label={`Watch ${author}'s story`}>
+        <span class="at__play" aria-hidden="true">▶</span>
+      </a>
+    )
+  }
+
+  <blockquote class="at__quote">
+    <p>{quote}</p>
+  </blockquote>
+
+  {result && <p class="at__result">{result}</p>}
+
+  <figcaption class="at__caption">
+    {avatar && <img class="at__avatar" src={avatar.src} alt={avatar.alt} width="52" height="52" loading="lazy" />}
+    <span class="at__who">
+      <span class="at__author">{author}</span>
+      {meta && <span class="at__meta">{meta}</span>}
+    </span>
+  </figcaption>
+</figure>
+
+<style>
+  .at {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius);
+    padding: clamp(1.4rem, 1rem + 1.2vw, 2rem);
+    height: 100%;
+  }
+  .at[data-variant='bare'] {
+    background: transparent;
+    border: 0;
+    padding: 0;
+  }
+  .at[data-variant='bubble'] {
+    background: var(--surface-raised);
+    box-shadow: var(--shadow-lg);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    max-width: 20rem;
+  }
+  .at[data-variant='feature'] {
+    background: transparent;
+    border: 0;
+    border-left: 2px solid var(--accent);
+    padding: 0 0 0 clamp(1.25rem, 1rem + 1.5vw, 2.25rem);
+    border-radius: 0;
+  }
+
+  .at__quote {
+    margin: 0;
+    color: var(--text);
+    line-height: var(--lh-relaxed);
+  }
+  .at__quote p {
+    margin: 0;
+  }
+  .at__quote p::before {
+    content: '\201C';
+  }
+  .at__quote p::after {
+    content: '\201D';
+  }
+  .at[data-variant='feature'] .at__quote {
+    font-family: var(--font-accent);
+    font-size: var(--fs-lg);
+    line-height: var(--lh-snug);
+    text-transform: none;
+  }
+
+  .at__result {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .at__caption {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: auto;
+  }
+  .at__avatar {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--radius-circle);
+    object-fit: cover;
+    flex: none;
+  }
+  .at__who {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.35;
+  }
+  .at__author {
+    font-family: var(--font-display);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  .at__meta {
+    font-size: var(--fs-xs);
+    color: var(--text-subtle);
+  }
+
+  .at__rating {
+    display: flex;
+    gap: 0.15em;
+    color: var(--accent);
+    font-size: var(--fs-sm);
+  }
+  .at__rating span[data-filled='false'] {
+    opacity: 0.25;
+  }
+
+  .at__video {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 16 / 9;
+    background: color-mix(in oklab, var(--text) 8%, transparent);
+    border-radius: var(--radius-sm);
+  }
+  .at__play {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-circle);
+    background: var(--accent);
+    color: var(--accent-contrast);
+    font-size: 0.9rem;
+    padding-left: 2px;
+  }
+</style>

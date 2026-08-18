@@ -1,0 +1,175 @@
+---
+/**
+ * HighTicketOffer — the premium, application-only engagement.
+ * ---------------------------------------------------------------------------
+ * Reference: Karim Naoum's mentorship block ("There's a version of this where
+ * you watch the masterclass, download the guide, and think about it for six
+ * months. And there's a version where you get direct access…").
+ *
+ * Structure that converts: contrast the two futures, list exactly what is
+ * delivered, state who it is for, then a single application CTA. Price is
+ * optional — for genuinely high-ticket work, "By application" outperforms a
+ * number.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+import Portrait from '../../components/primitives/Portrait.astro';
+
+const {
+  id,
+  tone = 'inverse',
+  pad = 'loose',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  width = 'base',
+  deliverables = [],
+  idealFor = [],
+  investment,
+  media,
+  mediaSide = 'right',
+} = Astro.props;
+---
+
+<Section block="HighTicketOffer" {id} {tone} {pad} class="bht">
+  <Container {width}>
+    <div class="u-split" data-media={mediaSide}>
+      <div class="bht__copy">
+        <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} />
+
+        {
+          deliverables.length > 0 && (
+            <div class="bht__group">
+              <h3 class="bht__group-title">What you get</h3>
+              <ul class="bht__deliverables">
+                {deliverables.map((item: string) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+
+        {
+          idealFor.length > 0 && (
+            <div class="bht__group">
+              <h3 class="bht__group-title">Who it's for</h3>
+              <ul class="bht__ideal">
+                {idealFor.map((item: string) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+
+        {
+          investment && (
+            <p class="bht__investment">
+              <span>Investment</span>
+              {investment}
+            </p>
+          )
+        }
+
+        {
+          ctas.length > 0 && (
+            <div class="u-cluster bht__ctas">
+              {ctas.map((cta: any) => (
+                <a
+                  class="u-btn"
+                  data-size="lg"
+                  data-variant={cta.intent === 'primary' ? undefined : 'secondary'}
+                  href={cta.href}
+                  data-event={cta.event ?? 'high_ticket_apply_click'}
+                >
+                  {cta.label}
+                </a>
+              ))}
+            </div>
+          )
+        }
+      </div>
+
+      {
+        media && (
+          <Portrait
+            src={media.src}
+            alt={media.alt}
+            width={media.width}
+            height={media.height}
+            position={media.position}
+            treatment="framed"
+          />
+        )
+      }
+    </div>
+  </Container>
+</Section>
+
+<style>
+  .bht__copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+  .bht__group {
+    display: grid;
+    gap: var(--space-4);
+  }
+  .bht__group-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-widest);
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .bht__deliverables,
+  .bht__ideal {
+    display: grid;
+    gap: var(--space-3);
+  }
+  .bht__deliverables li,
+  .bht__ideal li {
+    position: relative;
+    padding-left: 1.9rem;
+    line-height: var(--lh-relaxed);
+    color: var(--text-muted);
+  }
+  .bht__deliverables li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 0.85rem;
+    height: 1px;
+    background: var(--accent);
+  }
+  .bht__ideal li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+  .bht__investment {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-semibold);
+    color: var(--text);
+  }
+  .bht__investment span {
+    display: block;
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-widest);
+    text-transform: uppercase;
+    color: var(--text-subtle);
+    margin-bottom: 0.3rem;
+  }
+</style>

@@ -1,0 +1,143 @@
+---
+/**
+ * OriginStory — the bridge from "you have a problem" to "I can solve it".
+ * ---------------------------------------------------------------------------
+ * Present in 67% of the corpus and almost always placed between agitation and
+ * offer. Its job is not biography; it is *proof of empathy*. The reader needs to
+ * believe you have stood where they stand.
+ *
+ * Structure that works, in order:
+ *   1. the hook line (a specific moment, not a summary)
+ *   2. two or three paragraphs of compressed narrative
+ *   3. a signature (handwritten asset) for authenticity
+ *   4. a single "Read my story" link to the long-form About page
+ *
+ * Reference: Mathieu Jang ("I used to make $9 an hour at a butcher shop"),
+ * Scott Jarred ("the broker-dealer has me in golden handcuffs"),
+ * Rosebell Murigu (Kenya → America), Vinh Giang ("I started as a magician").
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+import Portrait from '../../components/primitives/Portrait.astro';
+
+const {
+  id,
+  tone = 'default',
+  pad = 'default',
+  eyebrow = 'The story',
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  width = 'base',
+  excerpt,
+  portrait,
+  mediaSide = 'right',
+  signature,
+} = Astro.props;
+
+const paragraphs = excerpt ? excerpt.split(/\n\n+/) : [];
+---
+
+<Section block="OriginStory" {id} {tone} {pad} class="bos">
+  <Container {width}>
+    <div class="u-split" data-media={mediaSide}>
+      <div class="bos__copy">
+        <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} />
+
+        {
+          paragraphs.length > 0 && (
+            <div class="bos__excerpt">
+              {paragraphs.map((p: string, i: number) => (
+                <p data-lead={i === 0 ? 'true' : undefined}>{p}</p>
+              ))}
+            </div>
+          )
+        }
+
+        {
+          signature && (
+            <img
+              class="bos__signature"
+              src={signature.src}
+              alt={signature.alt}
+              width={signature.width ?? 240}
+              height={signature.height ?? 80}
+              loading="lazy"
+            />
+          )
+        }
+
+        {
+          ctas.length > 0 && (
+            <div class="u-cluster bos__ctas">
+              {ctas.map((cta: any) => (
+                <a
+                  class="u-btn"
+                  data-variant={cta.intent === 'primary' ? undefined : 'secondary'}
+                  href={cta.href}
+                  data-event={cta.event ?? 'origin_story_cta_click'}
+                >
+                  {cta.label}
+                </a>
+              ))}
+            </div>
+          )
+        }
+      </div>
+
+      {
+        portrait && (
+          <Portrait
+            src={portrait.src}
+            alt={portrait.alt}
+            width={portrait.width}
+            height={portrait.height}
+            position={portrait.position}
+            treatment="framed"
+            accentShape
+          />
+        )
+      }
+    </div>
+  </Container>
+</Section>
+
+<style>
+  .bos__copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+  .bos__excerpt {
+    display: grid;
+    gap: var(--space-4);
+    max-width: 56ch;
+  }
+  .bos__excerpt p {
+    line-height: var(--lh-relaxed);
+    color: var(--text-muted);
+  }
+  /* The hook line gets editorial treatment — it is the most-read sentence. */
+  .bos__excerpt p[data-lead='true'] {
+    font-family: var(--font-accent);
+    font-size: var(--fs-lg);
+    line-height: var(--lh-snug);
+    color: var(--text);
+    text-transform: none;
+  }
+  .bos__signature {
+    width: clamp(9rem, 8rem + 4vw, 13rem);
+    opacity: 0.9;
+  }
+  [data-theme='obsidian-gold'] .bos__signature,
+  [data-theme='signal-cyan'] .bos__signature,
+  [data-theme='insurgent-red'] .bos__signature {
+    filter: invert(1) brightness(1.6);
+  }
+  .bos__ctas {
+    margin-top: var(--space-2);
+  }
+</style>

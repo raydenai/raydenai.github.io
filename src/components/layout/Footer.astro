@@ -1,0 +1,214 @@
+---
+/**
+ * Footer — the last conversion surface, not a dumping ground.
+ * ---------------------------------------------------------------------------
+ * The corpus treats the footer as a sitemap. This version keeps the sitemap but
+ * leads with a final ask and an opt-in, because footer real estate is reached
+ * disproportionately by the most engaged visitors.
+ */
+import Form from '../primitives/Form.astro';
+
+const { brand, nav = [], social = [], legal = [], optin, tagline } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="aft">
+  <div class="u-container" data-width="wide">
+    <div class="aft__top">
+      <div class="aft__brand">
+        <a class="aft__wordmark" href="/">{brand.name}</a>
+        {tagline && <p class="aft__tagline">{tagline}</p>}
+        {
+          social.length > 0 && (
+            <ul class="aft__social">
+              {social.map((s: any) => (
+                <li>
+                  <a
+                    href={s.url}
+                    rel="noopener noreferrer me"
+                    target="_blank"
+                    aria-label={s.platform}
+                    data-event="social_click"
+                  >
+                    {s.platform}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+
+      {
+        nav.length > 0 && (
+          <nav class="aft__nav" aria-label="Footer">
+            {nav.map((group: any) => (
+              <div class="aft__group">
+                <h2 class="aft__group-title">{group.title}</h2>
+                <ul>
+                  {group.links.map((link: any) => (
+                    <li>
+                      <a href={link.href}>{link.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </nav>
+        )
+      }
+
+      {
+        optin && (
+          <div class="aft__optin">
+            <h2 class="aft__group-title">{optin.title}</h2>
+            {optin.description && <p class="aft__optin-desc">{optin.description}</p>}
+            <Form
+              action={optin.form.action}
+              fields={optin.form.fields}
+              submitLabel={optin.form.submitLabel}
+              consentNote={optin.form.consentNote}
+              layout="inline"
+              size="sm"
+            />
+          </div>
+        )
+      }
+    </div>
+
+    <div class="aft__bottom">
+      <p class="aft__copy">
+        © {year} {brand.legalName ?? brand.name}. All rights reserved.
+      </p>
+      {
+        legal.length > 0 && (
+          <ul class="aft__legal">
+            {legal.map((link: any) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </div>
+</footer>
+
+<style>
+  .aft {
+    padding-block: clamp(3rem, 2rem + 4vw, 5.5rem) var(--space-8);
+    background: var(--surface-sunken);
+    border-top: 1px solid var(--border);
+  }
+  .aft__top {
+    display: grid;
+    gap: clamp(2.5rem, 1.5rem + 4vw, 4.5rem);
+  }
+  @media (min-width: 960px) {
+    .aft__top {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr) minmax(0, 1.1fr);
+    }
+  }
+
+  .aft__brand {
+    display: grid;
+    gap: var(--space-4);
+    align-content: start;
+  }
+  .aft__wordmark {
+    font-family: var(--font-display);
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-bold);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  .aft__tagline {
+    margin: 0;
+    max-width: 34ch;
+    font-size: var(--fs-sm);
+    line-height: var(--lh-relaxed);
+    color: var(--text-muted);
+  }
+  .aft__social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+  .aft__social a {
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+    color: var(--text-subtle);
+    transition: color var(--dur-base) var(--ease-out);
+  }
+  .aft__social a:hover {
+    color: var(--accent);
+  }
+
+  .aft__nav {
+    display: grid;
+    gap: var(--space-8);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+  }
+  .aft__group-title {
+    margin-bottom: var(--space-4);
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-widest);
+    text-transform: uppercase;
+    color: var(--text-subtle);
+  }
+  .aft__nav ul {
+    display: grid;
+    gap: var(--space-3);
+  }
+  .aft__nav a {
+    font-size: var(--fs-sm);
+    color: var(--text-muted);
+    transition: color var(--dur-base) var(--ease-out);
+  }
+  .aft__nav a:hover {
+    color: var(--accent);
+  }
+
+  .aft__optin-desc {
+    margin: 0 0 var(--space-4);
+    font-size: var(--fs-sm);
+    line-height: var(--lh-relaxed);
+    color: var(--text-muted);
+  }
+
+  .aft__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-top: clamp(2.5rem, 2rem + 2vw, 4rem);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--border);
+  }
+  .aft__copy {
+    margin: 0;
+    font-size: var(--fs-xs);
+    color: var(--text-subtle);
+  }
+  .aft__legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-5);
+  }
+  .aft__legal a {
+    font-size: var(--fs-xs);
+    color: var(--text-subtle);
+    transition: color var(--dur-base) var(--ease-out);
+  }
+  .aft__legal a:hover {
+    color: var(--accent);
+  }
+</style>

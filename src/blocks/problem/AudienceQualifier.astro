@@ -1,0 +1,140 @@
+---
+/**
+ * AudienceQualifier — filter in, filter out.
+ * ---------------------------------------------------------------------------
+ * The "not for you" column is the persuasive half. Explicitly disqualifying
+ * people raises perceived selectivity and improves lead quality — the mechanism
+ * behind Mike Koenigs' "Are You a High-Frequency Alien?" and Rosebell Murigu's
+ * "Are You The Owner of A Medical Billing Company?"
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+
+const {
+  id,
+  tone = 'default',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  align = 'center',
+  width = 'base',
+  forWhom = [],
+  notForWhom = [],
+} = Astro.props;
+
+const hasBoth = forWhom.length > 0 && notForWhom.length > 0;
+---
+
+<Section block="AudienceQualifier" {id} {tone} {pad} class="baq2">
+  <Container {width}>
+    <div class="baq2__head">
+      <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} {align} />
+    </div>
+
+    <div class="baq2__cols" data-both={hasBoth ? 'true' : undefined}>
+      {
+        forWhom.length > 0 && (
+          <div class="baq2__col" data-kind="yes">
+            <h3 class="baq2__col-title">This is for you if…</h3>
+            <ul>
+              {forWhom.map((item: string) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+      {
+        notForWhom.length > 0 && (
+          <div class="baq2__col" data-kind="no">
+            <h3 class="baq2__col-title">This is not for you if…</h3>
+            <ul>
+              {notForWhom.map((item: string) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+    </div>
+
+    {
+      ctas.length > 0 && (
+        <div class="baq2__ctas u-cluster">
+          {ctas.map((cta: any) => (
+            <a
+              class="u-btn"
+              data-variant={cta.intent === 'primary' ? undefined : 'secondary'}
+              href={cta.href}
+              data-event={cta.event ?? 'qualifier_cta_click'}
+            >
+              {cta.label}
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </Container>
+</Section>
+
+<style>
+  .baq2__head {
+    margin-bottom: var(--space-12);
+  }
+  .baq2__cols {
+    display: grid;
+    gap: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  }
+  .baq2__cols[data-both='true'] {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  }
+  .baq2__col {
+    padding: clamp(1.5rem, 1.1rem + 1.4vw, 2.25rem);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius);
+  }
+  .baq2__col[data-kind='yes'] {
+    border-top: 2px solid var(--accent);
+  }
+  .baq2__col[data-kind='no'] {
+    border-top: 2px solid var(--border-strong);
+    opacity: 0.85;
+  }
+  .baq2__col-title {
+    font-size: var(--fs-md);
+    margin-bottom: var(--space-5);
+  }
+  .baq2__col ul {
+    display: grid;
+    gap: var(--space-3);
+  }
+  .baq2__col li {
+    position: relative;
+    padding-left: 1.75rem;
+    line-height: var(--lh-relaxed);
+    color: var(--text-muted);
+  }
+  .baq2__col[data-kind='yes'] li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: var(--fw-bold);
+  }
+  .baq2__col[data-kind='no'] li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--text-subtle);
+  }
+  .baq2__ctas {
+    justify-content: center;
+    margin-top: var(--space-10);
+  }
+</style>

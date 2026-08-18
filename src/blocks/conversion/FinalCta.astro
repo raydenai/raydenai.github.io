@@ -1,0 +1,116 @@
+---
+/**
+ * FinalCta — the closing ask.
+ * ---------------------------------------------------------------------------
+ * Every page in this system ends with exactly one of these. The `reassurance`
+ * list handles the last objections at the moment of decision ("No pitch. 30
+ * minutes. If it's not a fit I'll tell you.") — a pattern the strongest
+ * consulting sites in the corpus use to lift booking rates.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+
+const {
+  id,
+  tone = 'inverse',
+  pad = 'loose',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  width = 'content',
+  background,
+  reassurance = [],
+} = Astro.props;
+---
+
+<Section block="FinalCta" {id} {tone} {pad} grain class="bfc">
+  {
+    background && (
+      <div class="bfc__bg" aria-hidden="true">
+        <img
+          src={background.src}
+          alt=""
+          width={background.width ?? 1920}
+          height={background.height ?? 900}
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    )
+  }
+
+  <Container {width}>
+    <div class="bfc__inner">
+      <BlockHeader
+        {eyebrow}
+        {heading}
+        {mark}
+        {subheading}
+        {body}
+        {ctas}
+        align="center"
+        size="display-2"
+      />
+
+      {
+        reassurance.length > 0 && (
+          <ul class="bfc__reassurance">
+            {reassurance.map((item: string) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </Container>
+</Section>
+
+<style>
+  .bfc {
+    overflow: clip;
+  }
+  .bfc__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.16;
+  }
+  .bfc__bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .bfc .u-container {
+    position: relative;
+    z-index: 2;
+  }
+  .bfc__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-8);
+  }
+  .bfc__reassurance {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3) var(--space-6);
+  }
+  .bfc__reassurance li {
+    position: relative;
+    padding-left: 1.35rem;
+    font-size: var(--fs-sm);
+    color: var(--text-muted);
+  }
+  .bfc__reassurance li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: var(--fw-bold);
+  }
+</style>

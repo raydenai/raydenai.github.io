@@ -1,0 +1,199 @@
+{
+  "path": "/method/",
+  "brand": "priya-raghavan",
+  "archetype": "generic",
+  "seo": {
+    "title": "The Quiet Authority Method | Priya Raghavan",
+    "description": "Position, Proof, Package, Platform: the four-pillar method Priya Raghavan uses to build durable executive authority. The full framework, explained.",
+    "schemaType": "WebPage"
+  },
+  "blocks": [
+    {
+      "type": "HeroCenteredStatement",
+      "tone": "default",
+      "pad": "loose",
+      "eyebrow": "The Quiet Authority Method",
+      "heading": "Four pillars. Strict order. No shortcuts that work.",
+      "mark": {
+        "word": "Strict order",
+        "style": "accent"
+      },
+      "subheading": "Most personal branding fails not because the tactics are wrong but because they are attempted in the wrong sequence. Platform work before position work produces a louder version of an unclear message.",
+      "width": "content",
+      "ctas": [
+        {
+          "label": "Book a strategy call",
+          "href": "/contact/",
+          "intent": "primary"
+        }
+      ]
+    },
+    {
+      "type": "NumberedFramework",
+      "tone": "raised",
+      "pad": "default",
+      "methodName": "The four pillars",
+      "eyebrow": "In sequence",
+      "heading": "What each pillar produces",
+      "mark": {
+        "word": "produces",
+        "style": "accent"
+      },
+      "subheading": "Every pillar has a deliverable you can hold. Nothing here ends in a feeling.",
+      "columns": 2,
+      "steps": [
+        {
+          "title": "Position",
+          "description": "We decide who you are for, who you are explicitly not for, and what you are willing to be publicly wrong about. Output: a positioning statement short enough to be repeated accurately by a stranger, a named enemy, and three defensible claims."
+        },
+        {
+          "title": "Proof",
+          "description": "We go back through your career and retrieve the evidence you have stopped noticing. Most clients discover they have been rounding their best numbers down. Output: an evidence library of quantified outcomes, case narratives and third-party endorsements."
+        },
+        {
+          "title": "Package",
+          "description": "We convert your judgement into a named method that travels without you. This is the pillar that turns a competent operator into a referenceable authority. Output: your framework, your keynote structure, your one-page point of view."
+        },
+        {
+          "title": "Platform",
+          "description": "We place the assets where your specific decision-makers already look, which is almost never all channels. Output: a twelve-month distribution plan built on three channels and a publishing cadence you can actually sustain."
+        }
+      ]
+    },
+    {
+      "type": "IconGrid",
+      "tone": "default",
+      "pad": "default",
+      "eyebrow": "Why the order matters",
+      "heading": "The three failure modes I see most often",
+      "align": "center",
+      "columns": 3,
+      "items": [
+        {
+          "icon": "mic",
+          "title": "Platform without Position",
+          "description": "The most common. Consistent publishing of unclear ideas. Engagement rises, standing does not, and the leader concludes that content does not work for their industry."
+        },
+        {
+          "icon": "eye",
+          "title": "Package without Proof",
+          "description": "A beautifully named framework with nothing underneath it. This survives contact with a friendly audience and collapses the moment someone informed asks a second question."
+        },
+        {
+          "icon": "clock",
+          "title": "Proof without Package",
+          "description": "An impressive record that requires you to be in the room to explain it. Every opportunity has to be earned again from scratch, because nothing is portable."
+        }
+      ]
+    },
+    {
+      "type": "ProcessTimeline",
+      "tone": "raised",
+      "pad": "default",
+      "eyebrow": "Engagement shape",
+      "heading": "What six months actually looks like",
+      "mark": {
+        "word": "actually",
+        "style": "accent"
+      },
+      "subheading": "Two hours a week from you. The rest is my problem.",
+      "width": "content",
+      "steps": [
+        {
+          "label": "Weeks 1-2",
+          "title": "Excavation",
+          "duration": "3 sessions",
+          "description": "Two long interviews plus a review of everything you have ever published, pitched or presented. I am looking for the claims you make casually and never defend in public. Those are usually the position."
+        },
+        {
+          "label": "Weeks 3-6",
+          "title": "Position lock",
+          "duration": "2 sessions",
+          "description": "We draft, argue about, and settle the positioning statement. This is the uncomfortable part: choosing a position means writing off part of the market on purpose. Most clients push back once, then feel relieved."
+        },
+        {
+          "label": "Weeks 7-12",
+          "title": "Evidence build",
+          "duration": "Async + 2 sessions",
+          "description": "We reconstruct your record with numbers attached and secure the third-party endorsements that make it independently verifiable. Deliverable is a working evidence library your team can also use."
+        },
+        {
+          "label": "Weeks 13-20",
+          "title": "Method construction",
+          "duration": "4 sessions",
+          "description": "We build and name your framework, then pressure-test it against real client situations until it holds. In parallel we structure your signature talk and your one-page point of view."
+        },
+        {
+          "label": "Weeks 21-26",
+          "title": "Placement",
+          "duration": "3 sessions",
+          "description": "Channel selection, a twelve-month calendar, and warm introductions where I have them. You finish with a plan you can run without me, which is the point."
+        }
+      ]
+    },
+    {
+      "type": "AuthorityQuote",
+      "tone": "inverse",
+      "pad": "default",
+      "eyebrow": "On the method",
+      "testimonial": {
+        "quote": "Most advisors in this space sell attention. Priya sells standing, which is a fundamentally harder product and the only one worth buying at the executive level.",
+        "author": "Marcus Hale",
+        "role": "Managing Partner",
+        "company": "Kestrel Capital",
+        "avatar": {
+          "src": "/images/avatar-3.webp",
+          "alt": "Marcus Hale",
+          "width": 256,
+          "height": 256
+        }
+      }
+    },
+    {
+      "type": "FaqAccordion",
+      "tone": "default",
+      "pad": "default",
+      "eyebrow": "Method questions",
+      "heading": "What people ask about the framework",
+      "width": "content",
+      "faqs": [
+        {
+          "question": "Can I start at the Platform pillar if I already know my position?",
+          "answer": "Occasionally, yes. Roughly one in six clients arrives with a genuinely settled position, and in those cases we compress the first pillar into a two-week validation instead of six weeks of construction. The test is simple: if three people who know your work can each state your position in one sentence and the sentences match, your position is settled. If the sentences differ, it is not."
+        },
+        {
+          "question": "Does the named method have to be trademarked?",
+          "answer": "No, and trademarking is usually premature. The value of a named method comes from repeated use in front of the same audience, not from legal protection. Name it, use it consistently for a year, and consider registration once it is doing commercial work for you."
+        },
+        {
+          "question": "What if my industry genuinely does not read thought leadership?",
+          "answer": "Then your platform is not publishing. In several engagements the correct channel has been private: a quarterly briefing document sent to forty named people, a closed dinner series, or a single annual industry report. The Platform pillar is about placement, not about posting. Choosing a private channel is a legitimate outcome of the method rather than an exception to it."
+        }
+      ]
+    },
+    {
+      "type": "FinalCta",
+      "tone": "accent",
+      "pad": "loose",
+      "eyebrow": "Start here",
+      "heading": "Find out which pillar is your weakest in nine minutes.",
+      "mark": {
+        "word": "nine minutes",
+        "style": "underline"
+      },
+      "subheading": "The Authority Audit scores you across all four and names the gap to close first.",
+      "ctas": [
+        {
+          "label": "Take the Authority Audit",
+          "href": "/#authority-audit",
+          "intent": "primary"
+        },
+        {
+          "label": "Book a call instead",
+          "href": "/contact/",
+          "intent": "secondary"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,293 @@
+---
+/**
+ * Header — transparent over the hero, solid after scroll.
+ * ---------------------------------------------------------------------------
+ * Pattern taken from the corpus (near-universal) with the defects fixed:
+ *   - the corpus's sticky headers were often 90-110px tall on mobile, eating a
+ *     quarter of the first screen; this one compresses on scroll
+ *   - the nav CTA is always present, because the hero CTA scrolls away
+ *   - the mobile drawer traps focus and closes on Escape, which most of the
+ *     Elementor implementations did not
+ *
+ * The wordmark is text by default: a webfont wordmark costs nothing extra and
+ * stays crisp, whereas the corpus almost always shipped a raster logo.
+ */
+import Button from '../primitives/Button.astro';
+
+const { brand, nav, cta, sticky = true, transparent = true } = Astro.props;
+const currentPath = Astro.url.pathname;
+
+const isActive = (href: string) =>
+  href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+---
+
+<header
+  class="ahd"
+  data-sticky={sticky ? 'true' : undefined}
+  data-transparent={transparent ? 'true' : undefined}
+>
+  <div class="ahd__inner u-container" data-width="wide">
+    <a class="ahd__brand" href="/" aria-label={`${brand.name} — home`}>
+      {
+        brand.logoUrl ? (
+          <img src={brand.logoUrl} alt={brand.name} width="150" height="34" />
+        ) : (
+          <span class="ahd__wordmark">
+            {brand.name}
+            {brand.markLastWord === false ? null : null}
+          </span>
+        )
+      }
+    </a>
+
+    <nav class="ahd__nav" aria-label="Primary">
+      <ul>
+        {
+          nav.map((item: any) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+                data-active={isActive(item.href) ? 'true' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="ahd__actions">
+      {cta && <Button cta={cta} size="sm" class="ahd__cta" />}
+      <button
+        class="ahd__toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="ahd-drawer"
+        aria-label="Open menu"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="ahd__drawer" id="ahd-drawer" hidden>
+    <nav aria-label="Mobile">
+      <ul>
+        {
+          nav.map((item: any) => (
+            <li>
+              <a href={item.href} data-active={isActive(item.href) ? 'true' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    {cta && <Button cta={cta} size="lg" full />}
+  </div>
+</header>
+
+<style>
+  .ahd {
+    position: relative;
+    z-index: 50;
+    border-bottom: 1px solid transparent;
+    transition:
+      background-color var(--dur-base) var(--ease-out),
+      border-color var(--dur-base) var(--ease-out),
+      backdrop-filter var(--dur-base) var(--ease-out);
+  }
+  .ahd[data-sticky='true'] {
+    position: sticky;
+    top: 0;
+  }
+  .ahd[data-transparent='true'] {
+    background: transparent;
+  }
+  .ahd:not([data-transparent='true']),
+  .ahd[data-scrolled='true'] {
+    background: color-mix(in oklab, var(--surface) 88%, transparent);
+    backdrop-filter: blur(14px) saturate(1.2);
+    border-bottom-color: var(--border);
+  }
+
+  .ahd__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+    padding-block: clamp(0.85rem, 0.7rem + 0.6vw, 1.35rem);
+    transition: padding-block var(--dur-base) var(--ease-out);
+  }
+  .ahd[data-scrolled='true'] .ahd__inner {
+    padding-block: 0.7rem;
+  }
+
+  .ahd__brand img {
+    height: clamp(1.6rem, 1.4rem + 0.6vw, 2.1rem);
+    width: auto;
+  }
+  .ahd__wordmark {
+    font-family: var(--font-display);
+    font-size: var(--fs-md);
+    font-weight: var(--fw-bold);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  .ahd__nav ul {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.25rem, 1rem + 1.2vw, 2.25rem);
+  }
+  .ahd__nav a {
+    position: relative;
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+    color: var(--text-muted);
+    transition: color var(--dur-base) var(--ease-out);
+  }
+  .ahd__nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 100%;
+    bottom: -0.45rem;
+    height: 1px;
+    background: var(--accent);
+    transition: right var(--dur-base) var(--ease-out);
+  }
+  .ahd__nav a:hover,
+  .ahd__nav a[data-active='true'] {
+    color: var(--text);
+  }
+  .ahd__nav a:hover::after,
+  .ahd__nav a[data-active='true']::after {
+    right: 0;
+  }
+
+  .ahd__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .ahd__toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+  .ahd__toggle span {
+    display: block;
+    width: 1.4rem;
+    height: 1.5px;
+    margin-inline: auto;
+    background: var(--text);
+    transition:
+      transform var(--dur-base) var(--ease-out),
+      opacity var(--dur-fast) var(--ease-out);
+  }
+  .ahd__toggle[aria-expanded='true'] span:first-child {
+    transform: translateY(3.25px) rotate(45deg);
+  }
+  .ahd__toggle[aria-expanded='true'] span:last-child {
+    transform: translateY(-3.25px) rotate(-45deg);
+  }
+
+  .ahd__drawer {
+    display: grid;
+    gap: var(--space-6);
+    padding: var(--space-6) var(--space-6) var(--space-10);
+    background: var(--surface-raised);
+    border-top: 1px solid var(--border);
+  }
+  .ahd__drawer ul {
+    display: grid;
+    gap: var(--space-1);
+  }
+  .ahd__drawer a {
+    display: block;
+    padding-block: var(--space-3);
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-display);
+    font-size: var(--fs-md);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  .ahd__drawer a[data-active='true'] {
+    color: var(--accent);
+  }
+
+  @media (max-width: 899px) {
+    .ahd__nav,
+    .ahd :global(.ahd__cta) {
+      display: none;
+    }
+    .ahd__toggle {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('.ahd');
+  const toggle = document.querySelector<HTMLButtonElement>('.ahd__toggle');
+  const drawer = document.querySelector<HTMLElement>('.ahd__drawer');
+
+  /* Solidify the header once the hero has begun to leave. */
+  if (header) {
+    const onScroll = () => {
+      if (window.scrollY > 24) header.dataset.scrolled = 'true';
+      else delete header.dataset.scrolled;
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  if (toggle && drawer) {
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      drawer.hidden = !open;
+      document.documentElement.style.overflow = open ? 'hidden' : '';
+    };
+
+    toggle.addEventListener('click', () => {
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    drawer.addEventListener('click', (event) => {
+      if ((event.target as HTMLElement).closest('a')) setOpen(false);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+
+    /* Close the drawer if the viewport grows past the breakpoint. */
+    window.matchMedia('(min-width: 900px)').addEventListener('change', (e) => {
+      if (e.matches) setOpen(false);
+    });
+  }
+</script>

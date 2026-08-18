@@ -1,0 +1,133 @@
+---
+/**
+ * OfferLadder — the ascension path, made explicit.
+ * ---------------------------------------------------------------------------
+ * Most sites in the corpus *have* a ladder (free content → book → course →
+ * mastermind → 1:1) but few *show* it. Dori Soukup and Karim Naoum come
+ * closest, and both benefit: showing the ladder lets a cold visitor
+ * self-select the rung they are ready for instead of bouncing off the only
+ * CTA on offer.
+ *
+ * Tiers are visually weighted so the eye travels up toward the high-ticket rung.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+import Button from '../../components/primitives/Button.astro';
+
+const {
+  id,
+  tone = 'raised',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  align = 'center',
+  width = 'base',
+  rungs = [],
+} = Astro.props;
+
+const tierLabel: Record<string, string> = {
+  free: 'Start free',
+  low: 'Self-paced',
+  mid: 'Guided',
+  high: 'By application',
+};
+---
+
+<Section block="OfferLadder" {id} {tone} {pad} class="bol">
+  <Container {width}>
+    <div class="bol__head">
+      <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} {align} />
+    </div>
+
+    <ol class="bol__rungs">
+      {
+        rungs.map((rung: any, i: number) => (
+          <li class="bol__rung" data-tier={rung.tier} style={`--bol-i:${i}`}>
+            <div class="bol__meta">
+              <span class="bol__tier">{tierLabel[rung.tier] ?? rung.tier}</span>
+              {rung.price && <span class="bol__price">{rung.price}</span>}
+            </div>
+            <div class="bol__content">
+              <h3 class="bol__name">{rung.name}</h3>
+              <p class="bol__desc">{rung.description}</p>
+            </div>
+            <div class="bol__action">
+              <Button cta={rung.cta} size="sm" />
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </Container>
+</Section>
+
+<style>
+  .bol__head {
+    margin-bottom: var(--space-12);
+  }
+  .bol__rungs {
+    display: grid;
+    gap: var(--space-3);
+  }
+  .bol__rung {
+    display: grid;
+    gap: var(--space-4);
+    align-items: center;
+    padding: clamp(1.25rem, 1rem + 1.2vw, 2rem);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid color-mix(in oklab, var(--accent) calc(25% + var(--bol-i) * 22%), transparent);
+    border-radius: var(--card-radius);
+    transition:
+      border-color var(--dur-base) var(--ease-out),
+      transform var(--dur-base) var(--ease-out);
+  }
+  .bol__rung:hover {
+    transform: translateX(4px);
+  }
+  .bol__rung[data-tier='high'] {
+    border-left-color: var(--accent);
+    background: color-mix(in oklab, var(--accent) 7%, var(--surface));
+  }
+  @media (min-width: 860px) {
+    .bol__rung {
+      grid-template-columns: 12rem 1fr auto;
+      gap: var(--space-8);
+    }
+  }
+  .bol__meta {
+    display: grid;
+    gap: 0.25rem;
+  }
+  .bol__tier {
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-widest);
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .bol__price {
+    font-family: var(--font-display);
+    font-size: var(--fs-sm);
+    color: var(--text-muted);
+  }
+  .bol__content {
+    display: grid;
+    gap: 0.4rem;
+  }
+  .bol__name {
+    font-size: var(--fs-md);
+    line-height: var(--lh-snug);
+  }
+  .bol__desc {
+    margin: 0;
+    line-height: var(--lh-relaxed);
+    color: var(--text-muted);
+    max-width: 62ch;
+  }
+</style>

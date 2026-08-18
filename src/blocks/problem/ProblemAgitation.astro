@@ -1,0 +1,126 @@
+---
+/**
+ * ProblemAgitation — name the pain before offering the cure.
+ * ---------------------------------------------------------------------------
+ * 57% of the corpus has one, and it is the strongest predictor of a high copy
+ * score. The best examples speak in the reader's own internal monologue:
+ *
+ *   Dave Asprey — "Are You Living Well-Enough? Or Are You Actually Living Well?"
+ *   Mathieu Jang — "HEY YOU, If I'm talking to the right person here…"
+ *   Darren Frank — "Leadership gets lonelier as the stakes rise."
+ *   Steve Rodgers — "Have You Been Scrambling to Fill That Elusive
+ *                    'Hole in Your Soul'?"
+ *
+ * Copy rule enforced by review, not code: no jargon, no third person. Write the
+ * sentence the reader would say to a friend at 11pm.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+import Portrait from '../../components/primitives/Portrait.astro';
+
+const {
+  id,
+  tone = 'inverse',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  align = 'start',
+  width = 'base',
+  painPoints = [],
+  media,
+  mediaSide = 'left',
+} = Astro.props;
+---
+
+<Section block="ProblemAgitation" {id} {tone} {pad} class="bpa">
+  <Container width={media ? width : 'content'}>
+    {
+      media ? (
+        <div class="u-split" data-media={mediaSide}>
+          <div class="bpa__copy">
+            <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} {ctas} align="start" />
+            {painPoints.length > 0 && (
+              <ul class="bpa__points">
+                {painPoints.map((point: string) => (
+                  <li>{point}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+          <Portrait
+            src={media.src}
+            alt={media.alt}
+            width={media.width}
+            height={media.height}
+            position={media.position}
+            treatment="framed"
+          />
+        </div>
+      ) : (
+        <div class="bpa__copy">
+          <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} {ctas} {align} />
+          {painPoints.length > 0 && (
+            <ul class="bpa__points" data-align={align}>
+              {painPoints.map((point: string) => (
+                <li>{point}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )
+    }
+  </Container>
+</Section>
+
+<style>
+  .bpa__copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+  .bpa__points {
+    display: grid;
+    gap: var(--space-3);
+  }
+  .bpa__points[data-align='center'] {
+    max-width: 44rem;
+    margin-inline: auto;
+    text-align: left;
+  }
+  .bpa__points li {
+    position: relative;
+    padding-left: 2rem;
+    font-size: var(--fs-md);
+    line-height: var(--lh-relaxed);
+    color: var(--text-muted);
+  }
+  /* A cross rather than a bullet: these are the things going *wrong*. */
+  .bpa__points li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 0.75rem;
+    height: 0.75rem;
+    background: var(--accent);
+    clip-path: polygon(
+      20% 0%,
+      0% 20%,
+      30% 50%,
+      0% 80%,
+      20% 100%,
+      50% 70%,
+      80% 100%,
+      100% 80%,
+      70% 50%,
+      100% 20%,
+      80% 0%,
+      50% 30%
+    );
+  }
+</style>

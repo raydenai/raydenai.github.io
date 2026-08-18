@@ -1,0 +1,547 @@
+{
+  "path": "/",
+  "brand": "priya-raghavan",
+  "archetype": "home",
+  "seo": {
+    "title": "Priya Raghavan | Executive Authority Advisor",
+    "description": "Priya Raghavan helps founders and C-suite leaders build undeniable external authority. 270+ executives advised, 11 IPOs and exits. Book a strategy call.",
+    "schemaType": "ProfilePage"
+  },
+  "blocks": [
+    {
+      "type": "HeroSplitPortrait",
+      "tone": "default",
+      "pad": "loose",
+      "eyebrow": "Executive Authority Advisory",
+      "heading": "You are the most capable person in the room. Almost nobody outside it knows.",
+      "mark": {
+        "word": "Almost nobody",
+        "style": "accent"
+      },
+      "subheading": "I work with founders and C-suite operators who have built something real and are still treated as a well-kept secret. Six months from now, you will be the name that comes up in the rooms you are not in.",
+      "portrait": {
+        "src": "/images/portrait-hero.png",
+        "alt": "Priya Raghavan, executive authority advisor",
+        "width": 1200,
+        "height": 1500
+      },
+      "portraitTreatment": "cutout",
+      "mediaSide": "right",
+      "badges": [
+        "Advising since 2013",
+        "San Francisco / Global"
+      ],
+      "ctas": [
+        {
+          "label": "Book a strategy call",
+          "href": "/contact/",
+          "intent": "primary",
+          "event": "hero_book_call"
+        },
+        {
+          "label": "See the method",
+          "href": "/method/",
+          "intent": "tertiary"
+        }
+      ],
+      "floatingProof": {
+        "quote": "Priya rebuilt how the market sees me in under a year. Two board invitations came directly out of it.",
+        "author": "Daniel Weiss",
+        "role": "CEO",
+        "company": "Northline Logistics",
+        "avatar": {
+          "src": "/images/avatar-1.webp",
+          "alt": "Daniel Weiss",
+          "width": 256,
+          "height": 256
+        }
+      },
+      "backdrop": "both"
+    },
+    {
+      "type": "LogoStrip",
+      "tone": "raised",
+      "pad": "tight",
+      "eyebrow": "Work and commentary featured in",
+      "logos": [
+        {
+          "src": "/images/logos/forbes.svg",
+          "alt": "Forbes",
+          "width": 92
+        },
+        {
+          "src": "/images/logos/hbr.svg",
+          "alt": "Harvard Business Review",
+          "width": 168
+        },
+        {
+          "src": "/images/logos/wsj.svg",
+          "alt": "The Wall Street Journal",
+          "width": 176
+        },
+        {
+          "src": "/images/logos/fastcompany.svg",
+          "alt": "Fast Company",
+          "width": 128
+        },
+        {
+          "src": "/images/logos/bloomberg.svg",
+          "alt": "Bloomberg",
+          "width": 118
+        },
+        {
+          "src": "/images/logos/inc.svg",
+          "alt": "Inc.",
+          "width": 56
+        }
+      ]
+    },
+    {
+      "type": "EmpathyQuoteWall",
+      "id": "the-problem",
+      "tone": "default",
+      "pad": "default",
+      "eyebrow": "Sound familiar",
+      "heading": "The things capable leaders say when nobody else is listening",
+      "mark": {
+        "word": "nobody else is listening",
+        "style": "accent"
+      },
+      "align": "center",
+      "quotes": [
+        "I have run three companies and I still feel like I have to prove myself in every first meeting.",
+        "The people who get the keynote slots know less than I do. They are just louder.",
+        "Our competitor raised at twice our valuation on half our numbers. Their founder is on every podcast.",
+        "I have been told to build my personal brand for four years. I still have no idea what that actually means.",
+        "Every time I post something I sound like a LinkedIn parody of myself."
+      ],
+      "reaction": "None of this is a confidence problem. It is an evidence problem."
+    },
+    {
+      "type": "ProblemAgitation",
+      "tone": "inverse",
+      "pad": "default",
+      "eyebrow": "The real cost",
+      "heading": "Invisible authority is expensive, and the bill arrives quietly.",
+      "mark": {
+        "word": "expensive",
+        "style": "underline"
+      },
+      "body": "Nobody sends an invoice for being underestimated. The cost shows up as the deal that went to a worse firm with a better-known founder, the board seat that went to someone with a book, the hire who chose a company with a louder story.\n\nBy the time you notice the pattern, you have usually been paying it for years.",
+      "painPoints": [
+        "You are compared on price because nothing else about you is legible from the outside.",
+        "Your best work is invisible to everyone who was not in the room when it happened.",
+        "Inbound opportunities arrive from people who found you by accident, not by reputation.",
+        "You are asked to speak on panels, not to give keynotes.",
+        "Your team cannot explain what makes you different, so neither can your market."
+      ],
+      "media": {
+        "src": "/images/workshop.webp",
+        "alt": "An executive leadership session in progress",
+        "width": 1920,
+        "height": 1280
+      },
+      "mediaSide": "left"
+    },
+    {
+      "type": "CredibilityBar",
+      "tone": "raised",
+      "pad": "tight",
+      "stats": [
+        {
+          "value": "$4.2B+",
+          "label": "Enterprise value led",
+          "detail": "Combined revenue of client organisations"
+        },
+        {
+          "value": "270+",
+          "label": "Executives advised",
+          "detail": "Across 19 countries since 2013"
+        },
+        {
+          "value": "11",
+          "label": "IPOs and exits",
+          "detail": "Clients who led a liquidity event"
+        },
+        {
+          "value": "94%",
+          "label": "Renewal rate",
+          "detail": "Clients who extend past the first engagement"
+        }
+      ],
+      "animate": true
+    },
+    {
+      "type": "PrincipleZigZag",
+      "id": "principles",
+      "tone": "default",
+      "pad": "loose",
+      "eyebrow": "How I think about this",
+      "heading": "Five principles that shape every engagement",
+      "mark": {
+        "word": "Five principles",
+        "style": "accent"
+      },
+      "subheading": "If you disagree with these, we are not a fit — and I would rather you know that now than four weeks into a retainer.",
+      "principles": [
+        {
+          "title": "Authority is built on evidence, not exposure.",
+          "description": "Visibility without substance decays fast and takes your reputation with it. We start by finding what you already know that nobody has written down, then make it undeniable. Posting frequency is the last thing we discuss, not the first."
+        },
+        {
+          "title": "One clear position beats five accurate descriptions.",
+          "description": "Most executives describe themselves in a way that is entirely true and completely unmemorable. A position is a deliberate narrowing: it costs you the audience you were never going to win, and buys you the one you can own."
+        },
+        {
+          "title": "Your method is your moat.",
+          "description": "Anyone can copy your service list. Nobody can copy a named framework that carries your judgement inside it. Naming how you work converts you from a vendor with opinions into an institution with a system."
+        },
+        {
+          "title": "Proof beats promise, and specificity beats proof.",
+          "description": "\"We drive growth\" is noise. \"We took a $40M logistics business from 11 to 34 percent EBITDA in nineteen months\" is a magnet. The work is usually not achieving results — it is retrieving the ones you already have and refusing to round them off."
+        },
+        {
+          "title": "If it needs you in the room, it does not scale.",
+          "description": "Your authority should work while you sleep: an asset a stranger can encounter, evaluate and act on without you present. Everything we build is designed to be forwarded by someone else to someone you have never met."
+        }
+      ]
+    },
+    {
+      "type": "DualCtaTransition",
+      "tone": "default",
+      "pad": "default",
+      "eyebrow": "If that resonated",
+      "heading": "These five principles are the foundation. The method is what turns them into a plan.",
+      "mark": {
+        "word": "the method",
+        "style": "accent"
+      },
+      "subheading": "Most people who read this far already know they have an authority gap. The useful question is which one, and what to do first.",
+      "ctas": [
+        {
+          "label": "See the Quiet Authority Method",
+          "href": "/method/",
+          "intent": "primary"
+        },
+        {
+          "label": "Take the Authority Audit",
+          "href": "#authority-audit",
+          "intent": "secondary"
+        }
+      ]
+    },
+    {
+      "type": "MethodologyPillars",
+      "tone": "raised",
+      "pad": "default",
+      "methodName": "The Quiet Authority Method",
+      "eyebrow": "The framework",
+      "heading": "Four pillars, in order. Skipping one is why most personal branding fails.",
+      "mark": {
+        "word": "in order",
+        "style": "accent"
+      },
+      "align": "center",
+      "pillars": [
+        {
+          "name": "Position",
+          "summary": "Decide precisely who you are for and what you are willing to be wrong about.",
+          "detail": "Output: a positioning statement, a named enemy, and three claims you can defend under pressure.",
+          "icon": "target"
+        },
+        {
+          "name": "Proof",
+          "summary": "Retrieve and quantify the evidence already sitting in your history.",
+          "detail": "Output: an evidence library — numbers, case narratives, named outcomes, third-party endorsements.",
+          "icon": "chart"
+        },
+        {
+          "name": "Package",
+          "summary": "Convert your judgement into a named method others can reference without you.",
+          "detail": "Output: your framework, your keynote, your book thesis, your one-page point of view.",
+          "icon": "book"
+        },
+        {
+          "name": "Platform",
+          "summary": "Place the assets where your specific rooms already look.",
+          "detail": "Output: a twelve-month distribution plan built around three channels, not eleven.",
+          "icon": "stage"
+        }
+      ],
+      "ctas": [
+        {
+          "label": "Read the method in full",
+          "href": "/method/",
+          "intent": "secondary"
+        }
+      ]
+    },
+    {
+      "type": "ResultsGrid",
+      "id": "results",
+      "tone": "default",
+      "pad": "default",
+      "eyebrow": "Selected engagements",
+      "heading": "What changes, in numbers",
+      "mark": {
+        "word": "in numbers",
+        "style": "accent"
+      },
+      "subheading": "Client names are used with permission. Figures are taken from client-reported data at the close of engagement.",
+      "results": [
+        {
+          "client": "Northline Logistics",
+          "headline": "From invisible operator to category commentator",
+          "metric": "2 board seats",
+          "before": "Zero inbound; no external profile",
+          "after": "14 qualified inbound conversations per quarter"
+        },
+        {
+          "client": "Aster Health",
+          "headline": "A named diagnostic framework became the company's main sales asset",
+          "metric": "3.1x pipeline",
+          "before": "9-month average sales cycle",
+          "after": "4-month average sales cycle"
+        },
+        {
+          "client": "Kestrel Capital",
+          "headline": "Founder thesis published, then cited by the press she wanted to reach",
+          "metric": "$180M raised",
+          "before": "One outlet had covered the firm",
+          "after": "Quoted in four tier-one outlets in twelve months"
+        }
+      ]
+    },
+    {
+      "type": "TestimonialGrid",
+      "tone": "raised",
+      "pad": "default",
+      "eyebrow": "In their words",
+      "heading": "What clients say when the engagement ends",
+      "align": "center",
+      "layout": "grid",
+      "columns": 3,
+      "testimonials": [
+        {
+          "quote": "I expected a communications coach. What I got was someone who reorganised how I think about my own record, and then made it impossible to ignore.",
+          "author": "Daniel Weiss",
+          "role": "Chief Executive",
+          "company": "Northline Logistics",
+          "avatar": {
+            "src": "/images/avatar-1.webp",
+            "alt": "Daniel Weiss",
+            "width": 256,
+            "height": 256
+          },
+          "result": "Two board invitations within nine months"
+        },
+        {
+          "quote": "The framework we built in month three is now on the first slide of every deck our sales team uses. It outlived the engagement by years.",
+          "author": "Ama Osei",
+          "role": "Founder",
+          "company": "Aster Health",
+          "avatar": {
+            "src": "/images/avatar-2.webp",
+            "alt": "Ama Osei",
+            "width": 256,
+            "height": 256
+          },
+          "result": "Sales cycle cut from nine months to four"
+        },
+        {
+          "quote": "Priya is the only advisor I have worked with who told me to say less. It was the most profitable advice I received that year.",
+          "author": "Marcus Hale",
+          "role": "Managing Partner",
+          "company": "Kestrel Capital",
+          "avatar": {
+            "src": "/images/avatar-3.webp",
+            "alt": "Marcus Hale",
+            "width": 256,
+            "height": 256
+          },
+          "result": "$180M fund close"
+        }
+      ],
+      "ctas": [
+        {
+          "label": "See full case studies",
+          "href": "/work-with-me/#results",
+          "intent": "secondary"
+        }
+      ]
+    },
+    {
+      "type": "OriginStory",
+      "tone": "default",
+      "pad": "default",
+      "eyebrow": "Why I do this",
+      "heading": "I spent nine years making other people famous before I understood what it actually took.",
+      "mark": {
+        "word": "famous",
+        "style": "script"
+      },
+      "excerpt": "I ran communications for a company whose founder was, by any technical measure, the best in his field. He lost a nine-figure acquisition to a competitor with a worse product and a better-known chief executive. I watched him read the announcement in a boardroom and say nothing.\n\nThat night I went through everything we had ever published about him. It was all accurate. None of it was memorable. We had spent four years describing a man instead of positioning one.\n\nI have spent every year since then working out the difference — and it turns out the difference is a method, not a personality.",
+      "portrait": {
+        "src": "/images/portrait-story.webp",
+        "alt": "Priya Raghavan in a client boardroom session",
+        "width": 1920,
+        "height": 1440
+      },
+      "mediaSide": "right",
+      "signature": {
+        "src": "/images/signature.png",
+        "alt": "Priya Raghavan's signature",
+        "width": 500,
+        "height": 333
+      },
+      "ctas": [
+        {
+          "label": "Read the full story",
+          "href": "/about/",
+          "intent": "tertiary"
+        }
+      ]
+    },
+    {
+      "type": "AudienceQualifier",
+      "tone": "default",
+      "pad": "default",
+      "eyebrow": "Fit",
+      "heading": "This works extremely well for some people and not at all for others.",
+      "mark": {
+        "word": "not at all",
+        "style": "accent"
+      },
+      "align": "center",
+      "forWhom": [
+        "You run or lead a company between $20M and $500M in revenue.",
+        "You have a real track record and are tired of it being invisible.",
+        "You are willing to take a position that will lose you part of the market.",
+        "You can commit two hours a week for six months. Not twenty. Two.",
+        "You want to be referenced by other people, not just followed."
+      ],
+      "notForWhom": [
+        "You want follower growth as the primary outcome.",
+        "You are pre-revenue and looking for a story to raise on.",
+        "You want someone to write posts in your voice while you stay uninvolved.",
+        "You are unwilling to publish anything that could be argued with.",
+        "You need results inside sixty days."
+      ],
+      "ctas": [
+        {
+          "label": "I think this is a fit — book a call",
+          "href": "/contact/",
+          "intent": "primary"
+        }
+      ]
+    },
+    {
+      "type": "LeadMagnet",
+      "id": "authority-audit",
+      "tone": "accent",
+      "pad": "default",
+      "magnetName": "Free diagnostic",
+      "heading": "The Authority Audit",
+      "subheading": "Twelve questions that locate exactly where your authority leaks — and tell you which gap to close first.",
+      "body": "It takes about nine minutes. You get a scored PDF, not a sales call. If your score comes back above 80 you almost certainly do not need me, and I will tell you so.",
+      "benefits": [
+        "Score across all four pillars: Position, Proof, Package, Platform",
+        "The single highest-leverage gap for your situation, named",
+        "A worked example of what closing that gap looked like for a comparable leader"
+      ],
+      "mockup": {
+        "src": "/images/leadmagnet.webp",
+        "alt": "The Authority Audit diagnostic PDF",
+        "width": 1200,
+        "height": 900
+      },
+      "mediaSide": "left",
+      "form": {
+        "action": "demo://authority-audit",
+        "fields": [
+          "firstName",
+          "email"
+        ],
+        "submitLabel": "Send me the audit",
+        "consentNote": "One email with the audit, then roughly one useful note a month. Unsubscribe whenever."
+      }
+    },
+    {
+      "type": "PostsGrid",
+      "tone": "default",
+      "pad": "default",
+      "eyebrow": "Insights",
+      "heading": "Recent thinking",
+      "subheading": "Written for operators, not for the algorithm.",
+      "limit": 3,
+      "ctas": [
+        {
+          "label": "All insights",
+          "href": "/blog/",
+          "intent": "tertiary"
+        }
+      ]
+    },
+    {
+      "type": "FaqAccordion",
+      "tone": "raised",
+      "pad": "default",
+      "eyebrow": "Before you book",
+      "heading": "The questions I get asked most",
+      "faqs": [
+        {
+          "question": "How is this different from executive coaching?",
+          "answer": "Executive coaching generally works on how you show up: presence, communication, confidence under pressure. Authority advisory works on what exists outside the room — your position, your documented evidence, your named method, and where those assets are placed. Many clients do both, and several of my clients came to me while still working with a coach. The two are complementary rather than competing."
+        },
+        {
+          "question": "How long before anything visible happens?",
+          "answer": "Positioning is usually settled within the first four to six weeks, and clients report the internal effect immediately: conversations get easier because the answer to \"what do you do\" stops being a paragraph. External signals — inbound enquiries, speaking invitations, press citations — typically begin between months three and five. Anyone promising external results in the first sixty days is selling exposure, not authority."
+        },
+        {
+          "question": "Do you write content for me?",
+          "answer": "No, and this is deliberate. Ghostwritten thought leadership fails for a specific reason: the value is in your judgement, and judgement cannot be outsourced without becoming generic. I build the structure, extract the thinking through interviews, and edit hard. You supply the opinions. Most clients spend around two hours a week on this."
+        },
+        {
+          "question": "What does an engagement cost?",
+          "answer": "Executive advisory engagements start at $45,000 for six months. The leadership team intensive is priced per engagement, typically between $28,000 and $60,000 depending on the size of the team. Keynotes start at $35,000 within North America. I only take on six advisory clients at a time, so availability rather than price is usually the binding constraint."
+        },
+        {
+          "question": "What happens on the strategy call?",
+          "answer": "Thirty minutes, no presentation. I ask what you have built, who currently knows about it, and what specifically prompted you to look for help now. By the end you will have my honest read on whether you have an authority gap worth investing in, and if so which of the four pillars is weakest. If I do not think I am the right person, I will say so and usually suggest who is."
+        }
+      ]
+    },
+    {
+      "type": "FinalCta",
+      "tone": "inverse",
+      "pad": "loose",
+      "eyebrow": "Next step",
+      "heading": "Thirty minutes to find out whether your authority gap is worth closing.",
+      "mark": {
+        "word": "worth closing",
+        "style": "accent"
+      },
+      "subheading": "Six advisory clients at a time. If the fit is not obvious to both of us on the call, I will tell you.",
+      "background": {
+        "src": "/images/texture-dark.webp",
+        "alt": "",
+        "width": 1920,
+        "height": 1080
+      },
+      "ctas": [
+        {
+          "label": "Book a strategy call",
+          "href": "/contact/",
+          "intent": "primary",
+          "event": "final_cta_book_call"
+        }
+      ],
+      "reassurance": [
+        "No pitch deck",
+        "Thirty minutes, once",
+        "You leave with a named gap either way",
+        "If it is not a fit, I will say so"
+      ]
+    }
+  ]
+}

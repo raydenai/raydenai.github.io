@@ -1,0 +1,173 @@
+---
+/**
+ * ContactSplit — direct contact, with a human on the other end.
+ * ---------------------------------------------------------------------------
+ * The corpus's contact pages are mostly a bare form. The higher-trust pattern
+ * pairs the form with a named person, a photo, a real response-time promise and
+ * an alternative channel (calendar link, email, phone). For consultants selling
+ * access to themselves, showing who receives the message matters more than the
+ * form design.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+import Form from '../../components/primitives/Form.astro';
+import Portrait from '../../components/primitives/Portrait.astro';
+
+const {
+  id,
+  tone = 'default',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  level,
+  width = 'base',
+  form,
+  channels = [],
+  responseTime,
+  portrait,
+} = Astro.props;
+---
+
+<Section block="ContactSplit" {id} {tone} {pad} class="bcx">
+  <Container {width}>
+    <div class="bcx__grid">
+      <div class="bcx__aside">
+        <BlockHeader
+          {eyebrow}
+          {heading}
+          {mark}
+          {subheading}
+          {body}
+          {level}
+          size={level === 1 ? 'display-2' : 'display-3'}
+        />
+
+        {
+          portrait && (
+            <div class="bcx__portrait">
+              <Portrait
+                src={portrait.src}
+                alt={portrait.alt}
+                width={portrait.width}
+                height={portrait.height}
+                position={portrait.position}
+                treatment="framed"
+                aspect="1 / 1"
+              />
+            </div>
+          )
+        }
+
+        {
+          responseTime && (
+            <p class="bcx__response">
+              <span class="bcx__dot" aria-hidden="true"></span>
+              {responseTime}
+            </p>
+          )
+        }
+
+        {
+          channels.length > 0 && (
+            <ul class="bcx__channels">
+              {channels.map((c: any) => (
+                <li>
+                  <a href={c.href} data-event="contact_channel_click">
+                    <span class="bcx__channel-label">{c.label}</span>
+                    <span class="bcx__channel-value">{c.value}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+
+      <div class="bcx__form">
+        <Form
+          action={form.action}
+          fields={form.fields}
+          submitLabel={form.submitLabel}
+          consentNote={form.consentNote}
+          layout="two-col"
+        />
+      </div>
+    </div>
+  </Container>
+</Section>
+
+<style>
+  .bcx__grid {
+    display: grid;
+    gap: clamp(2rem, 1.5rem + 3vw, 4rem);
+    align-items: start;
+  }
+  @media (min-width: 960px) {
+    .bcx__grid {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    }
+  }
+  .bcx__aside {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+  .bcx__portrait {
+    max-width: 12rem;
+  }
+  .bcx__response {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .bcx__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: var(--radius-circle);
+    background: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 22%, transparent);
+  }
+  .bcx__channels {
+    display: grid;
+    gap: var(--space-3);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--border);
+  }
+  .bcx__channels a {
+    display: grid;
+    gap: 0.15rem;
+  }
+  .bcx__channel-label {
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-widest);
+    text-transform: uppercase;
+    color: var(--text-subtle);
+  }
+  .bcx__channel-value {
+    font-size: var(--fs-md);
+    color: var(--text);
+    transition: color var(--dur-base) var(--ease-out);
+  }
+  .bcx__channels a:hover .bcx__channel-value {
+    color: var(--accent);
+  }
+  .bcx__form {
+    padding: clamp(1.5rem, 1.1rem + 1.6vw, 2.5rem);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius);
+  }
+</style>

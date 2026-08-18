@@ -1,0 +1,137 @@
+---
+/**
+ * VideoGrid — proof of presence on camera.
+ * ---------------------------------------------------------------------------
+ * Performance-critical block. In the source corpus, video sections were the
+ * single largest contributor to poor Lighthouse scores because each embed
+ * shipped a full iframe on load. Here, thumbnails are plain images and the
+ * iframe is created only on click by the shared Lightbox: 50% of the corpus
+ * used video, none of them needed to pay this cost.
+ */
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import BlockHeader from '../../components/primitives/BlockHeader.astro';
+
+const {
+  id,
+  tone = 'default',
+  pad = 'default',
+  eyebrow,
+  heading,
+  mark,
+  subheading,
+  body,
+  ctas = [],
+  align = 'start',
+  width = 'wide',
+  videos = [],
+  columns = 3,
+} = Astro.props;
+---
+
+<Section block="VideoGrid" {id} {tone} {pad} class="bvg">
+  <Container {width}>
+    <div class="bvg__head">
+      <BlockHeader {eyebrow} {heading} {mark} {subheading} {body} {ctas} {align} />
+    </div>
+
+    <ul class="u-grid" style={`--cols:${columns};--cols-tablet:2`}>
+      {
+        videos.map((video: any) => (
+          <li>
+            <a
+              class="bvg__item"
+              href={video.url}
+              data-modal="video"
+              data-event="video_play"
+            >
+              <span class="bvg__thumb">
+                <img
+                  src={video.thumbnail.src}
+                  alt={video.thumbnail.alt}
+                  width={video.thumbnail.width ?? 800}
+                  height={video.thumbnail.height ?? 450}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="bvg__play" aria-hidden="true">▶</span>
+                {video.duration && <span class="bvg__duration">{video.duration}</span>}
+              </span>
+              <span class="bvg__title">{video.title}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </Container>
+</Section>
+
+<style>
+  .bvg__head {
+    margin-bottom: var(--space-10);
+  }
+  .bvg__item {
+    display: grid;
+    gap: var(--space-3);
+  }
+  .bvg__thumb {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: var(--card-radius);
+    border: 1px solid var(--border);
+  }
+  .bvg__thumb img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    transition: transform var(--dur-slow) var(--ease-out);
+  }
+  .bvg__item:hover .bvg__thumb img {
+    transform: scale(1.04);
+  }
+  .bvg__play {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 3.25rem;
+    height: 3.25rem;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-circle);
+    background: color-mix(in oklab, var(--surface) 76%, transparent);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-size: 0.85rem;
+    padding-left: 3px;
+    transition:
+      background-color var(--dur-base) var(--ease-out),
+      color var(--dur-base) var(--ease-out);
+  }
+  .bvg__item:hover .bvg__play {
+    background: var(--accent);
+    color: var(--accent-contrast);
+  }
+  .bvg__duration {
+    position: absolute;
+    right: 0.6rem;
+    bottom: 0.6rem;
+    padding: 0.2em 0.5em;
+    background: color-mix(in oklab, #000 72%, transparent);
+    color: #fff;
+    border-radius: var(--radius-xs);
+    font-size: var(--fs-xs);
+    font-variant-numeric: tabular-nums;
+  }
+  .bvg__title {
+    font-family: var(--font-display);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-snug);
+    color: var(--text);
+    transition: color var(--dur-base) var(--ease-out);
+  }
+  .bvg__item:hover .bvg__title {
+    color: var(--accent);
+  }
+</style>
