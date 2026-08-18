@@ -42,7 +42,7 @@
   "conversion": {
     "primaryGoal": "book-call",
     "primaryCta": {
-      "label": "Run the diagnostic",
+      "label": "Book a private consultation",
       "href": "/contact/",
       "intent": "primary",
       "event": "book_call_click"
@@ -155,27 +155,27 @@
   },
   "nav": [
     {
-      "label": "The Record",
+      "label": "About",
       "href": "/about/",
       "children": []
     },
     {
-      "label": "The System",
+      "label": "The Method",
       "href": "/method/",
       "children": []
     },
     {
-      "label": "Case Files",
-      "href": "/case-studies/",
-      "children": []
-    },
-    {
-      "label": "Work Together",
+      "label": "Work With Me",
       "href": "/work-with-me/",
       "children": []
     },
     {
-      "label": "Notes",
+      "label": "Speaking",
+      "href": "/speaking/",
+      "children": []
+    },
+    {
+      "label": "Insights",
       "href": "/blog/",
       "children": []
     }
@@ -263,8 +263,8 @@
     "formEndpoint": ""
   },
   "announcement": {
-    "text": "AURA Proof Machine is a conceptual system demo — use only permissioned evidence in production.",
-    "href": "/case-studies/",
-    "active": true
+    "text": "",
+    "href": "/",
+    "active": false
   }
 }

@@ -10,7 +10,7 @@
 import { getCollection, getEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BlockRenderer from '../components/BlockRenderer.astro';
-import ProofMachinePageRail from '../components/directions/ProofMachinePageRail.astro';
+import PrivateSignalPageRail from '../components/directions/PrivateSignalPageRail.astro';
 import {
   personSchema,
   organizationSchema,
@@ -101,8 +101,8 @@ const transparentHeader = firstBlock.startsWith('Hero');
   noindex={page.data.seo.noindex}
   {schema}
   {transparentHeader}
-  bodyClass="pm-production pm-production--subpage"
+  bodyClass="private-signal private-signal--subpage"
 >
-  <ProofMachinePageRail archetype={page.data.archetype} path={page.data.path} />
+  <PrivateSignalPageRail archetype={page.data.archetype} />
   <BlockRenderer blocks={page.data.blocks} />
 </BaseLayout>

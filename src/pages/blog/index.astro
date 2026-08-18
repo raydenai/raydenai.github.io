@@ -7,7 +7,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Section from '../../components/primitives/Section.astro';
 import Container from '../../components/primitives/Container.astro';
 import BlockHeader from '../../components/primitives/BlockHeader.astro';
-import ProofMachinePageRail from '../../components/directions/ProofMachinePageRail.astro';
+import PrivateSignalPageRail from '../../components/directions/PrivateSignalPageRail.astro';
 import { personSchema, websiteSchema, graph } from '../../lib/schema';
 
 const brandEntry = (await getCollection('brand'))[0];
@@ -40,15 +40,15 @@ const [featured, ...rest] = posts;
   description={`Essays and field notes from ${brand.name} on ${brand.positioning.audience}.`}
   {schema}
   transparentHeader={false}
-  bodyClass="pm-production pm-production--subpage"
+  bodyClass="private-signal private-signal--subpage"
 >
-  <ProofMachinePageRail archetype="blog" path="/blog/" />
+  <PrivateSignalPageRail archetype="blog" />
   <Section block="BlogIndex" pad="default">
     <Container width="wide">
       <BlockHeader
-        eyebrow="Field notes / public thinking"
-        heading="Useful before it is persuasive."
-        mark={{ word: 'Useful', style: 'accent' }}
+        eyebrow="Field notes / considered thinking"
+        heading="Ideas worth carrying into the next room."
+        mark={{ word: 'next room', style: 'accent' }}
         subheading={`Practical thinking on ${brand.positioning.audience.toLowerCase()}.`}
         size="display-2"
         level={1}

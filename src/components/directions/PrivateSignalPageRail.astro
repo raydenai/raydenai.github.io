@@ -1,0 +1,19 @@
+---
+const { archetype = 'record' } = Astro.props;
+const labels: Record<string, { index: string; primary: string; secondary: string }> = {
+  about: { index: '01', primary: 'The record', secondary: 'The judgement behind the public signal' },
+  method: { index: '02', primary: 'The method', secondary: 'How private expertise becomes a referenceable asset' },
+  'work-with-me': { index: '03', primary: 'Private engagements', secondary: 'Considered work for consequential moments' },
+  speaking: { index: '04', primary: 'In the room', secondary: 'Ideas built to travel beyond the stage' },
+  contact: { index: '05', primary: 'The conversation', secondary: 'A quieter and more useful place to begin' },
+  blog: { index: '06', primary: 'Field notes', secondary: 'Thinking in public, without performing for the algorithm' },
+  default: { index: '00', primary: 'Private Signal', secondary: 'A more considered public life for meaningful work' },
+};
+const item = labels[archetype] ?? labels.default;
+---
+
+<div class="pspr" aria-label="Section context"><span>{item.index} / {item.primary}</span><span>{item.secondary}</span><span>Raghavan Advisory</span></div>
+
+<style>
+  .pspr { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; padding:.8rem clamp(1rem,4vw,4rem); background:#100d0a; border-bottom:1px solid rgba(215,188,122,.28); color:#e1c582; font-family:var(--font-display); font-size:.55rem; font-weight:800; letter-spacing:.14em; line-height:1.4; text-transform:uppercase; } .pspr span:nth-child(2) { color:#d9cfbe; text-align:center; } .pspr span:last-child { color:#8e806c; text-align:right; } @media (max-width:700px) { .pspr { grid-template-columns:1fr 1fr; } .pspr span:last-child { display:none; } }
+</style>

@@ -568,3 +568,40 @@
 .pm-production .ahd__nav a[data-active='true'] { color: #0b32a8; }
 .pm-production .ahd__cta { border-radius: 0; background: #0b32a8; color: #f1f1eb; }
 .pm-production .site-footer { background: #101114; }
+
+/* Private Signal premium direction --------------------------------------------------
+   The homepage owns its cinematic composition; these shared tokens make all
+   supporting pages feel like chapters of the same private, high-touch world. */
+.private-signal {
+  --surface: #0c0a08;
+  --surface-raised: #17120e;
+  --text: #f7f0df;
+  --text-muted: #d5cbb7;
+  --text-subtle: #a99e8c;
+  --accent: #d7bc7a;
+  --accent-hover: #ead397;
+  --accent-contrast: #18130b;
+  --border: rgba(215, 188, 122, 0.32);
+  --border-strong: rgba(215, 188, 122, 0.64);
+  --card-bg: #17120e;
+  --btn-radius: 0;
+  background: #0c0a08;
+  color: #f7f0df;
+}
+.private-signal .ahd {
+  background: #100d0a;
+  color: #f7f0df;
+  border-bottom-color: rgba(215, 188, 122, 0.28);
+}
+.private-signal .ahd__wordmark,
+.private-signal .ahd__nav a { color: #f7f0df; }
+.private-signal .ahd__nav a:hover,
+.private-signal .ahd__nav a[data-active='true'] { color: #d7bc7a; }
+.private-signal .ahd__toggle span { background: #f7f0df; }
+.private-signal .ahd__cta { border-radius: 0; background: #d7bc7a; color: #18130b; border-color: #d7bc7a; }
+.private-signal .ahd__cta:hover { background: transparent; color: #d7bc7a; }
+.private-signal .site-footer { background: #100d0a; }
+.private-signal .u-btn { border-radius: 0; }
+.private-signal .u-card { border-radius: 0; background: #17120e; }
+.private-signal .u-mark { color: #d7bc7a; }
+.private-signal .u-prose a { color: #d7bc7a; }
