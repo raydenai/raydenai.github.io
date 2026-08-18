@@ -1,0 +1,49 @@
+---
+import { getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProofMachineHome from '../components/directions/ProofMachineHome.astro';
+import { graph, organizationSchema, personSchema, websiteSchema, webPageSchema } from '../lib/schema';
+
+const brandEntry = await getEntry('brand', 'priya-raghavan');
+if (!brandEntry) throw new Error('Proof Machine demo brand not found.');
+const brand = brandEntry.data;
+const siteUrl = (Astro.site ?? new URL(Astro.url.origin)).href.replace(/\/$/, '');
+
+const brandForSchema = {
+  person: {
+    name: brand.name,
+    jobTitle: brand.title,
+    tagline: brand.tagline,
+    bio: brand.positioning.promise,
+    knowsAbout: [brand.positioning.audience, brand.positioning.differentiator].filter(Boolean),
+    portraitUrl: brand.assets.portrait?.src,
+    awards: brand.proof.awards.map((award) => award.name),
+  },
+  organization: brand.company ? { name: brand.company.name, legalName: brand.legal.entity, email: brand.contact.email, telephone: brand.contact.phone } : undefined,
+  social: brand.social.map((item) => ({ platform: item.platform, url: item.href })),
+  site: { url: `${siteUrl}/`, name: brand.name },
+};
+
+const schema = graph([
+  personSchema(brandForSchema),
+  organizationSchema(brandForSchema),
+  websiteSchema(brandForSchema),
+  webPageSchema({ brand: brandForSchema, url: `${siteUrl}/`, title: 'Priya Raghavan | Proof Machine', description: 'A conceptual evidence-first executive authority system.', breadcrumbs: [{ name: 'Home', url: `${siteUrl}/` }] }),
+]);
+---
+
+<BaseLayout {brand} title="Priya Raghavan | Proof Machine" description="A conceptual evidence-first executive authority system." ogImage="/images/portrait-hero-insitu.webp" {schema} transparentHeader={false} bodyClass="pm-production">
+  <ProofMachineHome {brand} />
+</BaseLayout>
+
+<style>
+  :global(.pm-production) { --surface:#f1f1eb; --surface-raised:#e7e5dc; --text:#101114; --text-muted:#55575a; --text-subtle:#767875; --accent:#0b32a8; --border:#a9aaa4; background:#f1f1eb; color:#101114; }
+  :global(.pm-production .announcement-bar) { background:#0b32a8; color:#f1f1eb; }
+  :global(.pm-production .announcement-bar a), :global(.pm-production .announcement-bar button) { color:#f1f1eb; }
+  :global(.pm-production .ahd) { background:#f1f1eb; color:#101114; border-bottom:1px solid #101114; }
+  :global(.pm-production .ahd__wordmark), :global(.pm-production .ahd__nav a), :global(.pm-production .ahd__toggle span) { color:#101114; background-color:currentColor; }
+  :global(.pm-production .ahd__wordmark), :global(.pm-production .ahd__nav a) { background-color:transparent; }
+  :global(.pm-production .ahd__nav a:hover), :global(.pm-production .ahd__nav a[data-active='true']) { color:#0b32a8; }
+  :global(.pm-production .ahd__cta) { border-radius:0; background:#0b32a8; color:#f1f1eb; }
+  :global(.pm-production .site-footer) { background:#101114; }
+</style>

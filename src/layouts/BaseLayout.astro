@@ -45,6 +45,8 @@ const socialImageUrl = socialImage
   : undefined;
 
 const nav = brand.nav.map((item) => ({ label: item.label, href: item.href }));
+const headerVariant = bodyClass.includes('pm-production') ? 'proof' : 'default';
+
 const footerNav = brand.footerNav.map((group) => ({
   title: group.heading,
   links: group.links,
@@ -135,6 +137,7 @@ const optin = brand.conversion.leadMagnet
       {nav}
       cta={brand.conversion.primaryCta}
       transparent={transparentHeader}
+      variant={headerVariant}
     />
 
     <main id="main">

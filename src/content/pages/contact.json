@@ -3,8 +3,8 @@
   "brand": "priya-raghavan",
   "archetype": "contact",
   "seo": {
-    "title": "Contact | Priya Raghavan",
-    "description": "Book a thirty-minute strategy call with Priya Raghavan, or enquire about keynotes and team intensives. Replies within two business days.",
+    "title": "Run the Diagnostic | Priya Raghavan",
+    "description": "A conceptual evidence-readiness diagnostic intake for the AURA Proof Machine production demonstration.",
     "schemaType": "ContactPage"
   },
   "blocks": [
@@ -12,80 +12,27 @@
       "type": "ContactSplit",
       "tone": "default",
       "pad": "loose",
-      "eyebrow": "Get in touch",
-      "heading": "Thirty minutes, no presentation.",
-      "mark": {
-        "word": "no presentation",
-        "style": "accent"
-      },
-      "body": "I will ask what you have built, who currently knows about it, and what specifically prompted you to look for help now. You will leave with my honest read on whether you have an authority gap worth investing in and which pillar is weakest. If I am not the right person, I will say so and usually suggest who is.",
-      "responseTime": "I reply personally within two business days.",
-      "portrait": {
-        "src": "/images/portrait-seated.webp",
-        "alt": "Priya Raghavan",
-        "width": 1200,
-        "height": 1500
-      },
+      "eyebrow": "Run the diagnostic",
+      "heading": "Start with the gap, not the package.",
+      "mark": { "word": "the gap", "style": "accent" },
+      "body": "A good first conversation does not begin with a service menu. It begins by locating the missing signal: is the problem the position, the evidence, the named system, or the platform where the record needs to travel?\n\nThis public site is a conceptual production demonstration. The form remains non-collecting until a real, approved contact-form endpoint is configured.",
+      "responseTime": "Production configuration required before enquiry delivery is enabled.",
+      "portrait": { "src": "/images/portrait-seated.webp", "alt": "Conceptual advisor portrait", "width": 1200, "height": 1500 },
       "channels": [
-        {
-          "label": "Email",
-          "value": "office@priyaraghavan.com",
-          "href": "mailto:office@priyaraghavan.com"
-        },
-        {
-          "label": "Phone",
-          "value": "+1 (415) 555-0142",
-          "href": "tel:+14155550142"
-        },
-        {
-          "label": "LinkedIn",
-          "value": "Connect and send a note",
-          "href": "https://www.linkedin.com/"
-        }
+        { "label": "Production status", "value": "Contact backend pending", "href": "#form-status" },
+        { "label": "System guide", "value": "Read the deployment runbook", "href": "https://github.com/raydenai/raydenai.github.io/blob/main/docs/CUSTOM_DOMAIN_AND_CONTACT_FORM.md" },
+        { "label": "Case workflow", "value": "Read the evidence policy", "href": "https://github.com/raydenai/raydenai.github.io/blob/main/docs/CASE_STUDY_AND_CONTENT_OPERATIONS.md" }
       ],
       "form": {
         "action": "config://contact",
-        "submitLabel": "Request a call",
-        "consentNote": "Used only to reply to you. No mailing list, no sequence.",
+        "submitLabel": "Submit diagnostic context",
+        "consentNote": "This demonstration does not transmit or store form data until a production endpoint is configured.",
         "fields": [
-          {
-            "name": "name",
-            "label": "Full name",
-            "type": "text",
-            "required": true
-          },
-          {
-            "name": "email",
-            "label": "Email",
-            "type": "email",
-            "required": true
-          },
-          {
-            "name": "company",
-            "label": "Company and role",
-            "type": "text",
-            "required": false
-          },
-          {
-            "name": "topic",
-            "label": "What is this about",
-            "type": "select",
-            "required": true,
-            "options": [
-              "Executive advisory",
-              "Leadership team intensive",
-              "Keynote or event",
-              "Media enquiry",
-              "Something else"
-            ]
-          },
-          {
-            "name": "message",
-            "label": "What prompted you to reach out now?",
-            "type": "textarea",
-            "required": true,
-            "placeholder": "The specific recent event is more useful than a general description."
-          }
+          { "name": "name", "label": "Full name", "type": "text", "required": true },
+          { "name": "email", "label": "Email", "type": "email", "required": true },
+          { "name": "company", "label": "Company and role", "type": "text", "required": false },
+          { "name": "signal_gap", "label": "Where does the record break down?", "type": "select", "required": true, "options": ["The position is unclear", "The proof is not visible", "The method is not named", "The right room does not know", "I need a different diagnosis"] },
+          { "name": "message", "label": "What decision is becoming expensive?", "type": "textarea", "required": true, "placeholder": "Describe the situation, not just the desired outcome." }
         ]
       }
     },
@@ -93,22 +40,13 @@
       "type": "FaqAccordion",
       "tone": "raised",
       "pad": "default",
-      "eyebrow": "Before you write",
-      "heading": "Quick answers",
+      "eyebrow": "Before the diagnostic",
+      "heading": "Three proof questions.",
       "width": "content",
       "faqs": [
-        {
-          "question": "Is the call a sales call?",
-          "answer": "It is a diagnostic call that sometimes ends in a proposal. There is no deck and no second call with a closer. Roughly half of the calls I take end with me saying that the timing or the fit is wrong, which is a better outcome for both of us than a mismatched engagement."
-        },
-        {
-          "question": "What is your current availability?",
-          "answer": "I hold six advisory engagements at a time and typically have one or two openings per quarter. Keynotes are booking from the second quarter onward. If nothing is open I will tell you when it will be rather than putting you through a process."
-        },
-        {
-          "question": "Do you work outside North America?",
-          "answer": "Yes. Roughly a third of engagements are with leaders in Europe, the Gulf and Southeast Asia, run remotely with one or two in-person intensives. Keynote travel outside North America is quoted separately."
-        }
+        { "question": "What makes a claim fit for this system?", "answer": "It needs a real context, a legible intervention, and a result that the relevant source permits you to use. Strong claims have a timeframe, a decision, and a clear relationship to the work." },
+        { "question": "Can confidential work still become evidence?", "answer": "Often yes, but it should be anonymized with care. Preserve the relevant sector, role, scale band, decision, and outcome without exposing information the client has not approved." },
+        { "question": "Why begin with a diagnostic instead of an offer?", "answer": "Because position, proof, method, and distribution require different interventions. A good website should help a buyer recognize the correct problem before it asks them to choose a package." }
       ]
     }
   ]

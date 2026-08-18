@@ -42,7 +42,7 @@
   "conversion": {
     "primaryGoal": "book-call",
     "primaryCta": {
-      "label": "Book a strategy call",
+      "label": "Run the diagnostic",
       "href": "/contact/",
       "intent": "primary",
       "event": "book_call_click"
@@ -56,7 +56,7 @@
       "name": "The Authority Audit",
       "type": "toolkit",
       "promise": "A 12-point diagnostic that shows you exactly where your authority leaks — and which gap to close first.",
-      "formAction": "https://formspree.io/f/demo-authority-audit"
+      "formAction": "demo://authority-audit"
     }
   },
   "proof": {
@@ -155,27 +155,27 @@
   },
   "nav": [
     {
-      "label": "About",
+      "label": "The Record",
       "href": "/about/",
       "children": []
     },
     {
-      "label": "The Method",
+      "label": "The System",
       "href": "/method/",
       "children": []
     },
     {
-      "label": "Work With Me",
+      "label": "Case Files",
+      "href": "/case-studies/",
+      "children": []
+    },
+    {
+      "label": "Work Together",
       "href": "/work-with-me/",
       "children": []
     },
     {
-      "label": "Speaking",
-      "href": "/speaking/",
-      "children": []
-    },
-    {
-      "label": "Insights",
+      "label": "Notes",
       "href": "/blog/",
       "children": []
     }
@@ -260,11 +260,11 @@
     ]
   },
   "integrations": {
-    "formEndpoint": "https://formspree.io/f/demo-authority-audit"
+    "formEndpoint": ""
   },
   "announcement": {
-    "text": "The Quiet Authority is out now — signed first-edition copies available.",
-    "href": "/about/#book",
+    "text": "AURA Proof Machine is a conceptual system demo — use only permissioned evidence in production.",
+    "href": "/case-studies/",
     "active": true
   }
 }

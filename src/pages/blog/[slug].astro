@@ -8,6 +8,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Section from '../../components/primitives/Section.astro';
 import Container from '../../components/primitives/Container.astro';
 import FinalCta from '../../blocks/conversion/FinalCta.astro';
+import ProofMachinePageRail from '../../components/directions/ProofMachinePageRail.astro';
 import { personSchema, websiteSchema, webPageSchema, articleSchema, graph } from '../../lib/schema';
 
 export async function getStaticPaths() {
@@ -72,14 +73,16 @@ const dateFmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long
   ogImage={post.data.cover?.src}
   {schema}
   transparentHeader={false}
+  bodyClass="pm-production pm-production--subpage"
 >
+  <ProofMachinePageRail archetype="blog" path={`/blog/${post.id}/`} />
   <article>
     <Section block="PostHeader" pad="default">
       <Container width="content">
         <nav class="bp__crumbs" aria-label="Breadcrumb">
           <a href="/">Home</a>
           <span aria-hidden="true">/</span>
-          <a href="/blog/">Insights</a>
+          <a href="/blog/">Field Notes</a>
         </nav>
 
         <div class="bp__meta">

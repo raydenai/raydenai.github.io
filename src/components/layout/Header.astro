@@ -14,7 +14,7 @@
  */
 import Button from '../primitives/Button.astro';
 
-const { brand, nav, cta, sticky = true, transparent = true } = Astro.props;
+const { brand, nav, cta, sticky = true, transparent = true, variant = 'default' } = Astro.props;
 const currentPath = Astro.url.pathname;
 
 const isActive = (href: string) =>
@@ -25,6 +25,7 @@ const isActive = (href: string) =>
   class="ahd"
   data-sticky={sticky ? 'true' : undefined}
   data-transparent={transparent ? 'true' : undefined}
+  data-variant={variant}
 >
   <div class="ahd__inner u-container" data-width="wide">
     <a class="ahd__brand" href="/" aria-label={`${brand.name} — home`}>
@@ -39,6 +40,8 @@ const isActive = (href: string) =>
         )
       }
     </a>
+
+    {variant === 'proof' && <span class="ahd__system-marker">Signal Stack / 01</span>}
 
     <nav class="ahd__nav" aria-label="Primary">
       <ul>
@@ -141,6 +144,10 @@ const isActive = (href: string) =>
     white-space: nowrap;
   }
 
+  .ahd__system-marker { display:none; color:var(--accent); font-family:var(--font-display); font-size:.58rem; font-weight:800; letter-spacing:.13em; text-transform:uppercase; white-space:nowrap; }
+  .ahd[data-variant='proof'] .ahd__inner { max-width:none; padding-inline:clamp(1rem,3vw,3rem); }
+  .ahd[data-variant='proof'] .ahd__wordmark { font-size:.82rem; letter-spacing:.1em; }
+  @media (min-width:1100px) { .ahd[data-variant='proof'] .ahd__system-marker { display:block; } }
   .ahd__nav ul {
     display: flex;
     align-items: center;

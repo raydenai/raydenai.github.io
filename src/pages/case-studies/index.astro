@@ -1,10 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Section from '../../components/primitives/Section.astro';
-import Container from '../../components/primitives/Container.astro';
-import FinalCta from '../../blocks/conversion/FinalCta.astro';
-import CaseStudyCard from '../../components/case-studies/CaseStudyCard.astro';
 import { personSchema, websiteSchema, webPageSchema, graph } from '../../lib/schema';
 
 const studies = (await getCollection('caseStudies', ({ data }) => !data.draft)).sort((a, b) => {
@@ -22,50 +18,39 @@ const brandForSchema = {
 };
 const schema = graph([
   personSchema(brandForSchema), websiteSchema(brandForSchema),
-  webPageSchema({ brand: brandForSchema, url, title: `Case Studies | ${brand.name}`, description: `Selected evidence and engagement stories from ${brand.name}.`, breadcrumbs: [{ name: 'Home', url: `${siteUrl}/` }, { name: 'Case Studies', url }] }),
+  webPageSchema({ brand: brandForSchema, url, title: `Case Files | ${brand.name}`, description: `Permissioned evidence and engagement records from ${brand.name}.`, breadcrumbs: [{ name: 'Home', url: `${siteUrl}/` }, { name: 'Case Files', url }] }),
 ]);
+const templateCards = [
+  { n: '01', label: 'Context', title: 'The initial condition', copy: 'What was true before the work began, what was at stake, and why did the existing interpretation fail?' },
+  { n: '02', label: 'Intervention', title: 'The decision changed', copy: 'Which asset, operating choice, or working session introduced a different model?' },
+  { n: '03', label: 'Receipt', title: 'The observed shift', copy: 'Which approved outcome, external signal, or client statement can make the effect real?' },
+];
 ---
 
-<BaseLayout {brand} title={`Case Studies | ${brand.name}`} description={`Selected evidence and engagement stories from ${brand.name}.`} {schema} transparentHeader={false}>
-  <main>
-    <Section block="CaseStudiesHeader" tone="inverse" pad="loose">
-      <Container width="content">
-        <p class="csi__eyebrow">Selected engagements</p>
-        <h1 class="u-display-2 csi__heading">Work that made the right thing easier to believe.</h1>
-        <p class="csi__intro">Each study documents the initial condition, the strategic work, and the evidence that emerged. Client names and figures should only appear when permission is explicit.</p>
-      </Container>
-    </Section>
+<BaseLayout {brand} title={`Case Files | ${brand.name}`} description={`Permissioned evidence and engagement records from ${brand.name}.`} {schema} transparentHeader={false} bodyClass="pm-production pm-production--subpage">
+  <section class="pmi-hero"><div class="pmi-hero__top"><span>THE RECORD / CASE FILES</span><span>PERMISSIONED EVIDENCE ONLY</span></div><p class="pmi-kicker">The evidence library</p><h1>A GOOD CASE<br />DOES NOT<br /><em>PRAISE.</em><br />IT PROVES.</h1><p>Each file records the initial condition, the intervention, and the outcome that a client has approved for public use. The point is not to make the work look impressive. The point is to make the decision behind it understandable.</p></section>
 
-    <Section block="CaseStudiesGrid" pad="loose">
-      <Container width="wide">
-        {studies.length > 0 ? (
-          <div class="csi__grid">
-            {studies.map((study) => (
-              <CaseStudyCard href={`/case-studies/${study.id}/`} title={study.data.title} description={study.data.description} client={study.data.client} category={study.data.category} cover={study.data.cover} heroMetric={study.data.heroMetric} />
-            ))}
-          </div>
-        ) : (
-          <div class="csi__empty">
-            <p class="csi__eyebrow">Portfolio scaffold ready</p>
-            <h2 class="u-display-3">Add your first permissioned outcome.</h2>
-            <p>Create a JSON file in <code>src/content/case-studies/</code>, then run <code>pnpm build</code>. The collection page updates automatically.</p>
-          </div>
-        )}
-      </Container>
-    </Section>
-  </main>
+  <section class="pmi-rules"><span>01 / CONTEXT OVER HYPE</span><span>02 / RECEIPTS OVER PROMISES</span><span>03 / PERMISSION OVER ASSUMPTION</span></section>
 
-  <FinalCta tone="inverse" pad="loose" eyebrow="A relevant challenge?" heading={brand.conversion.primaryCta.label} subheading={brand.positioning.promise} ctas={[brand.conversion.primaryCta]} width="content" />
+  {studies.length > 0 ? (
+    <section class="pmi-grid" aria-label="Published case files">
+      {studies.map((study) => <a class="pmi-card" href={`/case-studies/${study.id}/`}><div class="pmi-card__head"><span>{study.data.category}</span><span>{study.data.year ?? 'Evidence file'}</span></div><h2>{study.data.title}</h2><p>{study.data.description}</p>{study.data.heroMetric && <strong>{study.data.heroMetric.value}<small>{study.data.heroMetric.label}</small></strong>}<footer><span>{study.data.client.confidential ? 'Confidential client' : study.data.client.name}</span><b>Open file ↗</b></footer></a>)}
+    </section>
+  ) : (
+    <section class="pmi-empty"><div class="pmi-empty__intro"><p class="pmi-kicker">No public files released yet</p><h2>THE STANDARD<br />IS READY.<br />THE PROOF<br /><em>COMES NEXT.</em></h2><p>This conceptual production system does not publish invented client stories. Instead, it shows the exact structure every permissioned file must satisfy before it earns a place in the public record.</p><a href="https://github.com/raydenai/raydenai.github.io/blob/main/docs/CASE_STUDY_AND_CONTENT_OPERATIONS.md">Read the case-file workflow ↗</a></div><div class="pmi-empty__cards">{templateCards.map((item) => <article><span>{item.n} / {item.label}</span><h3>{item.title}</h3><p>{item.copy}</p><i>Required before publication</i></article>)}</div></section>
+  )}
+
+  <section class="pmi-check"><div><p class="pmi-kicker">Before publication</p><h2>THE EVIDENCE<br />CHECK.</h2></div><ol><li><b>01</b><p>Can the client or source be named? If not, what can be described without identification?</p></li><li><b>02</b><p>Is the result attributable to this intervention, or should it be presented as a related signal?</p></li><li><b>03</b><p>Has the outcome, timeframe, quote, and visual asset been explicitly approved for public use?</p></li></ol></section>
+
+  <section class="pmi-cta"><p class="pmi-kicker">A more useful next move</p><h2>START WITH<br />THE RECORD.<br />THEN FIND<br />THE <em>GAP.</em></h2><a href="/contact/">Run the diagnostic ↗</a></section>
 </BaseLayout>
 
 <style>
-  .csi__eyebrow { margin: 0 0 var(--space-4); color: var(--accent); font-family: var(--font-display); font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: var(--ls-widest); text-transform: uppercase; }
-  .csi__heading { max-width: 19ch; }
-  .csi__intro { max-width: 63ch; margin: var(--space-6) 0 0; color: var(--text-muted); font-size: var(--fs-md); line-height: var(--lh-relaxed); }
-  .csi__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); }
-  .csi__empty { max-width: 44rem; padding: var(--space-10); border: 1px dashed var(--border); background: var(--surface-raised); }
-  .csi__empty p { max-width: 60ch; color: var(--text-muted); line-height: var(--lh-relaxed); }
-  code { padding: 0.2em 0.4em; background: var(--surface-inverse); color: var(--text-inverse); }
-  @media (max-width: 920px) { .csi__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 620px) { .csi__grid { grid-template-columns: 1fr; } }
+  .pmi-hero { padding:clamp(5rem,11vw,11rem) clamp(1.25rem,8vw,9rem); background:#f1f1eb; color:#101114; } .pmi-hero__top { display:flex; justify-content:space-between; gap:1rem; padding-bottom:1rem; border-bottom:1px solid #101114; font-family:var(--font-display); font-size:.57rem; font-weight:800; letter-spacing:.13em; text-transform:uppercase; } .pmi-hero__top span:last-child { color:#0b32a8; } .pmi-kicker { margin:2rem 0 0; color:#0b32a8; font-family:var(--font-display); font-size:.62rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; } .pmi-hero h1,.pmi-empty h2,.pmi-check h2,.pmi-cta h2 { max-width:9ch; margin:1.2rem 0 0; font-family:var(--font-display); font-size:clamp(3.5rem,8vw,9.5rem); font-weight:800; line-height:.74; letter-spacing:-.1em; text-transform:uppercase; } .pmi-hero h1 em,.pmi-empty h2 em,.pmi-cta h2 em { color:#0b32a8; font-family:var(--font-serif); font-weight:400; letter-spacing:-.12em; } .pmi-hero > p:last-child { max-width:39rem; margin:2rem 0 0; color:#555752; font-size:1.05rem; line-height:1.75; }
+  .pmi-rules { display:flex; flex-wrap:wrap; justify-content:space-between; gap:1rem; padding:1.3rem clamp(1.25rem,8vw,9rem); background:#101114; color:#f1f1eb; font-family:var(--font-display); font-size:.58rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+  .pmi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; border-top:1px solid #101114; border-bottom:1px solid #101114; background:#101114; } .pmi-card { display:flex; min-height:30rem; flex-direction:column; padding:2rem; background:#f1f1eb; color:#101114; transition:background .2s,color .2s; } .pmi-card:hover { background:#0b32a8; color:#f1f1eb; } .pmi-card__head,.pmi-card footer { display:flex; justify-content:space-between; gap:1rem; font-family:var(--font-display); font-size:.55rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; } .pmi-card__head span:last-child { color:#0b32a8; } .pmi-card:hover .pmi-card__head span:last-child { color:#a7bcff; } .pmi-card h2 { margin:clamp(5rem,10vw,10rem) 0 0; font-family:var(--font-display); font-size:clamp(1.8rem,3vw,3.3rem); line-height:.88; letter-spacing:-.06em; } .pmi-card p { margin:1rem 0 0; color:#575955; line-height:1.65; } .pmi-card:hover p { color:#d7e0ff; } .pmi-card strong { display:grid; gap:.3rem; margin-top:2rem; color:#0b32a8; font-family:var(--font-display); font-size:3rem; line-height:.8; letter-spacing:-.08em; } .pmi-card strong small { color:inherit; font-size:.58rem; letter-spacing:.1em; text-transform:uppercase; } .pmi-card:hover strong { color:#a7bcff; } .pmi-card footer { margin-top:auto; padding-top:1.5rem; border-top:1px solid #92938c; } .pmi-card:hover footer { border-color:#a7bcff; }
+  .pmi-empty { display:grid; grid-template-columns:.75fr 1.25fr; gap:clamp(3rem,9vw,10rem); padding:clamp(5rem,11vw,11rem) clamp(1.25rem,8vw,9rem); background:#e7e5dc; color:#101114; } .pmi-empty .pmi-kicker { margin-top:0; } .pmi-empty h2 { font-size:clamp(3rem,6vw,7rem); } .pmi-empty__intro > p:not(.pmi-kicker) { max-width:30rem; margin:1.8rem 0 0; color:#555752; line-height:1.75; } .pmi-empty__intro a,.pmi-cta a { display:inline-block; margin-top:2rem; padding:.9rem 1rem; background:#0b32a8; color:#f1f1eb; font-family:var(--font-display); font-size:.62rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; } .pmi-empty__cards { border-top:2px solid #101114; } .pmi-empty__cards article { padding:1.4rem 0; border-bottom:1px solid #8e8f89; } .pmi-empty__cards span,.pmi-empty__cards i { color:#0b32a8; font-family:var(--font-display); font-size:.56rem; font-style:normal; font-weight:800; letter-spacing:.12em; text-transform:uppercase; } .pmi-empty__cards h3 { margin:1.2rem 0 0; font-family:var(--font-display); font-size:1.6rem; letter-spacing:-.05em; } .pmi-empty__cards p { max-width:33rem; margin:.6rem 0 1.4rem; color:#555752; line-height:1.65; }
+  .pmi-check { display:grid; grid-template-columns:.8fr 1.2fr; gap:clamp(3rem,9vw,10rem); padding:clamp(5rem,11vw,11rem) clamp(1.25rem,8vw,9rem); background:#f1f1eb; color:#101114; } .pmi-check .pmi-kicker { margin-top:0; } .pmi-check h2 { font-size:clamp(3rem,5.7vw,6.2rem); } .pmi-check ol { margin:0; padding:0; list-style:none; border-top:2px solid #101114; } .pmi-check li { display:grid; grid-template-columns:3rem 1fr; gap:1rem; padding:1.3rem 0; border-bottom:1px solid #92938c; } .pmi-check b { color:#0b32a8; font-family:var(--font-display); font-size:.75rem; } .pmi-check li p { max-width:35rem; margin:0; line-height:1.65; }
+  .pmi-cta { padding:clamp(5rem,11vw,11rem) clamp(1.25rem,8vw,9rem); background:#0b32a8; color:#f1f1eb; } .pmi-cta .pmi-kicker { margin-top:0; color:#a7bcff; } .pmi-cta h2 { font-size:clamp(3.2rem,7vw,8rem); } .pmi-cta h2 em { color:#f1f1eb; } .pmi-cta a { background:#f1f1eb; color:#101114; }
+  @media (max-width:780px) { .pmi-hero__top { display:grid; } .pmi-grid { grid-template-columns:1fr; } .pmi-empty,.pmi-check { grid-template-columns:1fr; } .pmi-rules { display:grid; } }
 </style>

@@ -534,3 +534,37 @@
     top: var(--space-4);
   }
 }
+
+/* Proof Machine production direction -------------------------------------------------
+   Direction-specific tokens live in the shared stylesheet so the root, dynamic pages,
+   case files, and field notes all inherit the same evidence-led shell. */
+.pm-production {
+  --surface: #f1f1eb;
+  --surface-raised: #e7e5dc;
+  --text: #101114;
+  --text-muted: #55575a;
+  --text-subtle: #767875;
+  --accent: #0b32a8;
+  --border: #a9aaa4;
+  --card-bg: #f1f1eb;
+  background: #f1f1eb;
+  color: #101114;
+}
+.pm-production .announcement-bar {
+  background: #0b32a8;
+  color: #f1f1eb;
+}
+.pm-production .announcement-bar a,
+.pm-production .announcement-bar button { color: #f1f1eb; }
+.pm-production .ahd {
+  background: #f1f1eb;
+  color: #101114;
+  border-bottom: 1px solid #101114;
+}
+.pm-production .ahd__wordmark,
+.pm-production .ahd__nav a { color: #101114; }
+.pm-production .ahd__toggle span { background-color: #101114; }
+.pm-production .ahd__nav a:hover,
+.pm-production .ahd__nav a[data-active='true'] { color: #0b32a8; }
+.pm-production .ahd__cta { border-radius: 0; background: #0b32a8; color: #f1f1eb; }
+.pm-production .site-footer { background: #101114; }

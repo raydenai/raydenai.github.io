@@ -1,0 +1,19 @@
+---
+const { archetype = 'record', path = '/' } = Astro.props;
+const labels: Record<string, { index: string; primary: string; secondary: string }> = {
+  about: { index: '01', primary: 'THE RECORD', secondary: 'CONTEXT BEFORE CHARISMA' },
+  method: { index: '02', primary: 'THE SYSTEM', secondary: 'A NAMED MODEL / NOT A SERVICE LIST' },
+  'work-with-me': { index: '03', primary: 'THE INTERVENTION', secondary: 'DEFINE THE DECISION / THEN THE SCOPE' },
+  speaking: { index: '04', primary: 'THE LIVE SIGNAL', secondary: 'THE IDEA SHOULD SURVIVE THE ROOM' },
+  contact: { index: '05', primary: 'THE DIAGNOSTIC', secondary: 'START WITH THE GAP / NOT THE PACKAGE' },
+  blog: { index: '06', primary: 'FIELD NOTES', secondary: 'PUBLIC THINKING / USEFUL BEFORE PERSUASIVE' },
+  default: { index: '00', primary: 'THE RECORD', secondary: 'EVIDENCE BEFORE EXPOSURE' },
+};
+const item = labels[archetype] ?? labels.default;
+---
+
+<div class="pmpr" data-path={path} aria-label="Proof Machine section identifier"><span>{item.index} / {item.primary}</span><span>{item.secondary}</span><span>RAGHAVAN ADVISORY / PROOF MACHINE</span></div>
+
+<style>
+  .pmpr { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; padding:.75rem clamp(1rem,3vw,3rem); background:#101114; color:#f1f1eb; border-bottom:1px solid #3f4141; font-family:var(--font-display); font-size:.54rem; font-weight:800; letter-spacing:.13em; line-height:1.4; text-transform:uppercase; } .pmpr span:nth-child(2) { color:#a7bcff; text-align:center; } .pmpr span:last-child { color:#babcb8; text-align:right; } @media (max-width:700px) { .pmpr { grid-template-columns:1fr 1fr; } .pmpr span:last-child { display:none; } }
+</style>

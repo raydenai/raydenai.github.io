@@ -10,6 +10,7 @@
 import { getCollection, getEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BlockRenderer from '../components/BlockRenderer.astro';
+import ProofMachinePageRail from '../components/directions/ProofMachinePageRail.astro';
 import {
   personSchema,
   organizationSchema,
@@ -22,7 +23,9 @@ import {
 
 export async function getStaticPaths() {
   const pages = await getCollection('pages');
-  return pages.map((page) => ({
+  /* The root uses the selected direction's dedicated production composition.
+     All other authored pages remain in the portable dynamic renderer. */
+  return pages.filter((page) => page.data.path !== '/').map((page) => ({
     /* "/" becomes undefined so it renders at the site root. */
     params: { path: page.data.path === '/' ? undefined : page.data.path.replace(/^\/|\/$/g, '') },
     props: { page },
@@ -98,6 +101,8 @@ const transparentHeader = firstBlock.startsWith('Hero');
   noindex={page.data.seo.noindex}
   {schema}
   {transparentHeader}
+  bodyClass="pm-production pm-production--subpage"
 >
+  <ProofMachinePageRail archetype={page.data.archetype} path={page.data.path} />
   <BlockRenderer blocks={page.data.blocks} />
 </BaseLayout>
