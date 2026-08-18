@@ -14,6 +14,11 @@ export default defineConfig({
   integrations: [mdx(), sitemap()],
   vite: {
     plugins: [tailwindcss()],
+    /* Required only for trusted temporary preview hosts. Production delivery
+       is static GitHub Pages output and does not use the Vite preview server. */
+    preview: {
+      allowedHosts: ['.manus.computer'],
+    },
   },
   build: {
     inlineStylesheets: 'auto',
