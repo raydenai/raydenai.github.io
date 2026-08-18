@@ -1,0 +1,83 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import FinalCta from '../../blocks/conversion/FinalCta.astro';
+import { personSchema, websiteSchema, webPageSchema, graph } from '../../lib/schema';
+
+export async function getStaticPaths() {
+  const studies = await getCollection('caseStudies', ({ data }) => !data.draft);
+  return studies.map((study) => ({ params: { slug: study.id }, props: { study } }));
+}
+
+const { study } = Astro.props;
+const brandEntry = (await getCollection('brand'))[0];
+const brand = brandEntry.data;
+const data = study.data;
+const siteUrl = (Astro.site ?? new URL(Astro.url.origin)).href.replace(/\/$/, '');
+const pageUrl = new URL(`/case-studies/${study.id}/`, `${siteUrl}/`).href;
+const brandForSchema = {
+  person: { name: brand.name, jobTitle: brand.title, bio: brand.positioning.promise, portraitUrl: brand.assets.portrait?.src },
+  social: brand.social.map((s) => ({ platform: s.platform, url: s.href })),
+  site: { url: `${siteUrl}/`, name: brand.name },
+};
+const schema = graph([
+  personSchema(brandForSchema), websiteSchema(brandForSchema),
+  webPageSchema({ brand: brandForSchema, url: pageUrl, title: data.seo.title ?? `${data.title} | ${brand.name}`, description: data.seo.description ?? data.description, breadcrumbs: [{ name: 'Home', url: `${siteUrl}/` }, { name: 'Case Studies', url: `${siteUrl}/case-studies/` }, { name: data.title, url: pageUrl }] }),
+]);
+---
+
+<BaseLayout {brand} title={data.seo.title ?? `${data.title} | ${brand.name}`} description={data.seo.description ?? data.description} ogImage={data.cover.src} {schema} transparentHeader={false}>
+  <main>
+    <Section block="CaseStudyHero" tone="inverse" pad="loose">
+      <Container width="wide">
+        <nav class="cs__crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/case-studies/">Case Studies</a><span>/</span><span>{data.client.confidential ? 'Confidential' : data.client.name}</span></nav>
+        <div class="cs__hero-grid">
+          <div>
+            <div class="cs__meta"><span>{data.category}</span><span>·</span><span>{data.client.industry}</span>{data.year && <><span>·</span><span>{data.year}</span></>}</div>
+            <h1 class="u-display-2 cs__title">{data.title}</h1>
+            <p class="cs__description">{data.description}</p>
+            <dl class="cs__engagement"><div><dt>Engagement</dt><dd>{data.engagement.label}</dd></div>{data.engagement.duration && <div><dt>Duration</dt><dd>{data.engagement.duration}</dd></div>}</dl>
+          </div>
+          <div class="cs__visual">
+            <img src={data.cover.src} alt={data.cover.alt} width={data.cover.width ?? 1600} height={data.cover.height ?? 1000} loading="eager" />
+            {data.heroMetric && <div class="cs__hero-metric"><strong>{data.heroMetric.value}</strong><span>{data.heroMetric.label}</span>{data.heroMetric.detail && <small>{data.heroMetric.detail}</small>}</div>}
+          </div>
+        </div>
+      </Container>
+    </Section>
+
+    <Section block="CaseStudyChallenge" pad="loose"><Container width="content"><p class="cs__eyebrow">The situation</p><h2 class="u-display-3">The challenge was not effort. It was a gap between the work and what the market could see.</h2><p class="cs__body">{data.challenge}</p>{data.stakes.length > 0 && <ul class="cs__stakes">{data.stakes.map((stake: string) => <li>{stake}</li>)}</ul>}</Container></Section>
+
+    <Section block="CaseStudyEngagement" tone="raised" pad="loose"><Container width="wide"><div class="cs__split"><div><p class="cs__eyebrow">What we did</p><h2 class="u-display-3">{data.engagement.label}</h2>{data.engagement.duration && <p class="cs__body">A {data.engagement.duration} engagement built around the decisions that would change the next room, not simply improve the next piece of content.</p>}</div><div><p class="cs__scope-label">Engagement scope</p><ul class="cs__scope">{data.engagement.scope.map((item: string) => <li>{item}</li>)}</ul></div></div></Container></Section>
+
+    <Section block="CaseStudyMethod" pad="loose"><Container width="wide"><p class="cs__eyebrow">The work</p><h2 class="u-display-3">A visible sequence, not a black box.</h2><ol class="cs__steps">{data.methodology.map((item: { step: string; title: string; description: string; output?: string }) => <li><span class="cs__step-no">{item.step}</span><div><h3>{item.title}</h3><p>{item.description}</p>{item.output && <small><strong>Output:</strong> {item.output}</small>}</div></li>)}</ol></Container></Section>
+
+    <Section block="CaseStudyOutcomes" tone="inverse" pad="loose"><Container width="wide"><p class="cs__eyebrow">The evidence</p><h2 class="u-display-3">What changed, in terms the client could observe.</h2><div class="cs__outcomes">{data.outcomes.map((outcome: { value: string; label: string; detail?: string }) => <article><strong>{outcome.value}</strong><h3>{outcome.label}</h3>{outcome.detail && <p>{outcome.detail}</p>}</article>)}</div></Container></Section>
+
+    {data.testimonial && <Section block="CaseStudyQuote" pad="loose"><Container width="content"><blockquote class="cs__quote"><p>“{data.testimonial.quote}”</p><footer>{data.testimonial.avatar && <img src={data.testimonial.avatar.src} alt={data.testimonial.avatar.alt} width="56" height="56" loading="lazy" />}<span><strong>{data.testimonial.name}</strong>{(data.testimonial.role || data.testimonial.company) && <small>{[data.testimonial.role, data.testimonial.company].filter(Boolean).join(', ')}</small>}</span></footer></blockquote></Container></Section>}
+
+    {data.gallery.length > 0 && <Section block="CaseStudyGallery" tone="raised" pad="default"><Container width="wide"><div class="cs__gallery">{data.gallery.map((image: { src: string; alt: string; width?: number; height?: number }) => <img src={image.src} alt={image.alt} width={image.width ?? 1400} height={image.height ?? 900} loading="lazy" />)}</div></Container></Section>}
+  </main>
+
+  <FinalCta tone="inverse" pad="loose" eyebrow={data.nextStep?.eyebrow ?? 'A similar question?'} heading={data.nextStep?.heading ?? brand.conversion.primaryCta.label} subheading={data.nextStep?.body ?? brand.positioning.promise} ctas={[data.nextStep?.cta ?? brand.conversion.primaryCta]} width="content" />
+</BaseLayout>
+
+<style>
+  .cs__crumbs, .cs__meta { display: flex; flex-wrap: wrap; gap: 0.55rem; font-family: var(--font-display); font-size: var(--fs-2xs); font-weight: var(--fw-semibold); letter-spacing: var(--ls-wider); text-transform: uppercase; color: var(--text-subtle); }
+  .cs__crumbs { margin-bottom: var(--space-8); } .cs__crumbs a:hover { color: var(--accent); }
+  .cs__hero-grid, .cs__split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(20rem, 0.9fr); gap: clamp(var(--space-8), 7vw, var(--space-14)); align-items: center; }
+  .cs__title { max-width: 15ch; margin-top: var(--space-5); } .cs__description { max-width: 58ch; margin: var(--space-6) 0 0; color: var(--text-muted); font-size: var(--fs-md); line-height: var(--lh-relaxed); }
+  .cs__visual { position: relative; min-height: 22rem; } .cs__visual > img { width: 100%; height: 100%; min-height: 28rem; object-fit: cover; border-radius: var(--card-radius); }
+  .cs__hero-metric { position: absolute; left: calc(var(--space-4) * -1); bottom: var(--space-5); display: grid; max-width: 15rem; padding: var(--space-5); background: var(--accent); color: var(--accent-contrast); }
+  .cs__hero-metric strong { font-family: var(--font-display); font-size: var(--fs-3xl); line-height: 1; } .cs__hero-metric span { margin-top: 0.35rem; font-family: var(--font-display); font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: var(--ls-wide); text-transform: uppercase; } .cs__hero-metric small { margin-top: 0.4rem; font-size: var(--fs-2xs); }
+  .cs__engagement { display: flex; flex-wrap: wrap; gap: var(--space-6); margin-top: var(--space-8); padding-top: var(--space-6); border-top: 1px solid var(--border); } .cs__engagement div { display: grid; gap: 0.3rem; } .cs__engagement dt, .cs__scope-label { font-family: var(--font-display); font-size: var(--fs-2xs); font-weight: var(--fw-bold); letter-spacing: var(--ls-wider); text-transform: uppercase; color: var(--text-subtle); } .cs__engagement dd { margin: 0; font-size: var(--fs-sm); }
+  .cs__eyebrow { margin: 0 0 var(--space-4); color: var(--accent); font-family: var(--font-display); font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: var(--ls-widest); text-transform: uppercase; } .cs__body { max-width: 68ch; margin: var(--space-6) 0 0; color: var(--text-muted); font-size: var(--fs-md); line-height: var(--lh-relaxed); }
+  .cs__stakes, .cs__scope { display: grid; gap: var(--space-3); margin-top: var(--space-7); } .cs__stakes li, .cs__scope li { position: relative; padding-left: 1.3em; color: var(--text-muted); line-height: var(--lh-relaxed); } .cs__stakes li::before, .cs__scope li::before { position: absolute; left: 0; color: var(--accent); content: '—'; }
+  .cs__scope { margin-top: var(--space-4); } .cs__steps { display: grid; margin-top: var(--space-10); border-top: 1px solid var(--border); } .cs__steps li { display: grid; grid-template-columns: 6rem 1fr; gap: var(--space-5); padding: var(--space-7) 0; border-bottom: 1px solid var(--border); } .cs__step-no { color: var(--accent); font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: var(--fw-bold); letter-spacing: var(--ls-tight); } .cs__steps h3 { margin: 0; font-family: var(--font-display); font-size: var(--fs-xl); } .cs__steps p { max-width: 65ch; margin: var(--space-3) 0 0; color: var(--text-muted); line-height: var(--lh-relaxed); } .cs__steps small { display: block; margin-top: var(--space-4); color: var(--text-subtle); }
+  .cs__outcomes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; margin-top: var(--space-10); background: color-mix(in srgb, var(--text-inverse) 17%, transparent); } .cs__outcomes article { min-height: 14rem; padding: var(--space-7); background: var(--surface-inverse); } .cs__outcomes strong { display: block; color: var(--accent); font-family: var(--font-display); font-size: var(--fs-4xl); line-height: 0.95; } .cs__outcomes h3 { margin: var(--space-5) 0 0; font-family: var(--font-display); font-size: var(--fs-lg); } .cs__outcomes p { margin: var(--space-3) 0 0; color: var(--text-inverse-muted); line-height: var(--lh-relaxed); }
+  .cs__quote { margin: 0; padding-left: var(--space-7); border-left: 3px solid var(--accent); } .cs__quote > p { margin: 0; font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.5rem); line-height: 1.2; letter-spacing: var(--ls-tight); } .cs__quote footer { display: flex; align-items: center; gap: var(--space-3); margin-top: var(--space-7); } .cs__quote footer img { width: 3.5rem; height: 3.5rem; object-fit: cover; border-radius: 50%; } .cs__quote footer span { display: grid; gap: 0.15rem; } .cs__quote footer small { color: var(--text-subtle); }
+  .cs__gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); } .cs__gallery img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--card-radius); }
+  @media (max-width: 760px) { .cs__hero-grid, .cs__split { grid-template-columns: 1fr; } .cs__visual > img { min-height: 20rem; } .cs__hero-metric { left: var(--space-4); } .cs__outcomes { grid-template-columns: 1fr; } .cs__steps li { grid-template-columns: 1fr; gap: var(--space-3); } .cs__gallery { grid-template-columns: 1fr 1fr; } }
+</style>

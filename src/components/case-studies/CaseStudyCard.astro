@@ -1,0 +1,61 @@
+---
+/** Evidence-first portfolio card. It deliberately leads with the client context
+ * and attributable outcome rather than a generic project thumbnail. */
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  client: { name: string; industry: string; confidential?: boolean };
+  category: string;
+  cover: { src: string; alt: string; width?: number; height?: number };
+  heroMetric?: { value: string; label: string; detail?: string };
+}
+const { href, title, description, client, category, cover, heroMetric } = Astro.props;
+---
+
+<article class="csc">
+  <a class="csc__image" href={href} aria-label={`Read case study: ${title}`}>
+    <img
+      src={cover.src}
+      alt={cover.alt}
+      width={cover.width ?? 1400}
+      height={cover.height ?? 900}
+      loading="lazy"
+    />
+    {heroMetric && (
+      <span class="csc__metric" aria-label={`${heroMetric.value} ${heroMetric.label}`}>
+        <strong>{heroMetric.value}</strong>
+        <small>{heroMetric.label}</small>
+      </span>
+    )}
+  </a>
+  <div class="csc__body">
+    <div class="csc__meta">
+      <span>{category}</span>
+      <span aria-hidden="true">·</span>
+      <span>{client.confidential ? 'Confidential client' : client.name}</span>
+      <span aria-hidden="true">·</span>
+      <span>{client.industry}</span>
+    </div>
+    <h2 class="csc__title"><a href={href}>{title}</a></h2>
+    <p>{description}</p>
+    <a class="csc__link" href={href}>Read the case study <span aria-hidden="true">→</span></a>
+  </div>
+</article>
+
+<style>
+  .csc { display: grid; background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--card-radius); overflow: hidden; transition: transform var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out); }
+  .csc:hover { transform: translateY(-4px); border-color: var(--accent); }
+  .csc__image { position: relative; display: block; aspect-ratio: 16 / 10; background: var(--surface-raised); overflow: hidden; }
+  .csc__image img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--dur-slow) var(--ease-out); }
+  .csc:hover .csc__image img { transform: scale(1.035); }
+  .csc__metric { position: absolute; right: var(--space-4); bottom: var(--space-4); display: grid; gap: 0.1rem; min-width: 7.5rem; padding: var(--space-3) var(--space-4); background: color-mix(in srgb, var(--surface-inverse) 91%, transparent); color: var(--text-inverse); border: 1px solid color-mix(in srgb, var(--text-inverse) 18%, transparent); }
+  .csc__metric strong { font-family: var(--font-display); font-size: var(--fs-xl); line-height: 1; color: var(--accent); }
+  .csc__metric small, .csc__meta { font-family: var(--font-display); font-size: var(--fs-2xs); font-weight: var(--fw-semibold); letter-spacing: var(--ls-wider); text-transform: uppercase; }
+  .csc__body { display: grid; align-content: start; gap: var(--space-4); padding: var(--space-6); }
+  .csc__meta { display: flex; flex-wrap: wrap; gap: 0.45rem; color: var(--text-subtle); }
+  .csc__title { margin: 0; font-family: var(--font-display); font-size: var(--fs-xl); line-height: 1.08; letter-spacing: var(--ls-tight); }
+  .csc__title a:hover, .csc__link:hover { color: var(--accent); }
+  .csc__body p { margin: 0; color: var(--text-muted); line-height: var(--lh-relaxed); }
+  .csc__link { font-family: var(--font-display); font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: var(--ls-wider); text-transform: uppercase; }
+</style>

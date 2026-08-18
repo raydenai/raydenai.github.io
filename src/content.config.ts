@@ -788,6 +788,64 @@ const pages = defineCollection({
   }),
 });
 
+/* --- Case studies collection --------------------------------------------- */
+
+const caseStudies = defineCollection({
+  loader: glob({ pattern: '**/*.{json,yaml,yml}', base: './src/content/case-studies' }),
+  schema: z.object({
+    brand: reference('brand'),
+    title: z.string(),
+    description: z.string(),
+    client: z.object({
+      name: z.string(),
+      industry: z.string(),
+      role: z.string().optional(),
+      location: z.string().optional(),
+      confidential: z.boolean().default(false),
+    }),
+    category: z.string().default('Consulting engagement'),
+    year: z.string().optional(),
+    featured: z.boolean().default(false),
+    draft: z.boolean().default(false),
+    cover: image,
+    heroMetric: z
+      .object({ value: z.string(), label: z.string(), detail: z.string().optional() })
+      .optional(),
+    challenge: z.string(),
+    stakes: z.array(z.string()).default([]),
+    engagement: z.object({
+      label: z.string(),
+      duration: z.string().optional(),
+      scope: z.array(z.string()).default([]),
+    }),
+    methodology: z.array(z.object({ step: z.string(), title: z.string(), description: z.string(), output: z.string().optional() })).min(1),
+    outcomes: z.array(z.object({ value: z.string(), label: z.string(), detail: z.string().optional() })).min(1),
+    testimonial: z
+      .object({
+        quote: z.string(),
+        name: z.string(),
+        role: z.string().optional(),
+        company: z.string().optional(),
+        avatar: image.optional(),
+      })
+      .optional(),
+    gallery: z.array(image).default([]),
+    nextStep: z
+      .object({
+        eyebrow: z.string().optional(),
+        heading: z.string(),
+        body: z.string().optional(),
+        cta: cta,
+      })
+      .optional(),
+    seo: z.object({
+      title: z.string().optional(),
+      description: z.string().optional(),
+      noindex: z.boolean().default(false),
+    }).default({ noindex: false }),
+  }),
+});
+
 /* --- Posts collection ---------------------------------------------------- */
 
 const posts = defineCollection({
@@ -807,4 +865,4 @@ const posts = defineCollection({
   }),
 });
 
-export const collections = { brand, pages, posts };
+export const collections = { brand, pages, caseStudies, posts };

@@ -1,0 +1,53 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const brand = (await getCollection('brand'))[0].data;
+---
+
+<BaseLayout {brand} title="Authority Film — AURA Direction 01" description="Concept direction: a cinematic, evidence-led executive authority site." transparentHeader={true} bodyClass="direction direction--film">
+  <section class="film-hero">
+    <img class="film-hero__image" src="/images/stage-wide.webp" alt="Conceptual executive speaker on a stage" width="1600" height="900" />
+    <div class="film-hero__wash"></div>
+    <div class="film-hero__content">
+      <p class="film-kicker">AURA concept direction 01 · authority film</p>
+      <h1>WHEN THE<br /><em>ROOM</em> IS<br />EXPENSIVE.</h1>
+      <p class="film-deck">Your experience has to arrive before you do. A cinematic authority system for leaders whose next conversation materially changes the company.</p>
+      <div class="film-actions"><a href="#story">See the narrative system <span>↓</span></a><a class="film-ghost" href="/directions/">Compare directions</a></div>
+    </div>
+    <aside class="film-stamp"><span>01</span><small>Authority Film<br />Concept only</small></aside>
+    <p class="film-caption">The first frame uses a credible setting, not a generic cut-out. It implies a real arena before explaining the offer.</p>
+  </section>
+
+  <section class="film-proof">
+    <p>Built for decisions with consequence</p><span>Boardroom</span><span>Stage</span><span>Media</span><span>Capital</span><span>Change</span>
+  </section>
+
+  <section id="story" class="film-story">
+    <div class="film-story__index"><span>01 /</span><span>THE CRUCIBLE</span></div>
+    <div class="film-story__body"><p class="film-kicker">A story that earns the claim</p><h2>Not a biography.<br />The moment the work became necessary.</h2><p class="film-copy">The strongest personal brands do not start with credentials. They place one consequential moment under a microscope, then connect it to a repeatable point of view. It is the difference between “I have experience” and “I understand what this costs.”</p><a href="#method">See the operating system <span>→</span></a></div>
+    <div class="film-story__date"><strong>2007</strong><span>One difficult room.<br />A new way of working.</span></div>
+  </section>
+
+  <section id="method" class="film-method">
+    <div class="film-method__head"><p class="film-kicker">The operating system</p><h2>Presence is visible.<br />Authority is engineered.</h2></div>
+    <ol>
+      <li><span>01</span><h3>Find the pressure point</h3><p>Name the moment the market currently misunderstands or underprices the work.</p></li>
+      <li><span>02</span><h3>Build the evidence</h3><p>Retrieve the decisions, results, receipts, and signal that carry weight without hype.</p></li>
+      <li><span>03</span><h3>Control the narrative</h3><p>Give the right rooms a clear way to describe the leader when they are not present.</p></li>
+    </ol>
+  </section>
+
+  <section class="film-closing"><p class="film-kicker">A deliberate next step</p><h2>Do not make the room guess.</h2><a href="/contact/">Book the first conversation <span>→</span></a></section>
+</BaseLayout>
+
+<style>
+  :global(.direction--film) { background:#090909; color:#f5f1e7; } :global(.direction--film .site-footer) { background:#090909; } :global(.direction--film .announcement-bar) { display:none; }
+  .film-hero { position:relative; min-height:calc(100svh - 4.5rem); display:flex; align-items:flex-end; overflow:hidden; isolation:isolate; background:#090909; } .film-hero__image { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:52% center; opacity:.76; filter:saturate(.68) contrast(1.12); } .film-hero__wash { position:absolute; inset:0; background:linear-gradient(90deg,rgba(9,9,9,.98) 0%,rgba(9,9,9,.82) 33%,rgba(9,9,9,.21) 70%,rgba(9,9,9,.34) 100%),linear-gradient(0deg,rgba(9,9,9,.85),transparent 50%); }
+  .film-hero__content { position:relative; z-index:1; width:min(78rem,100%); padding:clamp(8rem,16vh,12rem) clamp(1.5rem,7vw,7rem) clamp(4rem,9vh,7rem); } .film-kicker { margin:0 0:var(--space-5); color:#d7ad53; font-family:var(--font-display); font-size:.65rem; font-weight:800; letter-spacing:.19em; text-transform:uppercase; } .film-hero h1 { max-width:9ch; margin:0; font-family:var(--font-display); font-size:clamp(3.8rem,9.25vw,10.3rem); font-weight:800; line-height:.82; letter-spacing:-.075em; text-transform:uppercase; } .film-hero h1 em { color:#d7ad53; font-family:var(--font-serif); font-weight:400; letter-spacing:-.08em; } .film-deck { max-width:32rem; margin:var(--space-7) 0 0; color:#dfd9cc; font-size:clamp(1rem,1.45vw,1.25rem); line-height:1.65; } .film-actions { display:flex; flex-wrap:wrap; gap:var(--space-4); margin-top:var(--space-8); } .film-actions a, .film-story__body a, .film-closing a { padding:.9rem 1.1rem; border:1px solid #d7ad53; color:#d7ad53; font-family:var(--font-display); font-size:.7rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; } .film-actions .film-ghost { border-color:rgba(245,241,231,.35); color:#f5f1e7; } .film-actions a:hover, .film-story__body a:hover, .film-closing a:hover { background:#d7ad53; color:#111; }
+  .film-stamp { position:absolute; z-index:1; top:8.5rem; right:clamp(1.5rem,5vw,5rem); display:grid; gap:.4rem; color:#d7ad53; } .film-stamp span { font-family:var(--font-display); font-size:4rem; font-weight:800; line-height:.8; letter-spacing:-.08em; } .film-stamp small { font-family:var(--font-display); font-size:.58rem; font-weight:800; letter-spacing:.14em; line-height:1.4; text-transform:uppercase; } .film-caption { position:absolute; z-index:1; right:clamp(1.5rem,5vw,5rem); bottom:3rem; max-width:14rem; margin:0; color:#d8d0c2; font-size:.72rem; line-height:1.55; }
+  .film-proof { display:flex; flex-wrap:wrap; gap:1.6rem; align-items:center; justify-content:space-between; padding:1.4rem clamp(1.5rem,7vw,7rem); border-top:1px solid rgba(245,241,231,.12); border-bottom:1px solid rgba(245,241,231,.12); font-family:var(--font-display); font-size:.68rem; font-weight:800; letter-spacing:.11em; text-transform:uppercase; } .film-proof p { color:#d7ad53; margin:0; } .film-proof span { color:#a9a39a; }
+  .film-story { display:grid; grid-template-columns:.5fr 2fr .85fr; gap:clamp(2rem,7vw,8rem); padding:clamp(6rem,13vw,12rem) clamp(1.5rem,12vw,12rem); background:#f0eade; color:#151515; } .film-story__index { display:grid; align-content:start; gap:.5rem; font-family:var(--font-display); font-size:.64rem; font-weight:800; letter-spacing:.15em; text-transform:uppercase; } .film-story__index span:first-child { color:#a3741c; } .film-story__body h2, .film-method h2, .film-closing h2 { margin:0; font-family:var(--font-display); font-size:clamp(2.3rem,4.6vw,5.5rem); font-weight:800; line-height:.94; letter-spacing:-.065em; } .film-story__body .film-copy { max-width:35rem; margin:var(--space-7) 0; color:#5e5a54; font-size:1.08rem; line-height:1.8; } .film-story__body a { display:inline-block; color:#151515; border-color:#151515; } .film-story__body a:hover { border-color:#a3741c; background:#a3741c; color:#fff; } .film-story__date { align-self:end; display:grid; gap:.8rem; border-left:1px solid #b9b0a0; padding-left:1.4rem; } .film-story__date strong { color:#a3741c; font-family:var(--font-display); font-size:clamp(2.5rem,5vw,5rem); line-height:.8; letter-spacing:-.08em; } .film-story__date span { color:#5e5a54; font-size:.8rem; line-height:1.6; }
+  .film-method { padding:clamp(6rem,13vw,12rem) clamp(1.5rem,7vw,7rem); } .film-method__head { max-width:58rem; } .film-method ol { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; margin:clamp(4rem,7vw,7rem) 0 0; background:rgba(245,241,231,.13); } .film-method li { min-height:19rem; padding:clamp(1.5rem,3vw,3rem); background:#090909; } .film-method li span { color:#d7ad53; font-family:var(--font-display); font-size:1.1rem; font-weight:800; } .film-method h3 { margin:clamp(3rem,6vw,6rem) 0 0; font-family:var(--font-display); font-size:1.55rem; line-height:1; letter-spacing:-.04em; } .film-method li p { margin:.9rem 0 0; color:#bbb5ab; line-height:1.7; }
+  .film-closing { padding:clamp(5rem,10vw,10rem) 1.5rem; text-align:center; background:#d7ad53; color:#111; } .film-closing .film-kicker { color:#111; } .film-closing a { display:inline-block; margin-top:var(--space-8); border-color:#111; color:#111; } .film-closing a:hover { background:#111; color:#f0eade; }
+  @media (max-width:720px) { .film-hero { min-height:43rem; } .film-hero__image { object-position:66% center; opacity:.55; } .film-hero__wash { background:linear-gradient(90deg,rgba(9,9,9,.98),rgba(9,9,9,.73) 72%,rgba(9,9,9,.25)),linear-gradient(0deg,rgba(9,9,9,.85),transparent 50%); } .film-stamp,.film-caption { display:none; } .film-story { grid-template-columns:1fr; gap:var(--space-8); } .film-story__date { align-self:start; } .film-method ol { grid-template-columns:1fr; } .film-method li { min-height:15rem; } .film-proof { gap:1rem; } }
+</style>

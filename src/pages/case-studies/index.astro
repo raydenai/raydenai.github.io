@@ -1,0 +1,71 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/primitives/Section.astro';
+import Container from '../../components/primitives/Container.astro';
+import FinalCta from '../../blocks/conversion/FinalCta.astro';
+import CaseStudyCard from '../../components/case-studies/CaseStudyCard.astro';
+import { personSchema, websiteSchema, webPageSchema, graph } from '../../lib/schema';
+
+const studies = (await getCollection('caseStudies', ({ data }) => !data.draft)).sort((a, b) => {
+  if (a.data.featured !== b.data.featured) return Number(b.data.featured) - Number(a.data.featured);
+  return (b.data.year ?? '').localeCompare(a.data.year ?? '');
+});
+const brandEntry = (await getCollection('brand'))[0];
+const brand = brandEntry.data;
+const siteUrl = (Astro.site ?? new URL(Astro.url.origin)).href.replace(/\/$/, '');
+const url = new URL('/case-studies/', `${siteUrl}/`).href;
+const brandForSchema = {
+  person: { name: brand.name, jobTitle: brand.title, bio: brand.positioning.promise, portraitUrl: brand.assets.portrait?.src },
+  social: brand.social.map((s) => ({ platform: s.platform, url: s.href })),
+  site: { url: `${siteUrl}/`, name: brand.name },
+};
+const schema = graph([
+  personSchema(brandForSchema), websiteSchema(brandForSchema),
+  webPageSchema({ brand: brandForSchema, url, title: `Case Studies | ${brand.name}`, description: `Selected evidence and engagement stories from ${brand.name}.`, breadcrumbs: [{ name: 'Home', url: `${siteUrl}/` }, { name: 'Case Studies', url }] }),
+]);
+---
+
+<BaseLayout {brand} title={`Case Studies | ${brand.name}`} description={`Selected evidence and engagement stories from ${brand.name}.`} {schema} transparentHeader={false}>
+  <main>
+    <Section block="CaseStudiesHeader" tone="inverse" pad="loose">
+      <Container width="content">
+        <p class="csi__eyebrow">Selected engagements</p>
+        <h1 class="u-display-2 csi__heading">Work that made the right thing easier to believe.</h1>
+        <p class="csi__intro">Each study documents the initial condition, the strategic work, and the evidence that emerged. Client names and figures should only appear when permission is explicit.</p>
+      </Container>
+    </Section>
+
+    <Section block="CaseStudiesGrid" pad="loose">
+      <Container width="wide">
+        {studies.length > 0 ? (
+          <div class="csi__grid">
+            {studies.map((study) => (
+              <CaseStudyCard href={`/case-studies/${study.id}/`} title={study.data.title} description={study.data.description} client={study.data.client} category={study.data.category} cover={study.data.cover} heroMetric={study.data.heroMetric} />
+            ))}
+          </div>
+        ) : (
+          <div class="csi__empty">
+            <p class="csi__eyebrow">Portfolio scaffold ready</p>
+            <h2 class="u-display-3">Add your first permissioned outcome.</h2>
+            <p>Create a JSON file in <code>src/content/case-studies/</code>, then run <code>pnpm build</code>. The collection page updates automatically.</p>
+          </div>
+        )}
+      </Container>
+    </Section>
+  </main>
+
+  <FinalCta tone="inverse" pad="loose" eyebrow="A relevant challenge?" heading={brand.conversion.primaryCta.label} subheading={brand.positioning.promise} ctas={[brand.conversion.primaryCta]} width="content" />
+</BaseLayout>
+
+<style>
+  .csi__eyebrow { margin: 0 0 var(--space-4); color: var(--accent); font-family: var(--font-display); font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: var(--ls-widest); text-transform: uppercase; }
+  .csi__heading { max-width: 19ch; }
+  .csi__intro { max-width: 63ch; margin: var(--space-6) 0 0; color: var(--text-muted); font-size: var(--fs-md); line-height: var(--lh-relaxed); }
+  .csi__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); }
+  .csi__empty { max-width: 44rem; padding: var(--space-10); border: 1px dashed var(--border); background: var(--surface-raised); }
+  .csi__empty p { max-width: 60ch; color: var(--text-muted); line-height: var(--lh-relaxed); }
+  code { padding: 0.2em 0.4em; background: var(--surface-inverse); color: var(--text-inverse); }
+  @media (max-width: 920px) { .csi__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 620px) { .csi__grid { grid-template-columns: 1fr; } }
+</style>

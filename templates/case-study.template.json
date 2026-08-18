@@ -1,0 +1,84 @@
+{
+  "brand": "REPLACE-WITH-BRAND-SLUG",
+  "title": "[DISCOVERY REQUIRED: outcome-led case-study title]",
+  "description": "[DISCOVERY REQUIRED: 1–2 sentence summary of starting condition, strategic intervention, and visible outcome.]",
+  "client": {
+    "name": "[DISCOVERY REQUIRED: approved client name or anonymized descriptor]",
+    "industry": "[DISCOVERY REQUIRED: industry]",
+    "role": "[DISCOVERY REQUIRED: buyer / executive role]",
+    "location": "[OPTIONAL: approved geography]",
+    "confidential": false
+  },
+  "category": "Executive authority advisory",
+  "year": "2026",
+  "featured": false,
+  "draft": true,
+  "cover": {
+    "src": "/images/REPLACE-WITH-BRAND-SLUG/case-study-cover.webp",
+    "alt": "[DISCOVERY REQUIRED: descriptive, non-marketing alt text]",
+    "width": 1600,
+    "height": 1000
+  },
+  "heroMetric": {
+    "value": "[APPROVED METRIC]",
+    "label": "[what changed]",
+    "detail": "[source, time period, and permission status]"
+  },
+  "challenge": "[DISCOVERY REQUIRED: the specific client condition before the work. Avoid generic pain points.]",
+  "stakes": [
+    "[DISCOVERY REQUIRED: material cost / risk of leaving the problem unresolved]",
+    "[DISCOVERY REQUIRED: specific decision or opportunity at stake]"
+  ],
+  "engagement": {
+    "label": "[DISCOVERY REQUIRED: named service / engagement]",
+    "duration": "[APPROVED DURATION]",
+    "scope": [
+      "[DISCOVERY REQUIRED: deliverable or workstream 1]",
+      "[DISCOVERY REQUIRED: deliverable or workstream 2]",
+      "[DISCOVERY REQUIRED: deliverable or workstream 3]"
+    ]
+  },
+  "methodology": [
+    {
+      "step": "01",
+      "title": "[DISCOVERY REQUIRED: first strategic action]",
+      "description": "[What was done and why it mattered.]",
+      "output": "[Concrete approved deliverable.]"
+    },
+    {
+      "step": "02",
+      "title": "[DISCOVERY REQUIRED: second strategic action]",
+      "description": "[What was done and why it mattered.]",
+      "output": "[Concrete approved deliverable.]"
+    },
+    {
+      "step": "03",
+      "title": "[DISCOVERY REQUIRED: third strategic action]",
+      "description": "[What was done and why it mattered.]",
+      "output": "[Concrete approved deliverable.]"
+    }
+  ],
+  "outcomes": [
+    {
+      "value": "[APPROVED OUTCOME]",
+      "label": "[what the number / result measures]",
+      "detail": "[source, time period, and scope]"
+    }
+  ],
+  "gallery": [],
+  "nextStep": {
+    "eyebrow": "A similar question?",
+    "heading": "[APPROVED CTA HEADING]",
+    "body": "[APPROVED CTA SUPPORTING COPY]",
+    "cta": {
+      "label": "[APPROVED CTA LABEL]",
+      "href": "/contact/",
+      "intent": "primary"
+    }
+  },
+  "seo": {
+    "title": "[APPROVED SEO TITLE]",
+    "description": "[APPROVED SEO DESCRIPTION]",
+    "noindex": true
+  }
+}

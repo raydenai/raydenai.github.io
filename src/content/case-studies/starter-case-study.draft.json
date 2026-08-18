@@ -1,0 +1,16 @@
+{
+  "brand": "priya-raghavan",
+  "title": "[Starter — do not publish]",
+  "description": "A schema-valid private starter record. Copy the public template before creating an approved client case study.",
+  "client": { "name": "[Permissioned client name]", "industry": "[Industry]", "confidential": true },
+  "category": "Consulting engagement",
+  "featured": false,
+  "draft": true,
+  "cover": { "src": "/images/workshop.webp", "alt": "Workshop table used only as a hidden case-study starter asset", "width": 1600, "height": 1000 },
+  "challenge": "Replace this hidden starter text with the approved initial condition, including the real client context and stakes.",
+  "stakes": [],
+  "engagement": { "label": "[Approved engagement label]", "scope": [] },
+  "methodology": [{ "step": "01", "title": "[First step]", "description": "Replace with approved method detail." }],
+  "outcomes": [{ "value": "[Approved outcome]", "label": "[Outcome label]" }],
+  "seo": { "noindex": true }
+}
