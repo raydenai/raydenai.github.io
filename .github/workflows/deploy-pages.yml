@@ -42,6 +42,9 @@ jobs:
       - name: Validate block sequence
         run: pnpm lint:blocks
 
+      - name: Validate Astro types
+        run: pnpm check
+
       - name: Set up Python for asset validation
         uses: actions/setup-python@v5
         with:

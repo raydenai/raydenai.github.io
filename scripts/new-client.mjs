@@ -10,7 +10,7 @@
  *     --theme obsidian-gold --archetype personal-authority-hub
  *
  * Required: --slug, --name, --title
- * Optional: --theme, --archetype, --force
+ * Optional: --theme, --archetype, --out, --force
  */
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -25,12 +25,13 @@ const name = arg('--name');
 const title = arg('--title');
 const theme = arg('--theme', 'obsidian-gold');
 const archetype = arg('--archetype', 'personal-authority-hub');
+const out = arg('--out', `clients/${slug}`);
 const force = args.includes('--force');
 const validThemes = ['obsidian-gold', 'editorial-ivory', 'institutional-navy', 'signal-cyan', 'insurgent-red'];
 const validArchetypes = ['personal-authority-hub', 'firm-with-figurehead', 'coach-transformation', 'single-offer-funnel'];
 
 if (!slug || !name || !title) {
-  console.error('Usage: pnpm new:client -- --slug <kebab-case> --name "Full Name" --title "Positioning title" [--theme <theme>] [--archetype <archetype>] [--force]');
+  console.error('Usage: pnpm new:client -- --slug <kebab-case> --name "Full Name" --title "Positioning title" [--theme <theme>] [--archetype <archetype>] [--out <directory>] [--force]');
   process.exit(1);
 }
 if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
@@ -39,12 +40,17 @@ if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
 if (!validThemes.includes(theme)) { console.error(`--theme must be one of: ${validThemes.join(', ')}`); process.exit(1); }
 if (!validArchetypes.includes(archetype)) { console.error(`--archetype must be one of: ${validArchetypes.join(', ')}`); process.exit(1); }
 
-const brandPath = join('src/content/brand', `${slug}.json`);
-const pagesDir = join('src/content/pages', slug);
+/* The system demo remains intact. The CLI creates a portable content pack that
+   can be moved into a fresh clone’s src/content directory after the demo
+   content is removed, or reviewed independently before integration. */
+const contentRoot = join(out, 'src/content');
+const brandPath = join(contentRoot, 'brand', `${slug}.json`);
+const pagesDir = join(contentRoot, 'pages');
 if ((existsSync(brandPath) || existsSync(pagesDir)) && !force) {
   console.error(`Client '${slug}' already exists. Use --force only if you deliberately want to overwrite files.`);
   process.exit(1);
 }
+mkdirSync(join(contentRoot, 'brand'), { recursive: true });
 mkdirSync(pagesDir, { recursive: true });
 
 const todo = (label) => `[DISCOVERY REQUIRED: ${label}]`;
@@ -152,5 +158,5 @@ write(join(pagesDir, 'work-with-me.json'), work);
 write(join(pagesDir, 'speaking.json'), speaking);
 write(join(pagesDir, 'contact.json'), contact);
 
-console.log(`\nAURA client '${slug}' scaffolded.`);
-console.log('Next: complete docs/CLIENT_ONBOARDING.md, replace every [DISCOVERY REQUIRED: ...] value, add the 8-shot photo library under public/images/' + slug + '/, then run pnpm lint:blocks && pnpm verify:images && pnpm build.');
+console.log(`\nAURA client '${slug}' content pack scaffolded at ${out}/.`);
+console.log('Next: complete prompts/discovery-questionnaire.md, replace every [DISCOVERY REQUIRED: ...] value, add the 8-shot photo library, then move this pack into a fresh AURA clone\'s src/content/ directory (after removing demo content). Run pnpm lint:blocks && pnpm verify:images && pnpm build.');

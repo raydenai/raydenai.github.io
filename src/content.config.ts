@@ -619,7 +619,9 @@ const blockSchema = z.discriminatedUnion('type', [
   }),
 ]);
 
-export type Block = z.infer<typeof blockSchema>;
+/* Block data is validated at collection boundaries. The renderer consumes
+   the validated collection entry shape directly, so no separate exported
+   inference alias is required here. */
 
 /* --- Brand collection ---------------------------------------------------- */
 
@@ -697,7 +699,7 @@ const brand = defineCollection({
         testimonials: z.array(testimonial).default([]),
         awards: z.array(z.object({ name: z.string(), year: z.string().optional() })).default([]),
       })
-      .default({}),
+      .default({ stats: [], mediaLogos: [], clientLogos: [], testimonials: [], awards: [] }),
 
     /* Brand assets */
     assets: z
@@ -736,7 +738,7 @@ const brand = defineCollection({
         disclaimer: z.string().optional(),
         links: z.array(z.object({ label: z.string(), href: z.string() })).default([]),
       })
-      .default({}),
+      .default({ links: [] }),
 
     /* Measurement + integrations */
     integrations: z

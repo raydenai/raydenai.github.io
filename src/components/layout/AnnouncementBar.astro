@@ -6,6 +6,11 @@
  * is stored in localStorage keyed by message hash, so changing the copy
  * re-shows the bar to everyone without a new key.
  */
+interface Props {
+  message: string;
+  cta?: { href: string; label: string };
+  dismissible?: boolean;
+}
 const { message, cta, dismissible = true } = Astro.props;
 
 /* Stable short key from the message so edits reset dismissals. */

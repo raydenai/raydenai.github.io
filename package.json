@@ -20,13 +20,15 @@
     "new:client": "node scripts/new-client.mjs"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.10",
     "@astrojs/mdx": "^7.0.5",
     "@astrojs/sitemap": "^3.7.3",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.2.2",
     "marked": "^18.0.9",
     "sharp": "^0.35.3",
-    "tailwindcss": "^4.3.3"
+    "tailwindcss": "^4.3.3",
+    "typescript": "^6.0.0"
   },
   "devDependencies": {
     "playwright": "^1.62.1"
