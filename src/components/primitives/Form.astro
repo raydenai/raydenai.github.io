@@ -29,6 +29,10 @@ interface Props {
   layout?: 'stacked' | 'inline' | 'two-col';
   size?: 'sm' | 'default' | 'lg';
   class?: string;
+  /** Human-readable label supplied to the contact backend and analytics. */
+  formName?: string;
+  /** Enables an invisible bot trap that is safe with provider-specific spam rules. */
+  honeypot?: boolean;
 }
 
 const {
@@ -39,7 +43,16 @@ const {
   layout = 'stacked',
   size = 'default',
   class: className = '',
+  formName = 'aura-contact',
+  honeypot = true,
 } = Astro.props;
+
+const sourcePath = Astro.url.pathname;
+/* `config://contact` keeps form providers out of client content files. The
+   public endpoint is intentionally a build-time repository variable: a form
+   ID is designed to be visible in static HTML, unlike an API secret. */
+const configuredEndpoint = import.meta.env.PUBLIC_FORM_ENDPOINT?.trim();
+const resolvedAction = action === 'config://contact' ? configuredEndpoint || 'demo://contact' : action;
 
 const shorthandMap: Record<ShorthandField, FullField> = {
   firstName: { name: 'first_name', label: 'First name', type: 'text', required: true, placeholder: 'First name' },
@@ -58,10 +71,21 @@ const resolved: FullField[] = fields.map((f) =>
   class:list={['af', className]}
   data-layout={layout}
   data-size={size}
+  data-form-name={formName}
   method="post"
-  {action}
+  action={resolvedAction}
   novalidate
 >
+  <input type="hidden" name="_aura_form" value={formName} />
+  <input type="hidden" name="_aura_source" value={sourcePath} />
+  {
+    honeypot && (
+      <div class="af__honeypot" aria-hidden="true">
+        <label for={`af-trap-${formName}`}>Leave this field blank</label>
+        <input id={`af-trap-${formName}`} name="_aura_website" type="text" tabindex="-1" autocomplete="off" />
+      </div>
+    )
+  }
   <div class="af__fields">
     {
       resolved.map((field) => (
@@ -157,6 +181,7 @@ const resolved: FullField[] = fields.map((f) =>
     }
   }
 
+  .af__honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .af__field {
     display: flex;
     flex-direction: column;
@@ -302,6 +327,8 @@ const resolved: FullField[] = fields.map((f) =>
         window.dataLayer.push({
           event: 'form_submit',
           form_action: form.action,
+          form_name: form.dataset.formName ?? 'aura-contact',
+          form_source: form.querySelector<HTMLInputElement>('input[name="_aura_source"]')?.value ?? '',
         });
 
         form.reset();
@@ -312,7 +339,7 @@ const resolved: FullField[] = fields.map((f) =>
         }
       } catch {
         if (status) {
-          status.textContent = 'Something went wrong. Please try again or email us directly.';
+          status.textContent = 'Something went wrong. Please try again or use the direct email option below.';
           status.dataset.state = 'error';
           status.hidden = false;
         }

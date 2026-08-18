@@ -44,7 +44,7 @@
         }
       ],
       "form": {
-        "action": "demo://contact",
+        "action": "config://contact",
         "submitLabel": "Request a call",
         "consentNote": "Used only to reply to you. No mailing list, no sequence.",
         "fields": [

@@ -59,7 +59,11 @@ jobs:
       - name: Build production site
         run: pnpm build
         env:
-          PUBLIC_SITE_URL: https://raydenai.github.io
+          # Set these GitHub repository variables only after the domain and form
+          # provider have been approved. Both values are public static config;
+          # never place a provider API secret in this workflow.
+          PUBLIC_SITE_URL: ${{ vars.PUBLIC_SITE_URL || 'https://raydenai.github.io' }}
+          PUBLIC_FORM_ENDPOINT: ${{ vars.PUBLIC_FORM_ENDPOINT || '' }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
