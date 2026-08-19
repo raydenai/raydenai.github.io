@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .slide-container { 
+            width: 1280px; 
+            min-height: 720px; 
+            background-color: #FFFFFF; 
+            position: relative;
+            overflow: hidden;
+            font-family: 'Roboto Mono', monospace;
+            color: #4A5568;
+        }
+        
+        .grid-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            padding: 0 40px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .grid-column {
+            border-left: 1px solid rgba(74, 85, 104, 0.1);
+            border-right: 1px solid rgba(74, 85, 104, 0.1);
+            height: 100%;
+        }
+
+        .content-wrapper {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: auto 1fr auto;
+            gap: 20px;
+            padding: 60px 40px;
+            z-index: 2;
+        }
+
+        header {
+            grid-column: 2 / 12;
+            border-bottom: 1px solid #4A5568;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 64px;
+            color: #0A1128;
+            line-height: 1.2;
+        }
+
+        .main-content {
+            grid-column: 2 / 12;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .text-column {
+            font-size: 22px;
+            line-height: 1.6;
+            padding-top: 20px;
+        }
+
+        .text-column:first-child {
+            border-right: 1px solid rgba(74, 85, 104, 0.2);
+            padding-right: 40px;
+        }
+
+        .blockquote-container {
+            grid-column: 2 / 12;
+            background-color: #F7FAFC;
+            border-left: 6px solid #D4FF00;
+            padding: 40px;
+            margin-top: 40px;
+        }
+
+        .blockquote-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #0A1128;
+            line-height: 1.4;
+            font-weight: 700;
+        }
+        
+        .slide-number {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            font-size: 14px;
+            color: #4A5568;
+            border-top: 1px solid #4A5568;
+            padding-top: 10px;
+            width: 60px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="grid-overlay">
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+        </div>
+        
+        <div class="content-wrapper">
+            <header>
+                <h1>A prompt is not a production system</h1>
+            </header>
+            
+            <div class="main-content">
+                <div class="text-column">
+                    A premium personal-brand website cannot start with a theme and a biography. It starts with a controlled position: a defined buyer, a costly tension, an approved offer, permissioned proof, visual intent, and one primary decision.
+                </div>
+                <div class="text-column">
+                    AURA Compiler turns those inputs into a traceable production path. It is deliberately designed to prevent generic page assembly, fabricated social proof, uncontrolled AI copy, and photography that implies access or results that do not exist.
+                </div>
+            </div>
+
+            <div class="blockquote-container">
+                <div class="blockquote-text">
+                    "The engine compiles an approved strategic position; it does not improvise a website from a prompt."
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-number">01</div>
+    </div>
+</body>
+</html>

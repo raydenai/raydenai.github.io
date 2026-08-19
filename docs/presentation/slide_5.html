@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .slide-container { 
+            width: 1280px; 
+            min-height: 720px; 
+            background-color: #FFFFFF; 
+            position: relative;
+            overflow: hidden;
+            font-family: 'Roboto Mono', monospace;
+            color: #4A5568;
+        }
+        
+        .grid-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            padding: 0 40px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .grid-column {
+            border-left: 1px solid rgba(74, 85, 104, 0.1);
+            border-right: 1px solid rgba(74, 85, 104, 0.1);
+            height: 100%;
+        }
+
+        .content-wrapper {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: auto 1fr auto;
+            gap: 20px;
+            padding: 60px 40px;
+            z-index: 2;
+        }
+
+        header {
+            grid-column: 2 / 12;
+            border-bottom: 1px solid #4A5568;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 52px;
+            color: #0A1128;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .main-content {
+            grid-column: 2 / 12;
+            display: grid;
+            grid-template-columns: 6fr 4fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .data-list {
+            display: flex;
+            flex-direction: column;
+            border-top: 1px solid rgba(74, 85, 104, 0.2);
+        }
+
+        .data-row {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(74, 85, 104, 0.2);
+        }
+
+        .data-label {
+            font-weight: 700;
+            color: #0A1128;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 14px;
+            padding-top: 4px;
+        }
+
+        .data-value {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #4A5568;
+        }
+
+        .data-value strong {
+            color: #0A1128;
+        }
+
+        .image-panel {
+            position: relative;
+            padding: 20px;
+            border: 1px solid rgba(74, 85, 104, 0.2);
+            background-color: #F7FAFC;
+        }
+
+        .image-panel::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            width: 60px;
+            height: 4px;
+            background-color: #D4FF00;
+            z-index: 2;
+        }
+
+        .image-wrapper {
+            width: 420px;
+            height: 420px;
+            overflow: hidden;
+            background-color: #E2E8F0;
+        }
+
+        .image-wrapper img {
+            width: 420px;
+            height: 420px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-caption {
+            margin-top: 15px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #4A5568;
+            border-top: 1px solid rgba(74, 85, 104, 0.2);
+            padding-top: 10px;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            font-size: 14px;
+            color: #4A5568;
+            border-top: 1px solid #4A5568;
+            padding-top: 10px;
+            width: 60px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="grid-overlay">
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+        </div>
+        
+        <div class="content-wrapper">
+            <header>
+                <h1>Private Signal: discretion drives the experience</h1>
+            </header>
+            
+            <div class="main-content">
+                <div class="data-list">
+                    <div class="data-row">
+                        <div class="data-label">Buyer</div>
+                        <div class="data-value">A founder or senior operator who is capable, credible, and privately under-recognized.</div>
+                    </div>
+                    <div class="data-row">
+                        <div class="data-label">Sequence</div>
+                        <div class="data-value">Recognition &rarr; confidential tension &rarr; named method &rarr; considered proof &rarr; qualified fit &rarr; concierge conversation.</div>
+                    </div>
+                    <div class="data-row">
+                        <div class="data-label">Experience</div>
+                        <div class="data-value">Dark editorial atmosphere; unhurried type; a method artifact; working-scene evidence; restrained CTA cadence; no social-proof theatre.</div>
+                    </div>
+                    <div class="data-row">
+                        <div class="data-label">Photography</div>
+                        <div class="data-value">A premium hero presence, method artifact, working scene, editorial close, and signature asset. Any synthetic frame stays clearly conceptual and never implies a confidential engagement.</div>
+                    </div>
+                </div>
+
+                <div class="image-panel">
+                    <div class="image-wrapper">
+                        <img src="/home/ubuntu/aura-system/public/images/authority-speaking-stage-master.jpg" alt="Editorial close and executive presence" />
+                    </div>
+                    <div class="image-caption">
+                        REF: Editorial close / Executive presence
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-number">05</div>
+    </div>
+</body>
+</html>

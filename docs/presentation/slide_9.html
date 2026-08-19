@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .slide-container { 
+            width: 1280px; 
+            min-height: 720px; 
+            background-color: #FFFFFF; 
+            position: relative;
+            overflow: hidden;
+            font-family: 'Roboto Mono', monospace;
+            color: #4A5568;
+        }
+        
+        .grid-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            padding: 0 40px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .grid-column {
+            border-left: 1px solid rgba(74, 85, 104, 0.1);
+            border-right: 1px solid rgba(74, 85, 104, 0.1);
+            height: 100%;
+        }
+
+        .content-wrapper {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: auto 1fr auto;
+            gap: 20px;
+            padding: 60px 40px;
+            z-index: 2;
+        }
+
+        header {
+            grid-column: 2 / 12;
+            border-bottom: 1px solid #4A5568;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 56px;
+            color: #0A1128;
+            line-height: 1.2;
+        }
+
+        .main-content {
+            grid-column: 2 / 12;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .text-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .text-column:first-child {
+            border-right: 1px solid rgba(74, 85, 104, 0.2);
+            padding-right: 40px;
+        }
+
+        .section-title {
+            font-weight: 700;
+            color: #0A1128;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 18px;
+            border-bottom: 2px solid #D4FF00;
+            display: inline-block;
+            padding-bottom: 4px;
+            margin-bottom: 10px;
+        }
+
+        .section-body {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .list-items {
+            margin-top: 15px;
+            list-style-type: none;
+        }
+
+        .list-items li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .list-items li::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: #D4FF00;
+            font-weight: 700;
+        }
+
+        .code-tag {
+            background-color: #E2E8F0;
+            color: #0A1128;
+            padding: 2px 6px;
+            border: 1px solid #CBD5E0;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .conclusion-block {
+            grid-column: 2 / 12;
+            background-color: #F7FAFC;
+            border-top: 4px solid #D4FF00;
+            padding: 30px 40px;
+            margin-top: 20px;
+        }
+
+        .conclusion-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #0A1128;
+            line-height: 1.4;
+            font-weight: 700;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            font-size: 14px;
+            color: #4A5568;
+            border-top: 1px solid #4A5568;
+            padding-top: 10px;
+            width: 60px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="grid-overlay">
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+        </div>
+        
+        <div class="content-wrapper">
+            <header>
+                <h1>AI drafts inside evidence boundaries</h1>
+            </header>
+            
+            <div class="main-content">
+                <div class="text-column">
+                    <div>
+                        <div class="section-title">Prompt Packets</div>
+                        <div class="section-body">
+                            The prompt compiler produces reviewable packets. Each packet strictly defines the boundaries for AI generation, including:
+                        </div>
+                        <ul class="list-items">
+                            <li>Selected architecture and page role</li>
+                            <li>Allowed claim IDs</li>
+                            <li>Prohibited assertions</li>
+                            <li>Visual direction and output contract</li>
+                            <li>Approval state</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="text-column">
+                    <div>
+                        <div class="section-title">The Compose Step</div>
+                        <div class="section-body">
+                            The compose step does not fill a missing source fact with plausible language. It emits an explicit <span class="code-tag">[NEEDS APPROVAL]</span> placeholder.
+                            <br><br>
+                            A claim can only be used publicly when its evidence register records:
+                        </div>
+                        <ul class="list-items">
+                            <li>Source and permission</li>
+                            <li>Timeframe and scope</li>
+                            <li>Caveat and allowed placement</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="conclusion-block">
+                <div class="conclusion-text">
+                    This is why AURA can use AI for structured acceleration without reducing a premium website to untraceable marketing output.
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-number">09</div>
+    </div>
+</body>
+</html>

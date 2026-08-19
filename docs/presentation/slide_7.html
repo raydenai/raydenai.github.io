@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .slide-container { 
+            width: 1280px; 
+            min-height: 720px; 
+            background-color: #FFFFFF; 
+            position: relative;
+            overflow: hidden;
+            font-family: 'Roboto Mono', monospace;
+            color: #4A5568;
+        }
+        
+        .grid-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            padding: 0 40px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .grid-column {
+            border-left: 1px solid rgba(74, 85, 104, 0.1);
+            border-right: 1px solid rgba(74, 85, 104, 0.1);
+            height: 100%;
+        }
+
+        .content-wrapper {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: auto 1fr auto;
+            gap: 20px;
+            padding: 60px 40px;
+            z-index: 2;
+        }
+
+        header {
+            grid-column: 2 / 12;
+            border-bottom: 1px solid #4A5568;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 56px;
+            color: #0A1128;
+            line-height: 1.2;
+        }
+
+        .main-content {
+            grid-column: 2 / 12;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .text-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .info-block {
+            border-left: 4px solid #D4FF00;
+            padding-left: 16px;
+        }
+
+        .info-block h3 {
+            font-size: 16px;
+            color: #0A1128;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .info-block p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .image-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .image-container {
+            width: 100%;
+            height: 420px;
+            border: 1px solid rgba(74, 85, 104, 0.2);
+            background-color: #F7FAFC;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-caption {
+            font-size: 14px;
+            color: #4A5568;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-top: 1px solid rgba(74, 85, 104, 0.2);
+            padding-top: 8px;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            font-size: 14px;
+            color: #4A5568;
+            border-top: 1px solid #4A5568;
+            padding-top: 10px;
+            width: 60px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="grid-overlay">
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+        </div>
+        
+        <div class="content-wrapper">
+            <header>
+                <h1>Niche Specialist: diagnosis earns the next step</h1>
+            </header>
+            
+            <div class="main-content">
+                <div class="text-panel">
+                    <div class="info-block">
+                        <h3>Buyer</h3>
+                        <p>A product or operating leader with a known commercial context and a delivery constraint that remains hard to locate.</p>
+                    </div>
+                    <div class="info-block">
+                        <h3>Sequence</h3>
+                        <p>Problem mirror → cost of inaction → named diagnostic → operational proof standard → scoped engagement → assessment.</p>
+                    </div>
+                    <div class="info-block">
+                        <h3>Conversion Contract</h3>
+                        <p>Name, work email, company, business type, scale, timing, and service need. The form gathers enough context to decide whether diagnosis is appropriate.</p>
+                    </div>
+                    <div class="info-block">
+                        <h3>Photography Contract</h3>
+                        <p>Hero presence, material decision-flow artifact, credible fieldwork, and conversation scene. The visual system makes the method inspectable without inventing dashboards or client access.</p>
+                    </div>
+                </div>
+                
+                <div class="image-panel">
+                    <div class="image-container">
+                        <img src="/home/ubuntu/aura-system/public/images/private-signal-working-master.jpg" alt="Operational fieldwork and method workflow">
+                    </div>
+                    <div class="image-caption">
+                        /// Role P05: Credible Fieldwork
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-number">07</div>
+    </div>
+</body>
+</html>

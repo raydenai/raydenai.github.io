@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .slide-container { 
+            width: 1280px; 
+            min-height: 720px; 
+            background-color: #FFFFFF; 
+            position: relative;
+            overflow: hidden;
+            font-family: 'Roboto Mono', monospace;
+            color: #4A5568;
+        }
+        
+        /* 12-column structural grid background */
+        .grid-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            padding: 0 40px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .grid-column {
+            border-left: 1px solid rgba(74, 85, 104, 0.1);
+            border-right: 1px solid rgba(74, 85, 104, 0.1);
+            height: 100%;
+        }
+
+        /* Content Layout */
+        .content-wrapper {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            padding: 60px 40px;
+            z-index: 2;
+        }
+
+        .header-block {
+            grid-column: 2 / 11;
+            align-self: center;
+            border-top: 1px solid #4A5568;
+            border-bottom: 1px solid #4A5568;
+            padding: 60px 0;
+            position: relative;
+        }
+
+        .header-block::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: #D4FF00;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 110px;
+            color: #0A1128;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 400;
+            font-size: 28px;
+            color: #4A5568;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .caption {
+            font-size: 18px;
+            color: #4A5568;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .caption::before {
+            content: '///';
+            color: #D4FF00;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .system-tag {
+            position: absolute;
+            top: 60px;
+            right: 40px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: 1px solid #4A5568;
+            padding: 8px 16px;
+            background: #0A1128;
+            color: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="grid-overlay">
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+        </div>
+        
+        <div class="system-tag">SYSTEM.INIT</div>
+
+        <div class="content-wrapper">
+            <div class="header-block">
+                <h1>AURA Compiler</h1>
+                <h2>The premium personal-brand site engine</h2>
+                <div class="caption">From client evidence to a verified Astro release</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

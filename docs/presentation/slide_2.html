@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .slide-container { 
+            width: 1280px; 
+            min-height: 720px; 
+            background-color: #FFFFFF; 
+            position: relative;
+            overflow: hidden;
+            font-family: 'Roboto Mono', monospace;
+            color: #4A5568;
+        }
+        
+        .grid-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            padding: 0 40px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .grid-column {
+            border-left: 1px solid rgba(74, 85, 104, 0.1);
+            border-right: 1px solid rgba(74, 85, 104, 0.1);
+            height: 100%;
+        }
+
+        .content-wrapper {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: auto 1fr auto;
+            gap: 20px;
+            padding: 60px 40px;
+            z-index: 2;
+        }
+
+        header {
+            grid-column: 2 / 12;
+            border-bottom: 1px solid #4A5568;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 64px;
+            color: #0A1128;
+            line-height: 1.2;
+        }
+
+        .table-container {
+            grid-column: 2 / 12;
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(74, 85, 104, 0.2);
+        }
+
+        th {
+            font-weight: 700;
+            color: #0A1128;
+            border-bottom: 2px solid #0A1128;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #F7FAFC;
+        }
+
+        .stage-name {
+            font-weight: 700;
+            color: #0A1128;
+            width: 20%;
+        }
+
+        .core-question {
+            width: 40%;
+        }
+
+        .primary-output {
+            width: 40%;
+            color: #0A1128;
+        }
+
+        .footer-note {
+            grid-column: 2 / 12;
+            font-size: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #D4FF00;
+            color: #0A1128;
+            font-weight: 700;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            font-size: 14px;
+            color: #4A5568;
+            border-top: 1px solid #4A5568;
+            padding-top: 10px;
+            width: 60px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="grid-overlay">
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+        </div>
+        
+        <div class="content-wrapper">
+            <header>
+                <h1>One engine, seven connected stages</h1>
+            </header>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Stage</th>
+                            <th>Core question</th>
+                            <th>Primary output</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="stage-name">Evidence</td>
+                            <td class="core-question">What is true, approved and usable?</td>
+                            <td class="primary-output">Client Brief and Evidence Register</td>
+                        </tr>
+                        <tr>
+                            <td class="stage-name">Strategy</td>
+                            <td class="core-question">What commercial architecture fits this buyer?</td>
+                            <td class="primary-output">Approved Strategy Record</td>
+                        </tr>
+                        <tr>
+                            <td class="stage-name">Plan</td>
+                            <td class="core-question">What should the visitor understand and decide?</td>
+                            <td class="primary-output">Page, CTA, proof and photo-role plan</td>
+                        </tr>
+                        <tr>
+                            <td class="stage-name">Prompt</td>
+                            <td class="core-question">What may AI draft or direct?</td>
+                            <td class="primary-output">Claim-constrained prompt packets</td>
+                        </tr>
+                        <tr>
+                            <td class="stage-name">Compose</td>
+                            <td class="core-question">What can be rendered safely?</td>
+                            <td class="primary-output">Typed Astro content candidates</td>
+                        </tr>
+                        <tr>
+                            <td class="stage-name">Assets</td>
+                            <td class="core-question">What visual proof or art direction is required?</td>
+                            <td class="primary-output">Shotlist and asset manifest</td>
+                        </tr>
+                        <tr>
+                            <td class="stage-name">Verify</td>
+                            <td class="core-question">Does it work, remain true and render well?</td>
+                            <td class="primary-output">Release report and visual QA</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="footer-note">
+                Every stage may send the work back to strategy when a gate fails. No stage can silently publish an unresolved claim.
+            </div>
+        </div>
+        
+        <div class="slide-number">02</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,156 @@
+{
+  "project_info": {
+    "title": "AURA Compiler",
+    "created": 1787122775.147,
+    "last_updated": 1787122940.951,
+    "total_slides": 14
+  },
+  "slides": [
+    {
+      "id": "cover",
+      "state": "edited",
+      "pageNum": 1
+    },
+    {
+      "id": "slide_1",
+      "state": "edited",
+      "pageNum": 2
+    },
+    {
+      "id": "slide_2",
+      "state": "edited",
+      "pageNum": 3
+    },
+    {
+      "id": "slide_3",
+      "state": "edited",
+      "pageNum": 4
+    },
+    {
+      "id": "slide_4",
+      "state": "edited",
+      "pageNum": 5
+    },
+    {
+      "id": "slide_5",
+      "state": "edited",
+      "pageNum": 6
+    },
+    {
+      "id": "slide_6",
+      "state": "edited",
+      "pageNum": 7
+    },
+    {
+      "id": "slide_7",
+      "state": "edited",
+      "pageNum": 8
+    },
+    {
+      "id": "slide_8",
+      "state": "edited",
+      "pageNum": 9
+    },
+    {
+      "id": "slide_9",
+      "state": "edited",
+      "pageNum": 10
+    },
+    {
+      "id": "slide_10",
+      "state": "edited",
+      "pageNum": 11
+    },
+    {
+      "id": "slide_11",
+      "state": "edited",
+      "pageNum": 12
+    },
+    {
+      "id": "slide_12",
+      "state": "edited",
+      "pageNum": 13
+    },
+    {
+      "id": "slide_13",
+      "state": "edited",
+      "pageNum": 14
+    }
+  ],
+  "outline": [
+    {
+      "id": "cover",
+      "title": "AURA Compiler",
+      "summary": "Title slide introducing the AURA Compiler as the premium personal-brand site engine."
+    },
+    {
+      "id": "slide_1",
+      "title": "A prompt is not a production system",
+      "summary": "Contrasts generic prompt-based generation with AURA's controlled strategic compilation."
+    },
+    {
+      "id": "slide_2",
+      "title": "One engine, seven connected stages",
+      "summary": "Details the seven sequential stages of the AURA Compiler workflow."
+    },
+    {
+      "id": "slide_3",
+      "title": "The client pack is the source of truth",
+      "summary": "Explains the directory structure and separation of intake, strategy, assets, production, and release."
+    },
+    {
+      "id": "slide_4",
+      "title": "Strategy selects an architecture",
+      "summary": "Outlines the six controlled architectures and their specific buyer motions and proof postures."
+    },
+    {
+      "id": "slide_5",
+      "title": "Private Signal",
+      "summary": "Details the Private Signal archetype, its buyer, sequence, and photography contract.",
+      "image_plan": "/home/ubuntu/aura-system/public/images/authority-speaking-stage-master.jpg - Shows editorial close and executive presence matching the Private Signal architecture description"
+    },
+    {
+      "id": "slide_6",
+      "title": "Authority + Speaking",
+      "summary": "Details the Authority + Speaking archetype, its buyer, sequence, and conversion contract.",
+      "image_plan": "/home/ubuntu/aura-system/public/images/stage.png - Shows the stage context and large auditorium scene matching Authority + Speaking architecture"
+    },
+    {
+      "id": "slide_7",
+      "title": "Niche Specialist",
+      "summary": "Details the Niche Specialist archetype, its buyer, sequence, and diagnostic conversion contract.",
+      "image_plan": "/home/ubuntu/aura-system/public/images/private-signal-working-master.jpg - Shows fieldwork and method workflow matching Niche Specialist architecture"
+    },
+    {
+      "id": "slide_8",
+      "title": "Role-based photography",
+      "summary": "Explains how AURA assigns specific narrative jobs to images before generation or capture.",
+      "image_plan": "/home/ubuntu/aura-system/public/images/leadmagnet.png - Shows authority audit / diagnostic document matching the photography and proof roles discussion"
+    },
+    {
+      "id": "slide_9",
+      "title": "AI drafts inside evidence boundaries",
+      "summary": "Describes how prompt packets constrain AI generation to approved claims and prohibited assertions."
+    },
+    {
+      "id": "slide_10",
+      "title": "Dynamic pages and MDX",
+      "summary": "Contrasts schema-driven conversion pages with archetype-aware MDX long-form publishing."
+    },
+    {
+      "id": "slide_11",
+      "title": "Verification is part of the design system",
+      "summary": "Lists the six connected quality gates that must pass before a release is authorized."
+    },
+    {
+      "id": "slide_12",
+      "title": "The Studio can arrive later",
+      "summary": "Explains how the file-driven Compiler core supports a future client-facing Studio interface."
+    },
+    {
+      "id": "slide_13",
+      "title": "Conclusion",
+      "summary": "Closing summary emphasizing strategy, proof, intentional photography, and verification."
+    }
+  ]
+}

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .slide-container { 
+            width: 1280px; 
+            min-height: 720px; 
+            background-color: #FFFFFF; 
+            position: relative;
+            overflow: hidden;
+            font-family: 'Roboto Mono', monospace;
+            color: #4A5568;
+        }
+        
+        .grid-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            padding: 0 40px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .grid-column {
+            border-left: 1px solid rgba(74, 85, 104, 0.1);
+            border-right: 1px solid rgba(74, 85, 104, 0.1);
+            height: 100%;
+        }
+
+        .content-wrapper {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: auto auto 1fr auto;
+            gap: 20px;
+            padding: 60px 40px;
+            z-index: 2;
+        }
+
+        header {
+            grid-column: 2 / 12;
+            border-bottom: 1px solid #4A5568;
+            padding-bottom: 15px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 48px;
+            color: #0A1128;
+            line-height: 1.2;
+        }
+
+        .intro-text {
+            grid-column: 2 / 12;
+            font-size: 18px;
+            line-height: 1.5;
+            color: #0A1128;
+            margin-bottom: 10px;
+        }
+
+        .main-content {
+            grid-column: 2 / 12;
+            display: grid;
+            grid-template-columns: 7fr 3fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .table-container {
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px 14px;
+            border-bottom: 1px solid rgba(74, 85, 104, 0.2);
+            vertical-align: top;
+        }
+
+        th {
+            font-weight: 700;
+            color: #0A1128;
+            border-bottom: 2px solid #0A1128;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 13px;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #F7FAFC;
+        }
+
+        .col-role {
+            font-weight: 700;
+            color: #0A1128;
+            width: 25%;
+        }
+
+        .col-job {
+            width: 45%;
+        }
+
+        .col-arch {
+            width: 30%;
+            color: #0A1128;
+        }
+
+        .image-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .image-container {
+            width: 100%;
+            height: 320px;
+            border: 1px solid rgba(74, 85, 104, 0.2);
+            background-color: #F7FAFC;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-caption {
+            font-size: 12px;
+            color: #4A5568;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-top: 1px solid rgba(74, 85, 104, 0.2);
+            padding-top: 8px;
+        }
+
+        .footer-note {
+            grid-column: 2 / 12;
+            font-size: 16px;
+            padding-top: 15px;
+            border-top: 2px solid #D4FF00;
+            color: #0A1128;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            font-size: 14px;
+            color: #4A5568;
+            border-top: 1px solid #4A5568;
+            padding-top: 10px;
+            width: 60px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="grid-overlay">
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+        </div>
+        
+        <div class="content-wrapper">
+            <header>
+                <h1>Role-based photography makes the page credible</h1>
+            </header>
+            
+            <div class="intro-text">
+                AURA plans image roles before making or selecting images. This prevents the same portrait from being stretched across every section and prevents AI art from impersonating proof.
+            </div>
+
+            <div class="main-content">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="col-role">Role</th>
+                                <th class="col-job">Visual job</th>
+                                <th class="col-arch">Example archetype</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="col-role">P02 Hero Presence</td>
+                                <td class="col-job">Establish a capable, specific person with copy-safe space</td>
+                                <td class="col-arch">All architectures</td>
+                            </tr>
+                            <tr>
+                                <td class="col-role">P09 Method Artifact</td>
+                                <td class="col-job">Make a named process tangible without fake readable data</td>
+                                <td class="col-arch">Private Signal and Niche Specialist</td>
+                            </tr>
+                            <tr>
+                                <td class="col-role">P05 Working Scene</td>
+                                <td class="col-job">Show credible preparation or fieldwork without stock-laptop theatre</td>
+                                <td class="col-arch">All proof-led architectures</td>
+                            </tr>
+                            <tr>
+                                <td class="col-role">P07 Stage Context</td>
+                                <td class="col-job">Support speaking-fit evaluation without fabricated credentials</td>
+                                <td class="col-arch">Authority + Speaking</td>
+                            </tr>
+                            <tr>
+                                <td class="col-role">P08 Conversation Scene</td>
+                                <td class="col-job">Humanize a qualified working relationship without claiming a real client</td>
+                                <td class="col-arch">Niche Specialist</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="image-panel">
+                    <div class="image-container">
+                        <img src="/home/ubuntu/aura-system/public/images/leadmagnet.png" alt="Authority audit document">
+                    </div>
+                    <div class="image-caption">
+                        /// Role P09: Method Artifact
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-note">
+                Every role carries consent, source state, desktop/mobile crop, alt-text requirement, generation packet, photographer alternative, and publication QA.
+            </div>
+        </div>
+        
+        <div class="slide-number">08</div>
+    </div>
+</body>
+</html>

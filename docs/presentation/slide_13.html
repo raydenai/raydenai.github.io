@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .slide-container { 
+            width: 1280px; 
+            min-height: 720px; 
+            background-color: #FFFFFF; 
+            position: relative;
+            overflow: hidden;
+            font-family: 'Roboto Mono', monospace;
+            color: #4A5568;
+        }
+        
+        .grid-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            padding: 0 40px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .grid-column {
+            border-left: 1px solid rgba(74, 85, 104, 0.1);
+            border-right: 1px solid rgba(74, 85, 104, 0.1);
+            height: 100%;
+        }
+
+        .content-wrapper {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            padding: 60px 40px;
+            z-index: 2;
+            align-items: center;
+        }
+
+        .conclusion-block {
+            grid-column: 2 / 12;
+            border-top: 1px solid #4A5568;
+            border-bottom: 1px solid #4A5568;
+            padding: 60px 0;
+            position: relative;
+        }
+
+        .conclusion-block::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 0;
+            bottom: 0;
+            width: 8px;
+            background-color: #D4FF00;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 64px;
+            color: #0A1128;
+            line-height: 1.15;
+            margin-bottom: 40px;
+            letter-spacing: -0.02em;
+        }
+
+        .tenets {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #0A1128;
+            line-height: 1.5;
+            margin-bottom: 40px;
+            background-color: #F7FAFC;
+            padding: 24px 32px;
+            border-left: 4px solid #D4FF00;
+        }
+
+        .sign-off {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 700;
+            font-size: 18px;
+            color: #4A5568;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .sign-off::before {
+            content: '///';
+            color: #D4FF00;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            font-size: 14px;
+            color: #4A5568;
+            border-top: 1px solid #4A5568;
+            padding-top: 10px;
+            width: 60px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="grid-overlay">
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+        </div>
+        
+        <div class="content-wrapper">
+            <div class="conclusion-block">
+                <h1>AURA turns premium quality into a repeatable system</h1>
+                <div class="tenets">
+                    Strategy first. Proof before polish. Photography with a job. AI with boundaries. Release only after verification.
+                </div>
+                <div class="sign-off">
+                    AURA Compiler — ready to turn a controlled client pack into a premium Astro release.
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-number">13</div>
+    </div>
+</body>
+</html>

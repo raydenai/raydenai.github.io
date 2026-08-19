@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .slide-container { 
+            width: 1280px; 
+            min-height: 720px; 
+            background-color: #FFFFFF; 
+            position: relative;
+            overflow: hidden;
+            font-family: 'Roboto Mono', monospace;
+            color: #4A5568;
+        }
+        
+        .grid-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            padding: 0 40px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .grid-column {
+            border-left: 1px solid rgba(74, 85, 104, 0.1);
+            border-right: 1px solid rgba(74, 85, 104, 0.1);
+            height: 100%;
+        }
+
+        .content-wrapper {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: auto auto 1fr;
+            gap: 20px;
+            padding: 60px 40px;
+            z-index: 2;
+        }
+
+        header {
+            grid-column: 2 / 12;
+            border-bottom: 1px solid #4A5568;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 52px;
+            color: #0A1128;
+            line-height: 1.2;
+        }
+
+        .intro-text {
+            grid-column: 2 / 12;
+            font-size: 20px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            color: #0A1128;
+        }
+
+        .table-container {
+            grid-column: 2 / 12;
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(74, 85, 104, 0.2);
+            vertical-align: top;
+        }
+
+        th {
+            font-weight: 700;
+            color: #0A1128;
+            border-bottom: 2px solid #0A1128;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 14px;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #F7FAFC;
+        }
+
+        .col-arch {
+            font-weight: 700;
+            color: #0A1128;
+            width: 20%;
+        }
+
+        .col-buyer {
+            width: 30%;
+        }
+
+        .col-conv {
+            width: 20%;
+            color: #0A1128;
+        }
+
+        .col-proof {
+            width: 30%;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            font-size: 14px;
+            color: #4A5568;
+            border-top: 1px solid #4A5568;
+            padding-top: 10px;
+            width: 60px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="grid-overlay">
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+        </div>
+        
+        <div class="content-wrapper">
+            <header>
+                <h1>Strategy selects an architecture—not a color palette</h1>
+            </header>
+            
+            <div class="intro-text">
+                AURA uses six controlled architectures. Each changes the persuasion spine, proof standard, photography roles, conversion route, and form data.
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="col-arch">Architecture</th>
+                            <th class="col-buyer">Buyer motion</th>
+                            <th class="col-conv">Primary conversion</th>
+                            <th class="col-proof">Proof posture</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="col-arch">Private Signal</td>
+                            <td class="col-buyer">High-discretion adviser / executive buyer</td>
+                            <td class="col-conv">Private conversation</td>
+                            <td class="col-proof">Confidentiality-aware method and permissioned outcomes</td>
+                        </tr>
+                        <tr>
+                            <td class="col-arch">Authority + Speaking</td>
+                            <td class="col-buyer">Event buyer or leadership curator</td>
+                            <td class="col-conv">Speaking availability</td>
+                            <td class="col-proof">Topic outcomes, event context and organizer evidence</td>
+                        </tr>
+                        <tr>
+                            <td class="col-arch">Creator + Education</td>
+                            <td class="col-buyer">Learner moving toward a program</td>
+                            <td class="col-conv">Segmented offer route</td>
+                            <td class="col-proof">Demonstrated learning and instructional proof</td>
+                        </tr>
+                        <tr>
+                            <td class="col-arch">Niche Specialist</td>
+                            <td class="col-buyer">Vertical operator with a specific constraint</td>
+                            <td class="col-conv">Diagnostic assessment</td>
+                            <td class="col-proof">Case anatomy and operational proof</td>
+                        </tr>
+                        <tr>
+                            <td class="col-arch">Manifesto + Movement</td>
+                            <td class="col-buyer">Identity-led audience</td>
+                            <td class="col-conv">Application or community route</td>
+                            <td class="col-proof">Real category relevance and doctrine</td>
+                        </tr>
+                        <tr>
+                            <td class="col-arch">Portfolio + IP</td>
+                            <td class="col-buyer">Buyer evaluating a thesis across ventures</td>
+                            <td class="col-conv">Chosen venture / IP path</td>
+                            <td class="col-proof">Owned intellectual-property map</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="slide-number">04</div>
+    </div>
+</body>
+</html>

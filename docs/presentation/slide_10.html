@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .slide-container { 
+            width: 1280px; 
+            min-height: 720px; 
+            background-color: #FFFFFF; 
+            position: relative;
+            overflow: hidden;
+            font-family: 'Roboto Mono', monospace;
+            color: #4A5568;
+        }
+        
+        .grid-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            padding: 0 40px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .grid-column {
+            border-left: 1px solid rgba(74, 85, 104, 0.1);
+            border-right: 1px solid rgba(74, 85, 104, 0.1);
+            height: 100%;
+        }
+
+        .content-wrapper {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: auto 1fr auto;
+            gap: 20px;
+            padding: 60px 40px;
+            z-index: 2;
+        }
+
+        header {
+            grid-column: 2 / 12;
+            border-bottom: 1px solid #4A5568;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 56px;
+            color: #0A1128;
+            line-height: 1.2;
+        }
+
+        .table-container {
+            grid-column: 2 / 12;
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(74, 85, 104, 0.2);
+            vertical-align: top;
+        }
+
+        th {
+            font-weight: 700;
+            color: #0A1128;
+            border-bottom: 2px solid #0A1128;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #F7FAFC;
+        }
+
+        .col-type {
+            font-weight: 700;
+            color: #0A1128;
+            width: 25%;
+        }
+
+        .col-managed {
+            width: 35%;
+        }
+
+        .col-examples {
+            width: 40%;
+            color: #0A1128;
+        }
+
+        .footer-note {
+            grid-column: 2 / 12;
+            font-size: 18px;
+            line-height: 1.6;
+            padding-top: 20px;
+            border-top: 1px solid #D4FF00;
+            color: #0A1128;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            font-size: 14px;
+            color: #4A5568;
+            border-top: 1px solid #4A5568;
+            padding-top: 10px;
+            width: 60px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="grid-overlay">
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+            <div class="grid-column"></div><div class="grid-column"></div><div class="grid-column"></div>
+        </div>
+        
+        <div class="content-wrapper">
+            <header>
+                <h1>Dynamic pages and MDX serve different jobs</h1>
+            </header>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="col-type">Content type</th>
+                            <th class="col-managed">Managed through</th>
+                            <th class="col-examples">Examples</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="col-type">Conversion pages</td>
+                            <td class="col-managed">Typed JSON and Astro content collections</td>
+                            <td class="col-examples">Home, method, services, speaking, contact, case study</td>
+                        </tr>
+                        <tr>
+                            <td class="col-type">Long-form thinking</td>
+                            <td class="col-managed">MDX posts with validated frontmatter</td>
+                            <td class="col-examples">Field Notes, Rehearsal Notes, Constraint Notes</td>
+                        </tr>
+                        <tr>
+                            <td class="col-type">Strategic updates</td>
+                            <td class="col-managed">Client pack &rarr; reassessment &rarr; regenerated page plan</td>
+                            <td class="col-examples">New offer, revised buyer, newly approved proof, changed CTA</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="footer-note">
+                <strong>The archetype changes the editorial system.</strong> Private Signal publishes Field Notes that lead to a private conversation. Authority + Speaking publishes Rehearsal Notes that lead to availability checks. Niche Specialist publishes Constraint Notes that lead to diagnostic assessment.
+            </div>
+        </div>
+        
+        <div class="slide-number">10</div>
+    </div>
+</body>
+</html>
