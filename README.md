@@ -10,6 +10,7 @@
 | **InfluEx research findings** | [`docs/RESEARCH_FINDINGS.md`](./docs/RESEARCH_FINDINGS.md) |
 | **Photography playbook** | [`docs/PHOTOGRAPHY_PLAYBOOK.md`](./docs/PHOTOGRAPHY_PLAYBOOK.md) |
 | **AI pipeline** | [`docs/AI_PIPELINE.md`](./docs/AI_PIPELINE.md) |
+| **AURA Compiler** | [`docs/AURA_COMPILER_OPERATING_MODEL.md`](./docs/AURA_COMPILER_OPERATING_MODEL.md) |
 
 ## What ships
 
@@ -30,7 +31,8 @@ scripts/
 ├── lint-blocks.mjs       # persuasion sequence and CTA hierarchy checks
 ├── build-photos.py       # responsive photo derivative pipeline
 ├── verify-images.py      # image existence / intrinsic-dimension check
-└── visual-qa.mjs         # desktop/mobile Playwright QA
+├── visual-qa.mjs         # desktop/mobile Playwright QA
+└── aura/                 # client-pack, strategy, planning, asset, content and release compiler
 
 docs/                # blueprint, research, content, token, photo, and deployment guides
 prompts/             # discovery, planning, block-copy, photography, and QA prompts
@@ -55,24 +57,29 @@ Open `http://localhost:4321` to view the demo.
 | `pnpm photos:build` | Build responsive derivatives from private photo masters |
 | `pnpm qa:visual` | Capture and audit desktop/mobile page states |
 | `pnpm new:client -- …` | Create a schema-safe client scaffold |
+| `pnpm aura:init -- …` | Initialize a portable evidence, strategy, asset and release client pack |
+| `pnpm aura:assess -- …` | Recommend an architecture and surface discovery / proof gaps |
+| `pnpm aura:plan -- …` | Compile approved strategy into page, CTA, block and photo-role plans |
+| `pnpm aura:assets -- …` | Compile the consent-aware premium photo shotlist and asset manifest |
+| `pnpm aura:prompts -- …` | Generate auditable AI drafting and photography prompt packets |
+| `pnpm aura:compose -- …` | Emit typed AURA content candidates with approval placeholders |
+| `pnpm aura:validate -- …` | Enforce client-pack, evidence, sequence and asset contracts |
+| `pnpm aura:verify -- … --visual` | Run the complete contract, build and responsive visual release suite |
 
-## Create a new client
+## AURA Compiler: create a new client
+
+`new:client` remains available for a lightweight content starter. For a production-grade premium site, use the Compiler instead:
 
 ```bash
-pnpm new:client -- \
-  --slug alex-morgan \
-  --name "Alex Morgan" \
-  --title "Growth Advisor to Technical Founders" \
-  --theme obsidian-gold \
-  --archetype personal-authority-hub
-```
-
-The command creates the brand and core pages with explicit `[DISCOVERY REQUIRED: …]` markers. Complete the discovery questionnaire, replace every marker, add the photo library, then run:
-
-```bash
-pnpm lint:blocks
-pnpm verify:images
-pnpm build
+pnpm aura:init -- --slug alex-morgan --name "Alex Morgan"
+# Complete clients/alex-morgan/00-intake/client-brief.yaml and evidence-register.yaml
+pnpm aura:assess -- --slug alex-morgan
+# Approve clients/alex-morgan/01-strategy/strategy.yaml
+pnpm aura:plan -- --slug alex-morgan
+pnpm aura:assets -- --slug alex-morgan
+pnpm aura:prompts -- --slug alex-morgan
+pnpm aura:compose -- --slug alex-morgan
+pnpm aura:verify -- --slug alex-morgan --visual
 ```
 
 ## Content-first architecture
@@ -104,6 +111,8 @@ The public Priya Raghavan site is a fictional demo. Its forms use a safe `demo:/
 | [`AI_PIPELINE.md`](./docs/AI_PIPELINE.md) | Run the evidence-led AI discovery and drafting workflow. |
 | [`DEPLOYMENT.md`](./docs/DEPLOYMENT.md) | Deploy, operate, map a custom domain, and roll back safely. |
 | [`CLIENT_ONBOARDING.md`](./docs/CLIENT_ONBOARDING.md) | Run a repeatable discovery, evidence, build, review, and launch process. |
+| [`AURA_COMPILER_OPERATING_MODEL.md`](./docs/AURA_COMPILER_OPERATING_MODEL.md) | Understand the engine’s contracts, compiler stages, quality gates and Studio-ready extension path. |
+| [`AURA_COMPILER_RUNBOOK.md`](./docs/AURA_COMPILER_RUNBOOK.md) | Operate the Compiler from client pack through verified release. |
 
 ## Deployment
 

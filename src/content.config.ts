@@ -643,6 +643,14 @@ const brand = defineCollection({
       .enum(['obsidian-gold', 'editorial-ivory', 'institutional-navy', 'signal-cyan', 'insurgent-red'])
       .default('obsidian-gold'),
 
+    /* Compiler provenance — optional for hand-authored sites, required by AURA Compiler release manifests. */
+    engine: z.object({
+      clientPack: z.string(),
+      architecture: z.enum(['private-signal', 'authority-speaking', 'creator-education', 'niche-specialist', 'manifesto-movement', 'portfolio-ip']),
+      strategyVersion: z.number().int().positive().default(1),
+      siteStatus: z.enum(['concept_demo', 'live_client', 'anonymized_client']).default('concept_demo'),
+    }).optional(),
+
     /* Positioning */
     positioning: z.object({
       /** Who exactly this is for */
@@ -770,6 +778,12 @@ const pages = defineCollection({
     /** URL path; "/" for home */
     path: z.string(),
     brand: reference('brand'),
+    engine: z.object({
+      clientPack: z.string(),
+      architecture: z.enum(['private-signal', 'authority-speaking', 'creator-education', 'niche-specialist', 'manifesto-movement', 'portfolio-ip']),
+      pagePlanVersion: z.number().int().positive().default(1),
+      claimIds: z.array(z.string()).default([]),
+    }).optional(),
     seo: z.object({
       title: z.string(),
       description: z.string(),

@@ -39,3 +39,7 @@ CLAUDE.md
 # Environment-specific public URLs
 .env.local
 .env.*.local
+
+# AURA Compiler client packs may contain private evidence, source material and consented identity references.
+# Keep them local by default; publish only deliberately sanitized examples elsewhere.
+/clients/

@@ -17,7 +17,15 @@
     "verify:images": "python3 scripts/verify-images.py",
     "photos:build": "python3 scripts/build-photos.py",
     "qa:visual": "node scripts/visual-qa.mjs",
-    "new:client": "node scripts/new-client.mjs"
+    "new:client": "node scripts/new-client.mjs",
+    "aura:init": "node scripts/aura/init-client.mjs",
+    "aura:assess": "node scripts/aura/assess.mjs",
+    "aura:plan": "node scripts/aura/plan.mjs",
+    "aura:validate": "node scripts/aura/validate.mjs",
+    "aura:prompts": "node scripts/aura/prompts.mjs",
+    "aura:assets": "node scripts/aura/assets.mjs",
+    "aura:compose": "node scripts/aura/compose.mjs",
+    "aura:verify": "node scripts/aura/verify.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",
@@ -28,7 +36,8 @@
     "marked": "^18.0.9",
     "sharp": "^0.35.3",
     "tailwindcss": "^4.3.3",
-    "typescript": "^6.0.0"
+    "typescript": "^6.0.0",
+    "yaml": "^2.9.0"
   },
   "devDependencies": {
     "playwright": "^1.62.1"
