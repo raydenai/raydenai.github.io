@@ -116,6 +116,8 @@ The public Priya Raghavan site is a fictional demo. Its forms use a safe `demo:/
 | [`AURA_COMPILER_ARCHETYPE_TESTS.md`](./docs/AURA_COMPILER_ARCHETYPE_TESTS.md) | Compare the compiled Private Signal, Authority + Speaking, and Niche Specialist outputs. |
 | [`AURA_PRIVATE_SIGNAL_PHOTO_AND_PROMPT_REVIEW.md`](./docs/AURA_PRIVATE_SIGNAL_PHOTO_AND_PROMPT_REVIEW.md) | Inspect the role-based shot plan and generated AI / photographer prompt packets. |
 | [`AURA_PRIVATE_SIGNAL_RESPONSIVE_QA.md`](./docs/AURA_PRIVATE_SIGNAL_RESPONSIVE_QA.md) | Review the fresh desktop and mobile release QA evidence. |
+| [`AURA_DYNAMIC_CONTENT_AND_MDX.md`](./docs/AURA_DYNAMIC_CONTENT_AND_MDX.md) | Manage schema-driven page updates and architecture-aware MDX publishing. |
+| [`AURA_AUTHORITY_SPEAKING_PREVIEW_QA.md`](./docs/AURA_AUTHORITY_SPEAKING_PREVIEW_QA.md) | Review the Authority + Speaking concept implementation and responsive QA evidence. |
 
 ## Deployment
 

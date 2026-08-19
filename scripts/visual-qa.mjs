@@ -16,9 +16,9 @@ import { chromium } from 'playwright';
 import { mkdirSync, writeFileSync } from 'node:fs';
 
 const BASE = process.argv[2] || 'http://localhost:4321';
-const OUT = 'qa';
+const OUT = process.env.AURA_QA_OUT || 'qa';
 
-const ROUTES = [
+const DEFAULT_ROUTES = [
   '/',
   '/about/',
   '/method/',
@@ -28,6 +28,9 @@ const ROUTES = [
   '/blog/',
   '/blog/expertise-is-not-a-position/',
 ];
+const ROUTES = process.env.AURA_QA_ROUTES
+  ? process.env.AURA_QA_ROUTES.split(',').map((route) => route.trim()).filter(Boolean)
+  : DEFAULT_ROUTES;
 
 const VIEWPORTS = [
   { name: 'desktop', width: 1440, height: 900 },

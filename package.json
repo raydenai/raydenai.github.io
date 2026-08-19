@@ -25,7 +25,8 @@
     "aura:prompts": "node scripts/aura/prompts.mjs",
     "aura:assets": "node scripts/aura/assets.mjs",
     "aura:compose": "node scripts/aura/compose.mjs",
-    "aura:verify": "node scripts/aura/verify.mjs"
+    "aura:verify": "node scripts/aura/verify.mjs",
+    "aura:post": "node scripts/aura/post.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",
