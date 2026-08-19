@@ -32,12 +32,19 @@ const roleMap = {
   final_conversion: { visitor_state: 'action', block_candidates: ['FinalCta', 'ApplicationForm', 'ContactSplit'], photo_roles: photo.includes('P12') ? ['P12'] : [] },
 };
 
+function photoRolesFor(role, defaultRoles) {
+  if (architecture === 'authority-speaking' && role === 'offer') return ['P07'];
+  if (architecture === 'niche-specialist' && role === 'offer') return ['P08'];
+  return defaultRoles;
+}
+
 function section(role, position) {
   const detail = roleMap[role];
   return {
     position: position + 1,
     role,
     ...detail,
+    photo_roles: photoRolesFor(role, detail.photo_roles),
     claim_ids: role === 'proof' || role === 'named_method' ? claimIds : [],
     purpose: `[DRAFT] ${role.replaceAll('_', ' ')} must move the visitor from ${detail.visitor_state} using only approved client-pack inputs.`,
   };

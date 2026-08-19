@@ -113,6 +113,9 @@ The public Priya Raghavan site is a fictional demo. Its forms use a safe `demo:/
 | [`CLIENT_ONBOARDING.md`](./docs/CLIENT_ONBOARDING.md) | Run a repeatable discovery, evidence, build, review, and launch process. |
 | [`AURA_COMPILER_OPERATING_MODEL.md`](./docs/AURA_COMPILER_OPERATING_MODEL.md) | Understand the engine’s contracts, compiler stages, quality gates and Studio-ready extension path. |
 | [`AURA_COMPILER_RUNBOOK.md`](./docs/AURA_COMPILER_RUNBOOK.md) | Operate the Compiler from client pack through verified release. |
+| [`AURA_COMPILER_ARCHETYPE_TESTS.md`](./docs/AURA_COMPILER_ARCHETYPE_TESTS.md) | Compare the compiled Private Signal, Authority + Speaking, and Niche Specialist outputs. |
+| [`AURA_PRIVATE_SIGNAL_PHOTO_AND_PROMPT_REVIEW.md`](./docs/AURA_PRIVATE_SIGNAL_PHOTO_AND_PROMPT_REVIEW.md) | Inspect the role-based shot plan and generated AI / photographer prompt packets. |
+| [`AURA_PRIVATE_SIGNAL_RESPONSIVE_QA.md`](./docs/AURA_PRIVATE_SIGNAL_RESPONSIVE_QA.md) | Review the fresh desktop and mobile release QA evidence. |
 
 ## Deployment
 

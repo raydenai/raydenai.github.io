@@ -7,6 +7,7 @@ const brief = readYaml(clientFile(slug, '00-intake', 'client-brief.yaml'));
 const evidence = readYaml(clientFile(slug, '00-intake', 'evidence-register.yaml'));
 const strategy = readYaml(clientFile(slug, '01-strategy', 'strategy.yaml'));
 const plan = readYaml(clientFile(slug, '01-strategy', 'page-plan.yaml'));
+const shotlist = readYaml(clientFile(slug, '02-assets', 'photo-shotlist.yaml'));
 const output = clientFile(slug, '03-production', 'prompts');
 
 const approvedClaims = (evidence.claims || [])
@@ -29,5 +30,25 @@ for (const page of plan.pages || []) {
 
 const photoPacket = `# AURA Compiler — Photography and asset packet\n\nVisual world: **${strategy.visual_direction || brief.art_direction?.visual_world}**\nArchitecture: **${strategy.architecture}**\nImage strategy: **${brief.art_direction?.image_strategy}**\nIdentity-reference consent: **${brief.art_direction?.identity_reference_consent}**\n\nCreate a role-by-role shot plan for: ${[...new Set((plan.pages || []).flatMap((page) => (page.sections || []).flatMap((section) => section.photo_roles || [])))].join(', ')}. For each role specify composition, desktop and mobile crop, visual job, wardrobe/location continuity, caption/alt intent, prompt, photographer brief and authenticity risks. Do not depict fictional clients, events, endorsements or published media as documentary fact.\n`;
 writeText(join(output, '03-photo-direction.md'), photoPacket);
+
+const roleDirectives = {
+  P02: 'Create a cinematic hero frame with purposeful negative space for the headline. The subject must read as capable, composed and specific rather than aspirational stock photography.',
+  P03: 'Create a clean, full or three-quarter cut-out with a precise alpha edge. Keep hands natural and preserve copy-safe separation around the silhouette.',
+  P04: 'Create a quiet, contextual private-room portrait. Make the environment materially credible and avoid staged lifestyle cues.',
+  P05: 'Create a credible work-in-progress image. Show an authentic action, considered object or analytical interaction; never a generic laptop pose.',
+  P06: 'Create a warm editorial close portrait for fit or final conversion. The expression must be calm and intelligent, not overly smiling or sales-driven.',
+  P07: 'Create contextual stage or room scale. Use it only when documentary context is true; for a concept scene, make the status explicit and do not fake a real event.',
+  P08: 'Create a diagnostic or conversation scene with natural listening, hands and work materials. Do not imply a real client relationship unless it is documented.',
+  P09: 'Create a material method artifact or document detail. Do not generate invented readable text, fake reports or fabricated brand marks.',
+  P10: 'Create an architectural texture that carries the same material and lighting world without becoming generic background decoration.',
+  P11: 'Create a quiet motion-capable composition where movement supports hierarchy rather than creating generic b-roll.',
+  P12: 'Create a signature object, mark or editorial detail for the final conversion moment. It should reinforce the decision, not repeat the hero portrait.',
+};
+
+for (const shot of shotlist.shots || []) {
+  const pages = (shot.page_placements || []).join(', ') || 'TBD';
+  const packet = `# AURA Compiler — ${shot.code} ${shot.role} generation packet\n\n## Approved context\n\n- Architecture: **${strategy.architecture}**\n- Visual world: **${strategy.visual_direction || brief.art_direction?.visual_world}**\n- Image strategy: **${brief.art_direction?.image_strategy}**\n- Consent state: **${shot.consent_state}**\n- Page placements: **${pages}**\n- Desktop crop: **${shot.desktop_crop}**\n- Mobile crop: **${shot.mobile_crop}**\n\n## Visual job\n\n${shot.composition}\n\n${roleDirectives[shot.code] || 'Create only the approved visual role; preserve factual and consent boundaries.'}\n\n## Generation prompt\n\nCreate a ${brief.art_direction?.image_strategy === 'synthetic_concept' ? 'clearly conceptual, premium editorial photograph' : 'premium editorial photograph'} for role **${shot.code} — ${shot.role}**. Visual world: ${strategy.visual_direction || brief.art_direction?.visual_world}. Composition: ${shot.composition} Desktop aspect ratio: ${shot.desktop_crop}. Mobile crop requirement: ${shot.mobile_crop}. Wardrobe chapter: ${shot.wardrobe_chapter}. Location chapter: ${shot.location_chapter}. Use directional, naturalistic light; material texture; controlled contrast; credible posture and anatomy; a considered copy-safe area where appropriate. Avoid visible logos, readable invented text, fabricated media, fake client work, fake event context, plastic skin, malformed hands, stock-photo poses, and unrelated lifestyle props.\n\n## Photographer alternative\n\nPhotograph the same role using the approved subject, wardrobe and location chapters. Capture an uncropped master plus the stated desktop/mobile compositions. Record consent, source provenance, final alt text, dimensions and asset paths before publication.\n\n## Required QA before publication\n\n- Confirm consent and provenance match the pack.\n- Inspect face, hands, jewelry, edges and text artifacts.\n- Confirm ${shot.desktop_crop} and ${shot.mobile_crop} crops preserve the subject / visual job.\n- Add actual alt text; leave alt empty only if the asset is decorative.\n`;
+  writeText(join(output, `photo-${shot.code.toLowerCase()}.md`), packet);
+}
 
 console.log(`Generated prompt packets in ${output}`);
