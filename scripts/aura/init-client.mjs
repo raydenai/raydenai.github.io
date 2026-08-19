@@ -12,7 +12,7 @@ if (existsSync(root) && !force) {
   throw new Error(`Client pack already exists: ${root}. Use --force only when deliberately overwriting this pack.`);
 }
 
-for (const directory of ['00-intake/sources', '01-strategy', '02-assets/masters', '02-assets/generated', '03-production/prompts', '03-production/astro-content', '04-release']) {
+for (const directory of ['00-intake/sources', '01-strategy', '02-assets/masters', '02-assets/generated', '03-production/prompts', '03-production/astro-content', '03-production/mdx', '04-release/content-revisions']) {
   ensureDir(join(root, directory));
 }
 
@@ -41,7 +41,15 @@ writeYaml(join(root, '00-intake/client-brief.yaml'), {
   content_architecture: { selected: 'unresolved', rejected_alternatives: [], required_pages: [], origin_story_relevance: '[WHY THE STORY EARNS THE THESIS]' },
   proof: { permissioned_cases_available: false, third_party_sources_available: false, concept_disclosure_required: true },
   art_direction: { visual_world: '[SELECT AFTER STRATEGY]', material_palette: [], type_posture: '', motion_posture: '', image_strategy: 'synthetic_concept', identity_reference_consent: false, required_photo_roles: [] },
-  operations: { platform: 'Astro', content_owner: '[OWNER]', form_provider: 'unconfigured', canonical_domain: '', analytics_requirement: '' },
+  operations: {
+    platform: 'Astro',
+    content_owner: '[OWNER]',
+    form_provider: 'unconfigured',
+    form_endpoint_status: 'unconfigured',
+    canonical_domain: '',
+    privacy_policy_path: '',
+    analytics_requirement: '',
+  },
 });
 
 writeYaml(join(root, '00-intake/evidence-register.yaml'), {
@@ -72,7 +80,8 @@ writeYaml(join(root, '02-assets/photo-shotlist.yaml'), {
 });
 writeYaml(join(root, '02-assets/asset-manifest.yaml'), { assets: [] });
 writeText(join(root, '01-strategy/decision-log.md'), `# ${name} — Decision Log\n\nRecord approved strategic decisions, rejected alternatives and evidence constraints here.\n`);
-writeText(join(root, '04-release/handoff.md'), `# ${name} — Release Handoff\n\nThis file is populated only after AURA Compiler validation passes.\n`);
+writeText(join(root, '03-production/content-promotion-ledger.md'), `# ${name} — Content Promotion Ledger\n\nEvery JSON or MDX promotion records the reviewer reference, source hash, prior version backup, target path, and rollback manifest.\n`);
+writeText(join(root, '04-release/handoff.md'), `# ${name} — Release Handoff\n\nThis file is populated only after AURA Compiler release authorization passes.\n`);
 
 console.log(`Initialized AURA Compiler pack: ${root}`);
 console.log('Next: complete 00-intake/client-brief.yaml and evidence-register.yaml, then run: pnpm aura:assess -- --slug ' + slug);

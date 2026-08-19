@@ -1,0 +1,340 @@
+engine: AURA Compiler
+version: 1
+generated_at: 2026-08-19T06:06:07.130Z
+proposal: false
+project:
+  slug: priya-raghavan
+  brand_name: Priya Raghavan
+  architecture: private-signal
+  visual_world: Private Signal — cinematic private-room editorial authority in
+    obsidian, parchment, aged brass, and dark walnut.
+  site_status: concept_demo
+conversion:
+  primary: private_conversation
+  form_fields: &a1
+    - name
+    - email
+    - company
+    - decision_context
+    - timing
+    - desired_outcome
+proof_posture: Permissioned case anatomy or an explicit confidential-work standard.
+pages:
+  - path: /
+    page_name: Home
+    primary_visitor: Proven founder or C-suite operator whose public market signal
+      lags their actual judgment and record.
+    desired_decision: Request a private conversation
+    primary_cta:
+      label: Request a private conversation
+      href: /contact/
+      intent: primary
+      form_intent: private_conversation
+      required_form_fields: *a1
+    secondary_cta:
+      label: See how the work unfolds
+      href: "#method"
+      intent: secondary
+    sections:
+      - position: 1
+        role: hero
+        visitor_state: recognition
+        block_candidates: &a3
+          - HeroSplitPortrait
+          - HeroVideoOverlay
+          - HeroCenteredStatement
+        photo_roles: &a4
+          - P02
+        claim_ids: []
+        purpose: "[DRAFT] hero must move the visitor from recognition using only
+          approved client-pack inputs."
+      - position: 2
+        role: problem_mirror
+        visitor_state: cost
+        block_candidates:
+          - EmpathyQuoteWall
+          - ProblemAgitation
+        photo_roles: []
+        claim_ids: []
+        purpose: "[DRAFT] problem mirror must move the visitor from cost using only
+          approved client-pack inputs."
+      - position: 3
+        role: named_method
+        visitor_state: conviction
+        block_candidates: &a9
+          - MethodologyPillars
+          - NumberedFramework
+          - PrincipleZigZag
+        photo_roles: &a10
+          - P09
+        claim_ids: &a2
+          - concept-method
+          - concept-proof-standard
+        purpose: "[DRAFT] named method must move the visitor from conviction using only
+          approved client-pack inputs."
+      - position: 4
+        role: proof
+        visitor_state: trust
+        block_candidates: &a5
+          - ResultsGrid
+          - TestimonialGrid
+          - AuthorityQuote
+          - CredibilityStack
+        photo_roles: &a6
+          - P05
+        claim_ids: *a2
+        purpose: "[DRAFT] proof must move the visitor from trust using only approved
+          client-pack inputs."
+      - position: 5
+        role: fit
+        visitor_state: permission
+        block_candidates: &a11
+          - AudienceQualifier
+          - HighTicketOffer
+          - ProcessTimeline
+        photo_roles: &a12
+          - P06
+        claim_ids: []
+        purpose: "[DRAFT] fit must move the visitor from permission using only approved
+          client-pack inputs."
+      - position: 6
+        role: final_conversion
+        visitor_state: action
+        block_candidates: &a7
+          - FinalCta
+          - ApplicationForm
+          - ContactSplit
+        photo_roles: &a8
+          - P12
+        claim_ids: []
+        purpose: "[DRAFT] final conversion must move the visitor from action using only
+          approved client-pack inputs."
+  - path: /about/
+    page_name: About
+    primary_visitor: Proven founder or C-suite operator whose public market signal
+      lags their actual judgment and record.
+    desired_decision: Understand why the authority thesis is earned and whether the
+      point of view is credible.
+    primary_cta:
+      label: Request a private conversation
+      href: /contact/
+      intent: primary
+      form_intent: private_conversation
+      required_form_fields: *a1
+    secondary_cta: null
+    sections:
+      - position: 1
+        role: hero
+        visitor_state: recognition
+        block_candidates: *a3
+        photo_roles: *a4
+        claim_ids: []
+        purpose: "[DRAFT] hero must move the visitor from recognition using only
+          approved client-pack inputs."
+      - position: 2
+        role: story
+        visitor_state: earned_authority
+        block_candidates:
+          - CrucibleMoment
+          - OriginStory
+          - Manifesto
+        photo_roles: []
+        claim_ids: []
+        purpose: "[DRAFT] story must move the visitor from earned_authority using only
+          approved client-pack inputs."
+      - position: 3
+        role: proof
+        visitor_state: trust
+        block_candidates: *a5
+        photo_roles: *a6
+        claim_ids: *a2
+        purpose: "[DRAFT] proof must move the visitor from trust using only approved
+          client-pack inputs."
+      - position: 4
+        role: final_conversion
+        visitor_state: action
+        block_candidates: *a7
+        photo_roles: *a8
+        claim_ids: []
+        purpose: "[DRAFT] final conversion must move the visitor from action using only
+          approved client-pack inputs."
+  - path: /method/
+    page_name: Method
+    primary_visitor: Proven founder or C-suite operator whose public market signal
+      lags their actual judgment and record.
+    desired_decision: Evaluate whether the named method addresses the visitor’s
+      current authority problem.
+    primary_cta:
+      label: Request a private conversation
+      href: /contact/
+      intent: primary
+      form_intent: private_conversation
+      required_form_fields: *a1
+    secondary_cta: null
+    sections:
+      - position: 1
+        role: hero
+        visitor_state: recognition
+        block_candidates: *a3
+        photo_roles: *a4
+        claim_ids: []
+        purpose: "[DRAFT] hero must move the visitor from recognition using only
+          approved client-pack inputs."
+      - position: 2
+        role: named_method
+        visitor_state: conviction
+        block_candidates: *a9
+        photo_roles: *a10
+        claim_ids: *a2
+        purpose: "[DRAFT] named method must move the visitor from conviction using only
+          approved client-pack inputs."
+      - position: 3
+        role: proof
+        visitor_state: trust
+        block_candidates: *a5
+        photo_roles: *a6
+        claim_ids: *a2
+        purpose: "[DRAFT] proof must move the visitor from trust using only approved
+          client-pack inputs."
+      - position: 4
+        role: final_conversion
+        visitor_state: action
+        block_candidates: *a7
+        photo_roles: *a8
+        claim_ids: []
+        purpose: "[DRAFT] final conversion must move the visitor from action using only
+          approved client-pack inputs."
+  - path: /work-with-me/
+    page_name: Work With Me
+    primary_visitor: Proven founder or C-suite operator whose public market signal
+      lags their actual judgment and record.
+    desired_decision: Decide whether the delivery model, fit criteria and private
+      advisory scope are appropriate.
+    primary_cta:
+      label: Request a private conversation
+      href: /contact/
+      intent: primary
+      form_intent: private_conversation
+      required_form_fields: *a1
+    secondary_cta: null
+    sections:
+      - position: 1
+        role: hero
+        visitor_state: recognition
+        block_candidates: *a3
+        photo_roles: *a4
+        claim_ids: []
+        purpose: "[DRAFT] hero must move the visitor from recognition using only
+          approved client-pack inputs."
+      - position: 2
+        role: fit
+        visitor_state: permission
+        block_candidates: *a11
+        photo_roles: *a12
+        claim_ids: []
+        purpose: "[DRAFT] fit must move the visitor from permission using only approved
+          client-pack inputs."
+      - position: 3
+        role: proof
+        visitor_state: trust
+        block_candidates: *a5
+        photo_roles: *a6
+        claim_ids: *a2
+        purpose: "[DRAFT] proof must move the visitor from trust using only approved
+          client-pack inputs."
+      - position: 4
+        role: offer
+        visitor_state: fit
+        block_candidates:
+          - ServicesGrid
+          - OfferLadder
+          - HighTicketOffer
+          - SpeakingTopics
+        photo_roles:
+          - P05
+        claim_ids: []
+        purpose: "[DRAFT] offer must move the visitor from fit using only approved
+          client-pack inputs."
+      - position: 5
+        role: final_conversion
+        visitor_state: action
+        block_candidates: *a7
+        photo_roles: *a8
+        claim_ids: []
+        purpose: "[DRAFT] final conversion must move the visitor from action using only
+          approved client-pack inputs."
+  - path: /case-studies/
+    page_name: Case Studies
+    primary_visitor: Proven founder or C-suite operator whose public market signal
+      lags their actual judgment and record.
+    desired_decision: Understand the proof standard and identify whether the
+      relevant scope resembles their situation.
+    primary_cta:
+      label: Request a private conversation
+      href: /contact/
+      intent: primary
+      form_intent: private_conversation
+      required_form_fields: *a1
+    secondary_cta: null
+    sections:
+      - position: 1
+        role: hero
+        visitor_state: recognition
+        block_candidates: *a3
+        photo_roles: *a4
+        claim_ids: []
+        purpose: "[DRAFT] hero must move the visitor from recognition using only
+          approved client-pack inputs."
+      - position: 2
+        role: proof
+        visitor_state: trust
+        block_candidates: *a5
+        photo_roles: *a6
+        claim_ids: *a2
+        purpose: "[DRAFT] proof must move the visitor from trust using only approved
+          client-pack inputs."
+      - position: 3
+        role: final_conversion
+        visitor_state: action
+        block_candidates: *a7
+        photo_roles: *a8
+        claim_ids: []
+        purpose: "[DRAFT] final conversion must move the visitor from action using only
+          approved client-pack inputs."
+  - path: /contact/
+    page_name: Contact
+    primary_visitor: Proven founder or C-suite operator whose public market signal
+      lags their actual judgment and record.
+    desired_decision: Share enough context to begin the appropriate private conversation.
+    primary_cta:
+      label: Request a private conversation
+      href: /contact/
+      intent: primary
+      form_intent: private_conversation
+      required_form_fields: *a1
+    secondary_cta: null
+    sections:
+      - position: 1
+        role: hero
+        visitor_state: recognition
+        block_candidates: *a3
+        photo_roles: *a4
+        claim_ids: []
+        purpose: "[DRAFT] hero must move the visitor from recognition using only
+          approved client-pack inputs."
+      - position: 2
+        role: fit
+        visitor_state: permission
+        block_candidates: *a11
+        photo_roles: *a12
+        claim_ids: []
+        purpose: "[DRAFT] fit must move the visitor from permission using only approved
+          client-pack inputs."
+      - position: 3
+        role: final_conversion
+        visitor_state: action
+        block_candidates: *a7
+        photo_roles: *a8
+        claim_ids: []
+        purpose: "[DRAFT] final conversion must move the visitor from action using only
+          approved client-pack inputs."

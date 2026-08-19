@@ -76,7 +76,7 @@ const isActive = (href: string) =>
     </div>
   </div>
 
-  <div class="ahd__drawer" id="ahd-drawer" hidden>
+  <div class="ahd__drawer" id="ahd-drawer" role="dialog" aria-modal="true" aria-label="Mobile navigation" hidden>
     <nav aria-label="Mobile">
       <ul>
         {
@@ -193,8 +193,8 @@ const isActive = (href: string) =>
     flex-direction: column;
     justify-content: center;
     gap: 5px;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.75rem;
+    height: 2.75rem;
     padding: 0;
     background: none;
     border: 0;
@@ -270,25 +270,54 @@ const isActive = (href: string) =>
   }
 
   if (toggle && drawer) {
-    const setOpen = (open: boolean) => {
+    let lastFocused: HTMLElement | null = null;
+    const backgroundRegions = () => [...document.querySelectorAll<HTMLElement>('main, footer, .aab')];
+    const drawerFocusables = () => [...drawer.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')]
+      .filter((element) => !element.hasAttribute('hidden'));
+
+    const setOpen = (open: boolean, restoreFocus = false) => {
       toggle.setAttribute('aria-expanded', String(open));
       toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
       drawer.hidden = !open;
       document.documentElement.style.overflow = open ? 'hidden' : '';
+      backgroundRegions().forEach((region) => region.toggleAttribute('inert', open));
+      if (open) {
+        lastFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+        requestAnimationFrame(() => drawerFocusables()[0]?.focus());
+      } else if (restoreFocus) {
+        (lastFocused || toggle).focus();
+        lastFocused = null;
+      }
     };
 
     toggle.addEventListener('click', () => {
-      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+      const opening = toggle.getAttribute('aria-expanded') !== 'true';
+      setOpen(opening, !opening);
     });
 
     drawer.addEventListener('click', (event) => {
-      if ((event.target as HTMLElement).closest('a')) setOpen(false);
+      if ((event.target as HTMLElement).closest('a')) setOpen(false, true);
     });
 
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
-        setOpen(false);
-        toggle.focus();
+      if (toggle.getAttribute('aria-expanded') !== 'true') return;
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        setOpen(false, true);
+        return;
+      }
+      if (event.key !== 'Tab') return;
+      const focusables = drawerFocusables();
+      if (!focusables.length) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement;
+      if (event.shiftKey && active === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
       }
     });
 

@@ -1,0 +1,28 @@
+claims:
+  - claim_id: concept-method
+    claim_text: The Quiet Authority Method moves through Position, Proof, Package, and Platform.
+    claim_type: biography
+    status: concept_only
+    source: AURA Private Signal concept strategy.
+    permission_owner: AURA concept owner
+    timeframe: 2026 concept build
+    scope: Illustrative method structure only; not a claim about live client outcomes.
+    placement:
+      - /
+      - /method/
+    required_caveat: Concept demonstration disclosure near proof treatment.
+
+  - claim_id: concept-proof-standard
+    claim_text: Live client work is shown only with permission or an approved anonymized treatment.
+    claim_type: case
+    status: concept_only
+    source: AURA Private Signal concept policy.
+    permission_owner: AURA concept owner
+    timeframe: 2026 concept build
+    scope: Public evidence policy for the concept demonstration.
+    placement:
+      - /
+      - /case-studies/
+    required_caveat: No fictional client proof is displayed.
+
+case_studies: []

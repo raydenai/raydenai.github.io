@@ -56,6 +56,12 @@ jobs:
       - name: Verify image integrity
         run: pnpm verify:images
 
+      - name: Audit production dependencies
+        run: pnpm audit --prod --audit-level=high
+
+      - name: Exercise sanitized AURA release fixture
+        run: AURA_CLIENT_ROOT=fixtures/release-concept pnpm aura:release -- --slug private-signal --no-visual
+
       - name: Build production site
         run: pnpm build
         env:
@@ -64,6 +70,21 @@ jobs:
           # never place a provider API secret in this workflow.
           PUBLIC_SITE_URL: ${{ vars.PUBLIC_SITE_URL || 'https://raydenai.github.io' }}
           PUBLIC_FORM_ENDPOINT: ${{ vars.PUBLIC_FORM_ENDPOINT || '' }}
+          PUBLIC_FORM_ALLOWED_ORIGINS: ${{ vars.PUBLIC_FORM_ALLOWED_ORIGINS || '' }}
+
+      - name: Verify static document and demo-form policy
+        run: pnpm aura:system-check -- --mode concept
+
+      - name: Install browser for responsive release QA
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Run desktop and mobile visual QA
+        run: |
+          node scripts/aura/static-preview.mjs --port 4322 &
+          PREVIEW_PID=$!
+          trap 'kill $PREVIEW_PID' EXIT
+          AURA_QA_OUT=/tmp/aura-qa node scripts/visual-qa.mjs http://127.0.0.1:4322
+          pnpm aura:a11y -- http://127.0.0.1:4322
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

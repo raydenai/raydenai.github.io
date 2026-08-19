@@ -11,7 +11,10 @@ export const ARCHITECTURES = [
   'portfolio-ip',
 ];
 
-export const CLIENT_ROOT = 'clients';
+/* Client packs are private by default. CI may set AURA_CLIENT_ROOT to a
+   sanitized fixture directory so the exact same compiler contract is tested
+   without exposing a real client's evidence or identity references. */
+export const CLIENT_ROOT = process.env.AURA_CLIENT_ROOT || 'clients';
 
 export function parseArgs(argv = process.argv.slice(2)) {
   const values = {};

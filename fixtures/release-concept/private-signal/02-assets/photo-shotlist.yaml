@@ -1,0 +1,132 @@
+engine: AURA Compiler
+generated_at: 2026-08-19T06:06:07.930Z
+project:
+  brand_name: Priya Raghavan
+  architecture: private-signal
+  image_strategy: synthetic_concept
+  identity_reference_consent: false
+  visual_world: Private Signal — cinematic private-room editorial authority in
+    obsidian, parchment, aged brass, and dark walnut.
+shots:
+  - code: P02
+    role: hero_presence
+    ratio: 16:9 + 4:5
+    composition: Cinematic subject placement with a copy-safe negative-space zone.
+    desktop_crop: 16:9
+    mobile_crop: 4:5
+    consent_state: synthetic_concept
+    visual_world: Private Signal — cinematic private-room editorial authority in
+      obsidian, parchment, aged brass, and dark walnut.
+    wardrobe_chapter: "[APPROVE WARDROBE CHAPTER]"
+    location_chapter: "[APPROVE LOCATION CHAPTER]"
+    page_placements:
+      - /
+      - /about/
+      - /method/
+      - /work-with-me/
+      - /case-studies/
+      - /contact/
+    alt_intent: "[DESCRIBE THE MEANINGFUL IMAGE; EMPTY ONLY IF DECORATIVE]"
+    prompt_status: needs_approval
+    quality_check:
+      identity_consistent: false
+      anatomy_checked: false
+      edge_checked: false
+      text_artifacts_checked: false
+      mobile_crop_checked: false
+  - code: P09
+    role: method_artifact
+    ratio: 3:2
+    composition: Material process artifact; avoid invented readable text.
+    desktop_crop: 3:2
+    mobile_crop: 4:5
+    consent_state: synthetic_concept
+    visual_world: Private Signal — cinematic private-room editorial authority in
+      obsidian, parchment, aged brass, and dark walnut.
+    wardrobe_chapter: "[APPROVE WARDROBE CHAPTER]"
+    location_chapter: "[APPROVE LOCATION CHAPTER]"
+    page_placements:
+      - /
+      - /method/
+    alt_intent: "[DESCRIBE THE MEANINGFUL IMAGE; EMPTY ONLY IF DECORATIVE]"
+    prompt_status: needs_approval
+    quality_check:
+      identity_consistent: false
+      anatomy_checked: false
+      edge_checked: false
+      text_artifacts_checked: false
+      mobile_crop_checked: false
+  - code: P05
+    role: working_scene
+    ratio: 3:2
+    composition: Credible work in progress; no stock laptop pose.
+    desktop_crop: 3:2
+    mobile_crop: 4:5
+    consent_state: synthetic_concept
+    visual_world: Private Signal — cinematic private-room editorial authority in
+      obsidian, parchment, aged brass, and dark walnut.
+    wardrobe_chapter: "[APPROVE WARDROBE CHAPTER]"
+    location_chapter: "[APPROVE LOCATION CHAPTER]"
+    page_placements:
+      - /
+      - /about/
+      - /method/
+      - /work-with-me/
+      - /case-studies/
+    alt_intent: "[DESCRIBE THE MEANINGFUL IMAGE; EMPTY ONLY IF DECORATIVE]"
+    prompt_status: needs_approval
+    quality_check:
+      identity_consistent: false
+      anatomy_checked: false
+      edge_checked: false
+      text_artifacts_checked: false
+      mobile_crop_checked: false
+  - code: P06
+    role: editorial_close
+    ratio: 4:5
+    composition: Warm close portrait for fit or final conversion; calm expression.
+    desktop_crop: 4:5
+    mobile_crop: 4:5
+    consent_state: synthetic_concept
+    visual_world: Private Signal — cinematic private-room editorial authority in
+      obsidian, parchment, aged brass, and dark walnut.
+    wardrobe_chapter: "[APPROVE WARDROBE CHAPTER]"
+    location_chapter: "[APPROVE LOCATION CHAPTER]"
+    page_placements:
+      - /
+      - /work-with-me/
+      - /contact/
+    alt_intent: "[DESCRIBE THE MEANINGFUL IMAGE; EMPTY ONLY IF DECORATIVE]"
+    prompt_status: needs_approval
+    quality_check:
+      identity_consistent: false
+      anatomy_checked: false
+      edge_checked: false
+      text_artifacts_checked: false
+      mobile_crop_checked: false
+  - code: P12
+    role: signature_asset
+    ratio: 3:2
+    composition: Closing object, mark or editorial detail that supports conversion.
+    desktop_crop: 3:2
+    mobile_crop: 4:5
+    consent_state: synthetic_concept
+    visual_world: Private Signal — cinematic private-room editorial authority in
+      obsidian, parchment, aged brass, and dark walnut.
+    wardrobe_chapter: "[APPROVE WARDROBE CHAPTER]"
+    location_chapter: "[APPROVE LOCATION CHAPTER]"
+    page_placements:
+      - /
+      - /about/
+      - /method/
+      - /work-with-me/
+      - /case-studies/
+      - /contact/
+    alt_intent: "[DESCRIBE THE MEANINGFUL IMAGE; EMPTY ONLY IF DECORATIVE]"
+    prompt_status: needs_approval
+    quality_check:
+      identity_consistent: false
+      anatomy_checked: false
+      edge_checked: false
+      text_artifacts_checked: false
+      mobile_crop_checked: false

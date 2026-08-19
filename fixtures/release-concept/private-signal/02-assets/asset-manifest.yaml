@@ -1,0 +1,53 @@
+engine: AURA Compiler
+generated_at: 2026-08-19T06:06:07.937Z
+assets:
+  - role: P02
+    source_state: concept_only
+    master_path: ""
+    published_paths:
+      desktop: ""
+      mobile: ""
+    alt: "[REQUIRED BEFORE PUBLICATION]"
+    width: null
+    height: null
+    permission_note: "[REQUIRED BEFORE PUBLICATION]"
+  - role: P09
+    source_state: concept_only
+    master_path: ""
+    published_paths:
+      desktop: ""
+      mobile: ""
+    alt: "[REQUIRED BEFORE PUBLICATION]"
+    width: null
+    height: null
+    permission_note: "[REQUIRED BEFORE PUBLICATION]"
+  - role: P05
+    source_state: concept_only
+    master_path: ""
+    published_paths:
+      desktop: ""
+      mobile: ""
+    alt: "[REQUIRED BEFORE PUBLICATION]"
+    width: null
+    height: null
+    permission_note: "[REQUIRED BEFORE PUBLICATION]"
+  - role: P06
+    source_state: concept_only
+    master_path: ""
+    published_paths:
+      desktop: ""
+      mobile: ""
+    alt: "[REQUIRED BEFORE PUBLICATION]"
+    width: null
+    height: null
+    permission_note: "[REQUIRED BEFORE PUBLICATION]"
+  - role: P12
+    source_state: concept_only
+    master_path: ""
+    published_paths:
+      desktop: ""
+      mobile: ""
+    alt: "[REQUIRED BEFORE PUBLICATION]"
+    width: null
+    height: null
+    permission_note: "[REQUIRED BEFORE PUBLICATION]"

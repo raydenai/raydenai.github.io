@@ -64,7 +64,11 @@ Open `http://localhost:4321` to view the demo.
 | `pnpm aura:prompts -- …` | Generate auditable AI drafting and photography prompt packets |
 | `pnpm aura:compose -- …` | Emit typed AURA content candidates with approval placeholders |
 | `pnpm aura:validate -- …` | Enforce client-pack, evidence, sequence and asset contracts |
-| `pnpm aura:verify -- … --visual` | Run the complete contract, build and responsive visual release suite |
+| `pnpm aura:verify -- … --visual` | Run the component contract, build and responsive visual verification suite |
+| `pnpm aura:system-check -- …` | Validate static document policy: metadata, canonical, landmark, H1, alt text, secure resources and sitemap |
+| `pnpm aura:a11y -- URL` | Verify mobile-menu 44px controls, focus trap, Escape behavior and background isolation |
+| `pnpm aura:promote -- …` | Promote approved JSON / MDX with a reviewer reference, source hash, backup and rollback manifest |
+| `pnpm aura:release -- …` | Authorize a traceable release dossier including static, responsive and keyboard QA |
 
 ## AURA Compiler: create a new client
 
@@ -79,7 +83,8 @@ pnpm aura:plan -- --slug alex-morgan
 pnpm aura:assets -- --slug alex-morgan
 pnpm aura:prompts -- --slug alex-morgan
 pnpm aura:compose -- --slug alex-morgan
-pnpm aura:verify -- --slug alex-morgan --visual
+# Review, approve and promote only resolved content candidates.
+pnpm aura:release -- --slug alex-morgan
 ```
 
 ## Content-first architecture
@@ -118,10 +123,13 @@ The public Priya Raghavan site is a fictional demo. Its forms use a safe `demo:/
 | [`AURA_PRIVATE_SIGNAL_RESPONSIVE_QA.md`](./docs/AURA_PRIVATE_SIGNAL_RESPONSIVE_QA.md) | Review the fresh desktop and mobile release QA evidence. |
 | [`AURA_DYNAMIC_CONTENT_AND_MDX.md`](./docs/AURA_DYNAMIC_CONTENT_AND_MDX.md) | Manage schema-driven page updates and architecture-aware MDX publishing. |
 | [`AURA_AUTHORITY_SPEAKING_PREVIEW_QA.md`](./docs/AURA_AUTHORITY_SPEAKING_PREVIEW_QA.md) | Review the Authority + Speaking concept implementation and responsive QA evidence. |
+| [`AURA_QUALITY_SCORECARD.md`](./docs/AURA_QUALITY_SCORECARD.md) | Review the baseline score, defined 10/10 standard, and completed hardening roadmap. |
+| [`AURA_10_OUT_OF_10_RELEASE_STANDARD.md`](./docs/AURA_10_OUT_OF_10_RELEASE_STANDARD.md) | Operate client packs, approvals, promotion, privacy controls, release dossiers, rollback and hosted QA. |
+| [`AURA_STUDIO_INTERFACE_CONTRACT.md`](./docs/AURA_STUDIO_INTERFACE_CONTRACT.md) | Build a future client-facing Studio without bypassing Compiler contracts or release authorization. |
 
 ## Deployment
 
-The repository includes a GitHub Pages workflow that validates blocks and images, builds the static Astro site, and deploys every push to `main`. Set `PUBLIC_SITE_URL` to the production origin during builds so canonical URLs and sitemap entries are correct.
+The repository includes a GitHub Pages workflow that audits production dependencies, validates blocks, types and images, builds the static Astro site, checks static document policy, and runs Chromium-backed desktop/mobile and keyboard-accessibility QA before deploying every push to `main`. Set `PUBLIC_SITE_URL` to the production origin during builds so canonical URLs and sitemap entries are correct.
 
 For a branded domain, use the custom-domain steps in [`docs/DEPLOYMENT.md`](./docs/DEPLOYMENT.md). Do not place secrets in the static project or in `PUBLIC_*` environment variables.
 

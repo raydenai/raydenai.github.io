@@ -43,3 +43,7 @@ CLAUDE.md
 # AURA Compiler client packs may contain private evidence, source material and consented identity references.
 # Keep them local by default; publish only deliberately sanitized examples elsewhere.
 /clients/
+
+# Generated reports from the sanitized CI release fixture.
+/fixtures/release-concept/*/04-release/*.json
+/fixtures/release-concept/*/04-release/visual-qa/

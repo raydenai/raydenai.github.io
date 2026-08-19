@@ -52,7 +52,18 @@ const sourcePath = Astro.url.pathname;
    public endpoint is intentionally a build-time repository variable: a form
    ID is designed to be visible in static HTML, unlike an API secret. */
 const configuredEndpoint = import.meta.env.PUBLIC_FORM_ENDPOINT?.trim();
-const resolvedAction = action === 'config://contact' ? configuredEndpoint || 'demo://contact' : action;
+const allowedEndpointOrigins = (import.meta.env.PUBLIC_FORM_ALLOWED_ORIGINS || '')
+  .split(',')
+  .map((origin: string) => origin.trim())
+  .filter(Boolean);
+const endpointIsApproved = (() => {
+  if (!configuredEndpoint || !allowedEndpointOrigins.length) return false;
+  try { return allowedEndpointOrigins.includes(new URL(configuredEndpoint).origin); } catch { return false; }
+})();
+/* Configuration alone is not permission. A production provider endpoint must
+   be explicitly allowlisted at build time; otherwise a copied client pack stays
+   in visible, non-collecting demo mode. */
+const resolvedAction = action === 'config://contact' ? (endpointIsApproved ? configuredEndpoint! : 'demo://contact') : action;
 
 const shorthandMap: Record<ShorthandField, FullField> = {
   firstName: { name: 'first_name', label: 'First name', type: 'text', required: true, placeholder: 'First name' },

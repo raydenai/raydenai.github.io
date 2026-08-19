@@ -1,0 +1,108 @@
+project:
+  slug: private-signal
+  brand_name: Priya Raghavan
+  site_status: concept_demo
+  requested_outcome: Premium advisory concept site demonstrating how private expertise becomes a credible public authority system.
+
+buyer:
+  primary_person: Proven founder or C-suite operator whose public market signal lags their actual judgment and record.
+  role_or_company_stage: Established operator, founder, or executive at a consequential growth, transition, or board-level decision point.
+  high_stakes_moment: Their judgment is required in rooms where their reputation has not yet caught up to their capability.
+  private_tension: They are more capable than the market currently understands, and over-explanation is weakening their authority.
+  cost_of_inaction:
+    - The market compares them on familiarity, price, or louder competitors rather than judgment.
+    - Their most valuable experience remains private and difficult for the right people to recognize.
+  exclusions:
+    - A desire for follower growth as the only objective.
+    - A request for generic visibility tactics without real expertise or evidence.
+
+position:
+  one_sentence_position: Executive Authority Advisory
+  central_thesis: Capability is a private fact until it is made legible through position, proof, package, and platform.
+  category_enemy_or_default: Louder visibility without evidence.
+  named_method:
+    name: The Quiet Authority Method
+    first_principle: Authority is built on evidence, not exposure.
+    stages:
+      - Position
+      - Proof
+      - Package
+      - Platform
+    tangible_outputs:
+      - Position statement
+      - Evidence library
+      - Named method
+      - Distribution plan
+
+commercial:
+  primary_offer:
+    name: Private executive authority advisory
+    delivery_model: Selective high-touch advisory collaboration.
+    ideal_fit:
+      - Proven operating record
+      - A meaningful expertise or authority translation problem
+      - Readiness to take a defined public position
+    not_a_fit:
+      - Vanity visibility goal
+      - Request for instant results
+      - No access to real expertise or evidence
+  secondary_offers:
+    - Leadership intensive
+    - Speaking
+  primary_conversion:
+    action: Request a private conversation
+    visitor_readiness: The visitor has a current authority, positioning, or market-translation decision.
+    required_form_fields:
+      - name
+      - email
+      - company
+      - decision_context
+      - timing
+      - desired_outcome
+  secondary_conversion:
+    action: See how the work unfolds
+    visitor_readiness: The visitor wants to understand the mechanism before requesting time.
+
+content_architecture:
+  selected: private-signal
+  rejected_alternatives:
+    - proof-machine
+    - creator-education
+  required_pages:
+    - Home
+    - About
+    - Method
+    - Work With Me
+    - Case Files
+    - Contact
+  origin_story_relevance: The story explains why the advisor favors evidence-led authority after commercial relevance is clear.
+
+proof:
+  permissioned_cases_available: false
+  third_party_sources_available: false
+  concept_disclosure_required: true
+
+art_direction:
+  visual_world: "Private Signal: cinematic private-room editorial authority with obsidian, parchment, aged brass, and dark walnut material cues."
+  material_palette:
+    - Obsidian
+    - Parchment
+    - Aged brass
+    - Dark walnut
+  type_posture: Heavy modern display paired with restrained editorial serif emphasis.
+  motion_posture: Subtle opacity and depth only; reduced motion supported.
+  image_strategy: synthetic_concept
+  identity_reference_consent: false
+  required_photo_roles:
+    - P02
+    - P05
+    - P06
+    - P09
+    - P12
+
+operations:
+  platform: Astro
+  content_owner: AURA concept owner
+  form_provider: unconfigured
+  canonical_domain: ''
+  analytics_requirement: Track primary and secondary CTA intent after production activation.
