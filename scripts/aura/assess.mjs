@@ -75,6 +75,7 @@ if (strategy.architecture === 'unresolved' && profile) {
 }
 
 const errors = printDiagnostics(diagnostics);
-console.log(`\nRecommendation: ${selected} (${recommendation.confidence} confidence).`);
+console.log(`\nHeuristic recommendation: ${recommendation.recommended} (${recommendation.confidence} confidence).`);
+console.log(`Selected architecture: ${selected}${selected !== recommendation.recommended ? ' (approved human override)' : ''}.`);
 console.log(`Assessment report: ${join('clients', slug, '01-strategy', 'assessment-report.json')}`);
 process.exit(errors ? 1 : 0);

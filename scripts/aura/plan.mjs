@@ -77,13 +77,21 @@ function page(path, name, roles, primary = false) {
       label: brief.commercial?.primary_conversion?.action,
       href: '/contact/',
       intent: 'primary',
-      form_intent: profile.primaryConversion,
-      required_form_fields: profile.formFields,
+      form_intent: approvedPrimaryConversion,
+      required_form_fields: approvedFormFields,
     },
     secondary_cta: primary && brief.commercial?.secondary_conversion?.action ? { label: brief.commercial.secondary_conversion.action, href: '#method', intent: 'secondary' } : null,
     sections: roles.map(section),
   };
 }
+
+const approvedPrimaryConversion = strategy.primary_conversion && strategy.primary_conversion !== 'unresolved'
+  ? strategy.primary_conversion
+  : profile.primaryConversion;
+const approvedFormFields = Array.isArray(brief.commercial?.primary_conversion?.required_form_fields)
+  && brief.commercial.primary_conversion.required_form_fields.length
+  ? brief.commercial.primary_conversion.required_form_fields
+  : profile.formFields;
 
 const auxiliary = {
   '/about/': ['hero', 'story', 'proof', 'final_conversion'],
@@ -114,7 +122,7 @@ const output = {
   generated_at: new Date().toISOString(),
   proposal: strategy.decision_status !== 'approved',
   project: { slug, brand_name: brief.project?.brand_name, architecture, visual_world: visualWorld, site_status: brief.project?.site_status },
-  conversion: { primary: profile.primaryConversion, form_fields: profile.formFields },
+  conversion: { primary: approvedPrimaryConversion, form_fields: approvedFormFields },
   proof_posture: profile.proofPosture,
   pages,
 };
