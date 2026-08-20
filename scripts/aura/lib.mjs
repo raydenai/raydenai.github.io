@@ -59,6 +59,11 @@ export function writeJson(path, value) {
   writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`, 'utf8');
 }
 
+export function readJson(path) {
+  if (!existsSync(path)) throw new Error(`Missing required file: ${path}`);
+  return JSON.parse(readFileSync(path, 'utf8'));
+}
+
 export function writeText(path, value) {
   ensureDir(dirname(path));
   writeFileSync(path, value.endsWith('\n') ? value : `${value}\n`, 'utf8');

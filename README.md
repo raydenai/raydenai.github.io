@@ -11,6 +11,8 @@
 | **Photography playbook** | [`docs/PHOTOGRAPHY_PLAYBOOK.md`](./docs/PHOTOGRAPHY_PLAYBOOK.md) |
 | **AI pipeline** | [`docs/AI_PIPELINE.md`](./docs/AI_PIPELINE.md) |
 | **AURA Compiler** | [`docs/AURA_COMPILER_OPERATING_MODEL.md`](./docs/AURA_COMPILER_OPERATING_MODEL.md) |
+| **Personal-brand product system** | [`docs/AURA_PERSONAL_BRAND_PRODUCT_SYSTEM.md`](./docs/AURA_PERSONAL_BRAND_PRODUCT_SYSTEM.md) |
+| **Wireframe-first workflow** | [`docs/AURA_WIREFRAME_WORKFLOW_RUNBOOK.md`](./docs/AURA_WIREFRAME_WORKFLOW_RUNBOOK.md) |
 
 ## What ships
 
@@ -61,6 +63,9 @@ Open `http://localhost:4321` to view the demo.
 | `pnpm aura:assess -- …` | Recommend an architecture and surface discovery / proof gaps |
 | `pnpm aura:plan -- …` | Compile approved strategy into page, CTA, block and photo-role plans |
 | `pnpm aura:assets -- …` | Compile the consent-aware premium photo shotlist and asset manifest |
+| `pnpm aura:wireframe -- …` | Generate annotated 1440px desktop and 390px mobile approval wireframes |
+| `pnpm aura:design-contract -- …` | Bind every wireframe section to registered Astro blocks, responsive rules, proof and photo roles |
+| `pnpm aura:workflow -- … --stage plan|content|release` | Run the gated production workflow with named wireframe and content approvals |
 | `pnpm aura:prompts -- …` | Generate auditable AI drafting and photography prompt packets |
 | `pnpm aura:compose -- …` | Emit typed AURA content candidates with approval placeholders |
 | `pnpm aura:validate -- …` | Enforce client-pack, evidence, sequence and asset contracts |
@@ -79,12 +84,12 @@ pnpm aura:init -- --slug alex-morgan --name "Alex Morgan"
 # Complete clients/alex-morgan/00-intake/client-brief.yaml and evidence-register.yaml
 pnpm aura:assess -- --slug alex-morgan
 # Approve clients/alex-morgan/01-strategy/strategy.yaml
-pnpm aura:plan -- --slug alex-morgan
-pnpm aura:assets -- --slug alex-morgan
-pnpm aura:prompts -- --slug alex-morgan
-pnpm aura:compose -- --slug alex-morgan
-# Review, approve and promote only resolved content candidates.
-pnpm aura:release -- --slug alex-morgan
+pnpm aura:workflow -- --slug alex-morgan --stage plan
+# Review clients/alex-morgan/03-production/wireframes/site-wireframe.html
+pnpm aura:design-contract -- --slug alex-morgan
+pnpm aura:workflow -- --slug alex-morgan --stage content --approve-wireframe AURA-WF-ALEX-YYYY-MM-DD
+# Review candidates, approve content, then promote only resolved JSON / MDX.
+pnpm aura:workflow -- --slug alex-morgan --stage release --approve-content AURA-CONTENT-ALEX-YYYY-MM-DD
 ```
 
 ## Content-first architecture
@@ -126,6 +131,9 @@ The public Priya Raghavan site is a fictional demo. Its forms use a safe `demo:/
 | [`AURA_QUALITY_SCORECARD.md`](./docs/AURA_QUALITY_SCORECARD.md) | Review the baseline score, defined 10/10 standard, and completed hardening roadmap. |
 | [`AURA_10_OUT_OF_10_RELEASE_STANDARD.md`](./docs/AURA_10_OUT_OF_10_RELEASE_STANDARD.md) | Operate client packs, approvals, promotion, privacy controls, release dossiers, rollback and hosted QA. |
 | [`AURA_STUDIO_INTERFACE_CONTRACT.md`](./docs/AURA_STUDIO_INTERFACE_CONTRACT.md) | Build a future client-facing Studio without bypassing Compiler contracts or release authorization. |
+| [`AURA_PERSONAL_BRAND_PRODUCT_SYSTEM.md`](./docs/AURA_PERSONAL_BRAND_PRODUCT_SYSTEM.md) | Understand the end-to-end quality standard, visitor-state wireframe rules, workflow stages and architecture differences. |
+| [`AURA_WIREFRAME_WORKFLOW_RUNBOOK.md`](./docs/AURA_WIREFRAME_WORKFLOW_RUNBOOK.md) | Run the gated client workflow from intake through wireframe approval, design contract, content review and release authorization. |
+| [`AURA_WORKFLOW_AND_WIREFRAME_TEST_REPORT.md`](./docs/AURA_WORKFLOW_AND_WIREFRAME_TEST_REPORT.md) | Review the tested end-to-end workflow across Private Signal, Creator / Education and Enterprise B2B. |
 
 ## Deployment
 
