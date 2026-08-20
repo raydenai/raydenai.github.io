@@ -8,6 +8,7 @@ export const ARCHITECTURES = [
   'creator-education',
   'niche-specialist',
   'manifesto-movement',
+  'enterprise-b2b',
   'portfolio-ip',
 ];
 

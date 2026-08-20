@@ -35,6 +35,7 @@ const roleMap = {
 function photoRolesFor(role, defaultRoles) {
   if (architecture === 'authority-speaking' && role === 'offer') return ['P07'];
   if (architecture === 'niche-specialist' && role === 'offer') return ['P08'];
+  if (architecture === 'enterprise-b2b' && role === 'offer') return ['P08'];
   return defaultRoles;
 }
 
@@ -65,6 +66,9 @@ const supportDecisions = {
   '/join/': 'Assess readiness to join or apply.',
   '/ventures/': 'Route to the relevant venture or commercial path.',
   '/books-and-media/': 'Explore the most relevant intellectual-property entry point.',
+  '/solutions/': 'Determine whether the solution addresses the enterprise initiative and buying-committee constraints.',
+  '/resources/': 'Use a relevant implementation resource before initiating a discovery conversation.',
+  '/company/': 'Understand the operating point of view, delivery discipline and why the platform is credible.',
 };
 
 function page(path, name, roles, primary = false) {
@@ -108,6 +112,9 @@ const auxiliary = {
   '/join/': ['hero', 'fit', 'final_conversion'],
   '/ventures/': ['hero', 'proof', 'offer', 'final_conversion'],
   '/books-and-media/': ['hero', 'proof', 'final_conversion'],
+  '/solutions/': ['hero', 'problem_mirror', 'named_method', 'proof', 'offer', 'final_conversion'],
+  '/resources/': ['hero', 'proof', 'final_conversion'],
+  '/company/': ['hero', 'story', 'proof', 'final_conversion'],
 };
 
 const pages = [page('/', 'Home', profile.homeRoles, true)];

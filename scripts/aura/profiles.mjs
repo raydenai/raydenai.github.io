@@ -54,6 +54,17 @@ export const PROFILES = {
     photoRoles: ['P02', 'P04', 'P08', 'P10'],
     proofPosture: 'Real-world relevance, lived stories and clear mission boundaries.',
   },
+  'enterprise-b2b': {
+    label: 'Enterprise B2B Expert Platform',
+    signals: ['enterprise', 'procurement', 'security', 'implementation', 'buying committee', 'roi', 'platform', 'integration'],
+    requiredBriefPaths: ['buyer.primary_person', 'buyer.high_stakes_moment', 'position.central_thesis', 'commercial.primary_offer.name'],
+    homeRoles: ['hero', 'problem_mirror', 'named_method', 'proof', 'offer', 'final_conversion'],
+    defaultPages: ['/', '/solutions/', '/method/', '/case-studies/', '/resources/', '/company/', '/contact/'],
+    primaryConversion: 'enterprise_discovery',
+    formFields: ['name', 'work_email', 'company', 'role', 'team_size', 'initiative', 'timing'],
+    photoRoles: ['P02', 'P05', 'P08', 'P09'],
+    proofPosture: 'Permissioned operational outcomes, implementation constraints, buying-committee relevance and scoped case anatomy.',
+  },
   'portfolio-ip': {
     label: 'Portfolio / Intellectual Property',
     signals: ['portfolio', 'ventures', 'book', 'podcast', 'investor', 'media', 'companies'],

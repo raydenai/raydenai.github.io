@@ -24,6 +24,7 @@ const editorial = {
   'creator-education': { series: 'Working Sessions', job: 'Teach a useful first move and route the reader to an appropriate learning path.', cta: 'Start here', category: 'Learning' },
   'niche-specialist': { series: 'Constraint Notes', job: 'Name the buyer’s diagnostic problem and show rigorous operating insight.', cta: 'Start a decision-flow assessment', category: 'Product Operations' },
   'manifesto-movement': { series: 'Manifesto Letters', job: 'Strengthen the point of view and gather aligned readers.', cta: 'Join the work', category: 'Point of View' },
+  'enterprise-b2b': { series: 'Implementation Notes', job: 'Help a buying committee surface operating constraints before a major implementation decision.', cta: 'Request a discovery brief', category: 'Enterprise Operations' },
   'portfolio-ip': { series: 'Build Notes', job: 'Make ideas, ventures and intellectual property navigable.', cta: 'Explore the work', category: 'Ideas and Ventures' },
 }[strategy.architecture];
 
