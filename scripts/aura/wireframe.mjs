@@ -89,6 +89,10 @@ const manifest = {
   pages,
 };
 
+function pageAnchor(path) {
+  return path === '/' ? 'home' : path.replaceAll('/', '-').replace(/^-|-$/g, '');
+}
+
 const pageSections = pages.map((page) => {
   const desktop = page.sections.map((section) => {
     const blocks = section.block_candidates.slice(0, 3).join(' · ');
@@ -108,7 +112,7 @@ const pageSections = pages.map((page) => {
 
   const mobile = page.sections.map((section) => `<div class="mobile-block surface-${section.surface}"><b>${String(section.position).padStart(2, '0')} ${escapeHtml(section.role.replaceAll('_', ' '))}</b><span>${escapeHtml(section.mobile_layout)}</span></div>`).join('');
   const cta = page.primary_cta || {};
-  return `<article class="page-board" id="${escapeHtml(page.path.replaceAll('/', '-') || 'home')}">
+  return `<article class="page-board" id="${escapeHtml(pageAnchor(page.path))}">
     <header class="page-header"><div><span>PAGE ${escapeHtml(page.path)}</span><h2>${escapeHtml(page.page_name)}</h2><p>${escapeHtml(page.primary_visitor)}</p></div><div class="page-decision"><b>Decision</b><span>${escapeHtml(page.desired_decision)}</span><b>Primary action</b><span>${escapeHtml(cta.label || 'NEEDS APPROVAL')}</span><small>Fields: ${escapeHtml((cta.required_form_fields || []).join(', ') || 'NEEDS APPROVAL')}</small></div></header>
     <div class="desktop-wire"><div class="canvas-label">DESKTOP · 1440px · 12-column system</div><nav class="nav-wire">Brand / thesis / route navigation <button>${escapeHtml(cta.label || 'Primary action')}</button></nav>${desktop}</div>
     <div class="mobile-wire"><div class="canvas-label">MOBILE · 390px · 4-column system</div><div class="mobile-nav">Brand <button>Menu</button></div>${mobile}<button class="sticky-cta">${escapeHtml(cta.label || 'Primary action')}</button></div>
