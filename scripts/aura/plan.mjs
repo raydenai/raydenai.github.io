@@ -38,6 +38,8 @@ function photoRolesFor(role, defaultRoles) {
   if (architecture === 'enterprise-b2b' && role === 'offer') return ['P08'];
   if (architecture === 'manifesto-movement' && role === 'proof') return ['P10'];
   if (architecture === 'manifesto-movement' && role === 'final_conversion') return ['P08'];
+  if (architecture === 'portfolio-ip' && role === 'proof') return ['P07'];
+  if (architecture === 'portfolio-ip' && role === 'offer') return ['P09'];
   return defaultRoles;
 }
 

@@ -28,6 +28,10 @@ const editorial = {
   'portfolio-ip': { series: 'Build Notes', job: 'Make ideas, ventures and intellectual property navigable.', cta: 'Explore the work', category: 'Ideas and Ventures' },
 }[strategy.architecture];
 
+const approvedPrimaryCta = strategy.primary_conversion && strategy.primary_conversion !== 'unresolved'
+  ? strategy.primary_conversion
+  : (brief.commercial?.primary_conversion?.action || editorial.cta);
+
 const allowedClaims = (evidence.claims || [])
   .filter((claim) => ['approved', 'approved_anonymized', 'concept_only'].includes(claim.status))
   .map((claim) => `- ${claim.claim_id}: ${claim.claim_text} (${claim.status}; ${claim.scope})`)
@@ -58,7 +62,7 @@ Client pack: ${clientSlug}
 Architecture: ${strategy.architecture}
 Series: ${editorial.series}
 Intent: ${intent}
-Primary CTA: ${editorial.cta}
+Primary CTA: ${approvedPrimaryCta}
 
 Allowed evidence:
 ${allowedClaims}
@@ -88,10 +92,10 @@ Do not invent client names, metrics, endorsements, published media, events, cred
 
 ## The next useful step
 
-[NEEDS APPROVAL: Close with the primary action “${editorial.cta}” only when the reader has the readiness described in the client pack.]
+[NEEDS APPROVAL: Close with the primary action “${approvedPrimaryCta}” only when the reader has the readiness described in the client pack.]
 `;
 
 const path = join(clientFile(clientSlug, '03-production', 'mdx'), `${articleSlug}.mdx`);
 writeText(path, body);
 console.log(`Generated archetype-aware MDX candidate: ${path}`);
-console.log(`Series: ${editorial.series} | Architecture: ${strategy.architecture} | Primary CTA: ${editorial.cta}`);
+console.log(`Series: ${editorial.series} | Architecture: ${strategy.architecture} | Primary CTA: ${approvedPrimaryCta}`);
